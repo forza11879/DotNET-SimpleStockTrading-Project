@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StockTradingSimulator.Properties
+namespace TradingApp.Properties
 {
 
 
