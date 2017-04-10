@@ -11,3 +11,6 @@ C:\Users\John\Documents\C#\C#_Project\Trading\obj\Debug\Trading.Properties.Resou
 C:\Users\John\Documents\C#\C#_Project\Trading\obj\Debug\Trading.csproj.GenerateResource.Cache
 C:\Users\John\Documents\C#\C#_Project\Trading\obj\Debug\Trading.exe
 C:\Users\John\Documents\C#\C#_Project\Trading\obj\Debug\Trading.pdb
+C:\Users\John\Documents\C#\C#_Project\Trading\obj\Debug\Trading.csprojResolveAssemblyReference.cache
+C:\Users\John\Documents\C#\C#_Project\Trading\obj\Debug\Resources\Controls\WindowStyles.baml
+C:\Users\John\Documents\C#\C#_Project\Trading\obj\Debug\Resources\Resources.baml

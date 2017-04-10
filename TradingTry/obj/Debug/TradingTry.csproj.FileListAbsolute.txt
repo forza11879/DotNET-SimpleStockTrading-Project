@@ -1,0 +1,1 @@
+C:\Users\John\Documents\C#\C#_Project\TradingTry\bin\Debug\TradingTry.exe.config
