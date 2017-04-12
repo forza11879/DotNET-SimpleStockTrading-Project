@@ -46,10 +46,15 @@ Todo
 
 JOhn
 Done:
-1) Simple design was created
+1) Simple design was created 70%
+2)read articles about stock market
 
 Todo:
-
+1)Final discussion with a teacher
+2)Finish 30% of the remaining design
+3)Add data to database
+4)work on the details of programm interface
+5)read about api
 
 
 Gregory
@@ -60,4 +65,7 @@ done:
 4)Problem with a source tree is fixed
 5)Login window was created
 
-T
+Todo:
+1)Final discussion with a teacher
+2)Recreate database
+3)read about api
