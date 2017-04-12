@@ -1,0 +1,43 @@
+
+10/04/2017
+
+<John/>
+
+TO-DO
+Speak with a teacher about our project
+Learn about tabs and ribbons
+
+
+<Gregory/>
+
+TO-DO
+Speak with a teacher about our project
+Finish Database design
+
+///////////////////////////////////
+
+
+11/04/2017
+
+<John/>
+
+Done:
+1) Teacher advised us to change design
+2) I read multiple articles about tabs/ribbons and tried to implement these elements
+
+
+Todo
+Design simple layout for our programm
+
+
+
+<Gregory/>
+Dodo
+1)Teacher advised us to change database design
+2)User stories created
+
+
+
+Done;
+1)Database design was updated
+2)
