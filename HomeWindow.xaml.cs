@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -21,11 +23,13 @@ namespace TradingApp
     /// </summary>
     public partial class HomeWindow : Window
     {
-       // Database db;
+        private Database db;
 
         public HomeWindow()
         {
             InitializeComponent();
+            db = new Database();
+            GetListOfStocksFromYahoo();
         }
 
        private void GetListOfStocksFromYahoo()
@@ -34,15 +38,21 @@ namespace TradingApp
 
             using (WebClient web = new WebClient())
             {
-                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT&f=snbaopl1");
+                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT&f=snbaopl1vhgkj");
             }
 
             List<Stock> ListOfStocksFromYahoo = Stock.Parse(csvData);
 
-            foreach (Stock stock in ListOfStocksFromYahoo)
+            try { foreach (Stock stock in ListOfStocksFromYahoo)
+            {        
+                     db.AddStockToStockTable(stock);
+                    
+                }
+            }catch(NullReferenceException e)
             {
-                Console.WriteLine(string.Format("{0} ({1})  Bid:{2} Offer:{3} Last:{4} Open: {5} PreviousClose:{6}", stock.Name, price.Symbol, price.Bid, price.Ask, price.Last, price.Open, price.PreviousClose));
+               Console.Write(e.StackTrace);
             }
+            
 
 
 

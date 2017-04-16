@@ -8,7 +8,7 @@ namespace TradingApp
 {
     class Stock
     {
-     /*  public Stock(int stockID, string symbol, string name, decimal bid, decimal ask, decimal open, decimal previousClose, decimal lastTrade, decimal high, decimal low, int volume, decimal high52, decimal low52)
+       /*public Stock(int stockID, string symbol, string name, decimal bid, decimal ask, decimal open, decimal previousClose, decimal lastTrade, decimal high, decimal low, int volume, decimal high52, decimal low52)
         {
             StockID = stockID;
             Symbol = symbol;
@@ -37,7 +37,6 @@ namespace TradingApp
             string[] rows = csvData.Replace("\r", "").Split('\n');
 
 
-
             foreach (string row in rows)
             {
                 if (string.IsNullOrEmpty(row)) continue;
@@ -57,8 +56,7 @@ namespace TradingApp
                 s.High = Convert.ToDecimal(cols[8]);
                 s.Low = Convert.ToDecimal(cols[9]);
                 s.High52 = Convert.ToDecimal(cols[10]);
-                s.Low52 = Convert.ToDecimal(cols[11]);
-
+                s.Low52 = Convert.ToDecimal(cols[11]);   
                 StockFromApiList.Add(s);
             }
             return StockFromApiList;

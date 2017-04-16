@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
@@ -44,18 +45,27 @@ namespace TradingApp
             return result;
         }
 
-        public void AddStockToStockTavle(Stock s)
+        public void AddStockToStockTable(Stock s)
         {
-            string sql = "INSERT INTO books (GenreId, Author, Title, Price, PublishDate, Description) "
-                        + " VALUES (@GenreId, @Author, @Title, @Price, @PublishDate, @Description)";
+            string sql = "INSERT INTO StockQuotesTable (Symbol, [Name], Bid, Ask, [Open], PreviousClose, LastTrade, Volume, High, Low, High52, Low52)"
+                        + "VALUES (@Symbol, @Name, @Bid, @Ask, @Open, @PreviousClose, @LastTrade, @Volume, @High, @Low, @High52, @Low52)"
+                        +"ON DUPLICATE KEY UPDATE Bid=@Bid, Ask=@Ask, [Open]=@Open, PreviousClose= @PreviousClose, LastTrade=@LastTrade, Volume=@volume, High=@High, Low=@Low, High52 = @High52, Low52 = @Low52";
+
+
             SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.Add("@GenreId", SqlDbType.Int).Value = b.GenreId;
-            cmd.Parameters.Add("@Author", SqlDbType.NVarChar).Value = b.Author;
-            cmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = b.Title;
-            cmd.Parameters.Add("@Price", SqlDbType.Money).Value = b.Price;
-            cmd.Parameters.Add("@PublishDate", SqlDbType.Date).Value = b.PublishDate;
-            cmd.Parameters.Add("@Description", SqlDbType.NVarChar).Value = b.Description;
-            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
+            cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = s.Name;
+            cmd.Parameters.Add("@Bid", SqlDbType.Money).Value = s.Bid;
+            cmd.Parameters.Add("@Ask", SqlDbType.Money).Value = s.Ask;
+            cmd.Parameters.Add("@Open", SqlDbType.Money).Value = s.Open;
+            cmd.Parameters.Add("@PreviousClose", SqlDbType.Money).Value = s.PreviousClose;
+            cmd.Parameters.Add("@LastTrade", SqlDbType.Money).Value = s.LastTrade;
+            cmd.Parameters.Add("@Volume", SqlDbType.Int).Value = s.Volume;
+            cmd.Parameters.Add("@High", SqlDbType.Money).Value = s.High;
+            cmd.Parameters.Add("@Low", SqlDbType.Money).Value = s.Low;
+            cmd.Parameters.Add("@High52", SqlDbType.Money).Value = s.High52;
+            cmd.Parameters.Add("@Low52", SqlDbType.Money).Value = s.Low52;
+
             cmd.ExecuteNonQuery();
         }
 
