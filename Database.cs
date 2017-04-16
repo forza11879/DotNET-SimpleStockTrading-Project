@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,7 +44,28 @@ namespace TradingApp
             return result;
         }
 
+        public void AddStockToStockTavle(Stock s)
+        {
+            string sql = "INSERT INTO books (GenreId, Author, Title, Price, PublishDate, Description) "
+                        + " VALUES (@GenreId, @Author, @Title, @Price, @PublishDate, @Description)";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add("@GenreId", SqlDbType.Int).Value = b.GenreId;
+            cmd.Parameters.Add("@Author", SqlDbType.NVarChar).Value = b.Author;
+            cmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = b.Title;
+            cmd.Parameters.Add("@Price", SqlDbType.Money).Value = b.Price;
+            cmd.Parameters.Add("@PublishDate", SqlDbType.Date).Value = b.PublishDate;
+            cmd.Parameters.Add("@Description", SqlDbType.NVarChar).Value = b.Description;
+            cmd.CommandType = CommandType.Text;
+            cmd.ExecuteNonQuery();
+        }
+
+
+
+
+
     }
+
+
 
 
 }

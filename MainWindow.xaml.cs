@@ -47,5 +47,43 @@ namespace TradingApp
             lvPortfolios.ItemsSource = db.GetAllPortfolios();
         }
 
+        private void lvPortfolios_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            //getting selected object from ListView
+            Portfolio selectedPortfolio = (Portfolio)lvPortfolios.SelectedItem;
+
+            //assigning needed info from selected objcet to labels
+
+            //Balance
+            lbBalance.Content = selectedPortfolio.Balance;
+
+
+            //Cash
+            lbCash.Content = selectedPortfolio.Cash;
+
+            //Net
+            lbNet.Content = selectedPortfolio.Net;
+
+        }
+
+
+
+        // Action opens new window and sends infromation
+        private void ButtonStart_Click(object sender, RoutedEventArgs e)
+        {   
+
+            if (lvPortfolios.SelectedIndex ==0)
+            {
+            HomeWindow win2 = new HomeWindow();
+            win2.Show();
+            }
+            else
+            {
+                MessageBox.Show("No portfolio is selected", "Confirmation", MessageBoxButton.OK);
+            }
+            
+            
+        }
     }
 }

@@ -62,6 +62,7 @@
     <Compile Include="QuotesHistory.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="Transaction.cs" />
+    <Compile Include="YahooFinance.cs" />
     <Page Include="HomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
