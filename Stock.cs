@@ -31,6 +31,7 @@ namespace TradingApp
 
             //Lets Prase CSVdata to list of objects
 
+            // caller must handle ParseException
             public static List<Stock> Parse(string csvData)
         {
             List<Stock> StockFromApiList = new List<Stock>();
@@ -47,16 +48,16 @@ namespace TradingApp
                 s.StockID = 12;
                 s.Symbol = Convert.ToString(cols[0]);
                 s.Name = cols[1];
-                s.Bid = Convert.ToDecimal(cols[2]);
-                s.Ask = Convert.ToDecimal(cols[3]);
-                s.Open = Convert.ToDecimal(cols[4]);
-                s.PreviousClose = Convert.ToDecimal(cols[5]);
-                s.LastTrade = Convert.ToDecimal(cols[6]);
-                s.Volume = Convert.ToInt32(cols[7]);
-                s.High = Convert.ToDecimal(cols[8]);
-                s.Low = Convert.ToDecimal(cols[9]);
-                s.High52 = Convert.ToDecimal(cols[10]);
-                s.Low52 = Convert.ToDecimal(cols[11]);   
+                s.Bid = (cols[2].ToUpper().Contains("N/A")) ? (decimal?) null : Convert.ToDecimal(cols[2]);
+                s.Ask = (cols[3].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[3]);
+                s.Open = (cols[4].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[4]);
+                s.PreviousClose = (cols[5].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[5]);
+                s.LastTrade = (cols[6].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[6]);
+                s.Volume = (cols[7].ToUpper().Contains("N/A")) ? (int?) null : Convert.ToInt32(cols[7]);
+                s.High = (cols[8].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[8]);
+                s.Low = (cols[9].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[9]);
+                s.High52 = (cols[10].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[10]);
+                s.Low52 = (cols[11].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[11]);
                 StockFromApiList.Add(s);
             }
             return StockFromApiList;
@@ -67,16 +68,16 @@ namespace TradingApp
         public int StockID { get; set; }
         public string Symbol { get; set; }
         public string Name { get; set; }
-        public decimal Bid { get; set; }
-        public decimal Ask { get; set; }
-        public decimal Open { get; set; }
-        public decimal PreviousClose { get; set; }
-        public decimal LastTrade { get; set; }
-        public decimal High { get; set; }
-        public decimal Low { get; set; }
-        public int Volume { get; set; }
-        public decimal High52 { get; set; }
-        public decimal Low52 { get; set; }
+        public decimal? Bid { get; set; }
+        public decimal? Ask { get; set; }
+        public decimal? Open { get; set; }
+        public decimal? PreviousClose { get; set; }
+        public decimal? LastTrade { get; set; }
+        public decimal? High { get; set; }
+        public decimal? Low { get; set; }
+        public int? Volume { get; set; }
+        public decimal? High52 { get; set; }
+        public decimal? Low52 { get; set; }
 
         
     }

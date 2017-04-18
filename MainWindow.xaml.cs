@@ -23,12 +23,14 @@ namespace TradingApp
         public MainWindow()
         {
             InitializeComponent();
+            Globals.db = new Database(); // FIXME handle exception and show dialog
+            RefreshPortfolios();
         }
 
         // Lets get all Portfolios from database
         private void RefreshPortfolios()
         {
-            lvPortfolios.ItemsSource = db.GetAllPortfolios();
+            lvPortfolios.ItemsSource = Globals.db.GetAllPortfolios();
         }
 
         private void lvPortfolios_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -53,19 +55,20 @@ namespace TradingApp
 
         // Action opens new window and sends infromation
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
-        {   
+        {
 
-            if (lvPortfolios.SelectedIndex ==0)
+            if (lvPortfolios.SelectedIndex >= 0)
             {
-            HomeWindow win2 = new HomeWindow();
-            win2.Show();
+                Globals.CurrentPortfolio = (Portfolio)lvPortfolios.SelectedItem;
+                HomeWindow win2 = new HomeWindow();
+                win2.Show();
             }
             else
             {
                 MessageBox.Show("No portfolio is selected", "Confirmation", MessageBoxButton.OK);
             }
-            
-            
+
+
         }
     }
 }
