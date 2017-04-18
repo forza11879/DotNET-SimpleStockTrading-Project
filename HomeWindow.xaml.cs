@@ -30,9 +30,8 @@ namespace TradingApp
             InitializeComponent();
             db = new Database();
             GetListOfStocksFromYahoo();
-            List<String> SymbolStringLIst = new List<String>();
-            SymbolStringLIst = db.GetAllSymbolsFromDatabase();
-            SymbolStringLIst.ForEach(i => Console.Write("{0}\t", i));
+            
+
 
         }
 
@@ -45,11 +44,30 @@ namespace TradingApp
                 csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT&f=snbaopl1vhgkj");
             }
 
+
+            //list of stocks from Yahoo
             List<Stock> ListOfStocksFromYahoo = Stock.Parse(csvData);
 
-            try { foreach (Stock stock in ListOfStocksFromYahoo)
+
+            //List of Stocks from database
+            List<String> SymbolStringLIst = new List<String>();
+            SymbolStringLIst = db.GetAllSymbolsFromDatabase();
+
+
+
+            // this part is cheking if record already exists in database
+            // if exists it updates recird
+            // if not it adds new record
+                try { foreach (Stock stock in ListOfStocksFromYahoo)
             {        
-                     //db.AddStockToStockTable(stock);
+                    if (SymbolStringLIst.Contains(stock.Symbol, StringComparer.OrdinalIgnoreCase))
+                    {
+                        db.AddStockToStockTable(stock);
+                    }
+                    else
+                    {
+                        db.UpdateStockToStockTable(stock);
+                    }
                     
                 }
             }catch(NullReferenceException e)

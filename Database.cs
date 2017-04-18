@@ -98,9 +98,11 @@ namespace TradingApp
         {
 
             string sql = "UPDATE StockQuotesTable " +
-                "SET Bid=@Bid, Ask=@Ask, Open=@Open, PreviuosClose=@PreviousClose, LastTrade=@LastTrade, Volume =@Volume, High=@High, Low=@Low, High52=@High52, Low52=@low52";
+                "SET Bid=@Bid, Ask=@Ask, [Open]=@Open, PreviousClose=@PreviousClose, LastTrade=@LastTrade, Volume =@Volume, High=@High, Low=@Low, High52=@High52, Low52=@low52 " +
+                "WHERE Symbol=@Symbol";
 
             SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
             cmd.Parameters.Add("@Bid", SqlDbType.Money).Value = s.Bid;
             cmd.Parameters.Add("@Ask", SqlDbType.Money).Value = s.Ask;
             cmd.Parameters.Add("@Open", SqlDbType.Money).Value = s.Open;
