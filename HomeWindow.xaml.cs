@@ -30,6 +30,10 @@ namespace TradingApp
             InitializeComponent();
             db = new Database();
             GetListOfStocksFromYahoo();
+            List<String> SymbolStringLIst = new List<String>();
+            SymbolStringLIst = db.GetAllSymbolsFromDatabase();
+            SymbolStringLIst.ForEach(i => Console.Write("{0}\t", i));
+
         }
 
        private void GetListOfStocksFromYahoo()
@@ -45,7 +49,7 @@ namespace TradingApp
 
             try { foreach (Stock stock in ListOfStocksFromYahoo)
             {        
-                     db.AddStockToStockTable(stock);
+                     //db.AddStockToStockTable(stock);
                     
                 }
             }catch(NullReferenceException e)
