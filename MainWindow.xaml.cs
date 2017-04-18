@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,31 +20,9 @@ namespace TradingApp
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        private Database db;
-
         public MainWindow()
         {
-
-            try
-            {
-                db = new Database();
-                InitializeComponent();
-                RefreshPortfolios();
-            }
-            catch (IOException e)
-            {
-                Console.Write(e.StackTrace);
-            }
+            InitializeComponent();
         }
-
-
-
-        // Lets get all Portfolios from database
-        private void RefreshPortfolios()
-        {
-            lvPortfolios.ItemsSource = db.GetAllPortfolios();
-        }
-
     }
 }

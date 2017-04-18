@@ -44,6 +44,8 @@ Todo
 
 ////////////////////////////////////////
 
+12/04/2017
+
 JOhn
 Done:
 1) Simple design was created 70%
@@ -69,3 +71,68 @@ Todo:
 1)Final discussion with a teacher
 2)Recreate database
 3)read about api
+
+///////////////////////////////////
+
+15/04/2017
+
+Gregory
+done:
+1) Tables were recreated
+2) we read articles about Api's
+
+TODO
+
+1) Get api from yahoooo and add to string
+2) Parse String 
+
+
+John
+
+done:
+1) we read articles about Api's
+2) 
+
+todo
+1)Get api from yahoooo and add to string
+2)find alternative sources of information about stock market
+
+//////////////////////////////////////
+
+14/04/2017
+
+JOhn
+
+done:
+1) we were able to get info fom yahoo
+2) Design was changed a bit
+3) Yahoo is the best source of stock prices so far...
+
+todo
+1)Parse
+2)
+
+
+
+Gregory
+
+Done:
+1)Datbase was recreated
+2)we were able to get info fom yahoo
+3)Parsing was not implemented yet ----- 
+
+todo
+1) Implement Update On duplicate value
+2) read about sql queries
+3) Implement parsing
+
+
+
+/////////////////////////////////////
+
+15/04/2017
+
+done:
+1)
+
+
