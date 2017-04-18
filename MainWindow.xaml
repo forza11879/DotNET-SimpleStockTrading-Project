@@ -11,7 +11,7 @@
             <ColumnDefinition Width="322*"/>
             <ColumnDefinition Width="195*"/>
         </Grid.ColumnDefinitions>
-        <ListView Height="255" Margin="19,36,0,0" VerticalAlignment="Top" Name="lvPortfolios" HorizontalAlignment="Left" Width="312" Selected="lvPortfolios_Selected">
+        <ListView Height="255" Margin="19,36,0,0" VerticalAlignment="Top" Name="lvPortfolios" HorizontalAlignment="Left" Width="312" Selected="lvPortfolios_Selected" SelectionChanged="lvPortfolios_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding PortfolioID}" Width="70" Header="Portfolio-Id"/>
@@ -28,6 +28,5 @@
         <Label Content="......." HorizontalAlignment="Left" Margin="104,102,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.077,0.194" Grid.Column="1" Name="lbNet"/>
         <Label Content="Balance" HorizontalAlignment="Left" Margin="23,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.077,0.194" Grid.Column="1"/>
         <Label Content="......." HorizontalAlignment="Left" Margin="104,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.077,0.194" Grid.Column="1" Name="lbBalanace"/>
-
     </Grid>
 </Window>
