@@ -38,13 +38,44 @@ namespace TradingApp
                     string email = (string)reader["Email"];
                     decimal cash = (decimal)reader["Cash"];
                     decimal net = (decimal)reader["Net"];
-                    decimal Balance = (decimal)reader["Balance"];
-                    Portfolio p = new Portfolio(id, name, email, cash, net, Balance);
+                    decimal balance = (decimal)reader["Balance"];
+                    Portfolio p = new Portfolio(id, name, email, cash, net, balance);
                     result.Add(p);
                 }
             }
             return result;
         }
+
+
+
+       /* public List<Portfolio> GetAllStockPricesFromDatabase()
+        {
+            List<Stock> result = new List<Stock>();
+
+            using (SqlCommand command = new SqlCommand("SELECT * FROM StockQuotesTable", conn))
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    int id = (int)reader["StockId"];
+                    string symbol = (string)reader["Symbol"];
+                    string name = (string)reader["Name"];
+                    decimal bid = (decimal)reader["Bid"];
+                    decimal ask = (decimal)reader["Ask"];
+                    decimal open = (decimal)reader["Open"];
+                    decimal previousClose = (decimal)reader["PreviousClose"];
+                    decimal lastTrade = (decimal)reader["LastTrade"];
+                    decimal high = (decimal)reader["High"];
+                    decimal low = (decimal)reader["Low"];
+                    int volume = (int)reader["Volume"];
+                    decimal high52 = (decimal)reader["High52"];
+                    decimal low52 = (decimal)reader["Low52"];
+                    Stock s = new Stock(id, symbol, name, bid, ask, open, previousClose, lastTrade, high, low, volume, high52, low52);
+                    result.Add(s);
+                }
+            }
+            return result;
+        }*/
 
 
         //This method is used to get all Symbols from database 

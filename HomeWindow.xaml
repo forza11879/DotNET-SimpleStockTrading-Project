@@ -44,19 +44,19 @@
                                             <!--Bind Item-->
                                             <ListView.View>
                                                 <GridView>
-                                                    <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding Path=StockID}"/>
-                                                    <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Path=Symbol}"/>
-                                                    <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Path=Name}"/>
-                                                    <GridViewColumn Header="Bid" Width="55" DisplayMemberBinding="{Binding Path=Bid}"/>
-                                                    <GridViewColumn Header="Ask" Width="55" DisplayMemberBinding="{Binding Path=Ask}"/>
-                                                    <GridViewColumn Header="Open" Width="55" DisplayMemberBinding="{Binding Path=Open}"/>
-                                                    <GridViewColumn Header="Previous Close" Width="55" DisplayMemberBinding="{Binding Path=PreviousClose}"/>
-                                                    <GridViewColumn Header="Last Trade" Width="80" DisplayMemberBinding="{Binding Path=LastTrade}"/>
-                                                     <GridViewColumn Header="Volume" Width="80" DisplayMemberBinding="{Binding Path=Volume}"/>
-                                                    <GridViewColumn Header="High" Width="80" DisplayMemberBinding="{Binding Path=High}"/>
-                                                    <GridViewColumn Header="Low" Width="80" DisplayMemberBinding="{Binding Path=Low}"/>
-                                                    <GridViewColumn Header="52High" Width="80" DisplayMemberBinding="{Binding Path=High52}"/>
-                                                    <GridViewColumn Header="52Low" Width="80" DisplayMemberBinding="{Binding Path=Low52}"/>
+                                                    <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding StockID}"/>
+                                                    <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
+                                                    <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}"/>
+                                                    <GridViewColumn Header="Bid" Width="55" DisplayMemberBinding="{Binding Bid}"/>
+                                                    <GridViewColumn Header="Ask" Width="55" DisplayMemberBinding="{Binding Ask}"/>
+                                                    <GridViewColumn Header="Open" Width="55" DisplayMemberBinding="{Binding Open}"/>
+                                                    <GridViewColumn Header="Previous Close" Width="55" DisplayMemberBinding="{Binding PreviousClose}"/>
+                                                    <GridViewColumn Header="Last Trade" Width="80" DisplayMemberBinding="{Binding LastTrade}"/>
+                                                    <GridViewColumn Header="Volume" Width="80" DisplayMemberBinding="{Binding Volume}"/>
+                                                    <GridViewColumn Header="High" Width="80" DisplayMemberBinding="{Binding High}"/>
+                                                    <GridViewColumn Header="Low" Width="80" DisplayMemberBinding="{Binding Low}"/>
+                                                    <GridViewColumn Header="52High" Width="80" DisplayMemberBinding="{Binding High52}"/>
+                                                    <GridViewColumn Header="52Low" Width="80" DisplayMemberBinding="{Binding Low52}"/>
                                                 </GridView>
 
                                             </ListView.View>

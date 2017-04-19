@@ -11,7 +11,7 @@
             <ColumnDefinition Width="322*"/>
             <ColumnDefinition Width="195*"/>
         </Grid.ColumnDefinitions>
-        <ListView Height="255" Margin="19,36,0,0" VerticalAlignment="Top" Name="lvPortfolios" HorizontalAlignment="Left" Width="312" SelectionChanged="lvPortfolios_SelectionChanged">
+        <ListView Height="255" Margin="19,34,0,0" VerticalAlignment="Top" Name="lvPortfolios" HorizontalAlignment="Left" Width="312" SelectionChanged="lvPortfolios_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding PortfolioID}" Width="70" Header="Portfolio-Id"/>
