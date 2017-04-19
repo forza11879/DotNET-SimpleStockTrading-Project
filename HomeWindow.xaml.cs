@@ -23,29 +23,75 @@ namespace TradingApp
     /// </summary>
     public partial class HomeWindow : Window
     {
-        private Database db;
+        
 
         public HomeWindow()
         {
             InitializeComponent();
-            db = new Database();
+            Globals.db = new Database();
             GetListOfStocksFromYahoo();
+            RefreshStockList();
+
+
         }
 
-       private void GetListOfStocksFromYahoo()
+
+        private void RefreshStockList()
+        {
+            lvStockQuotesList.ItemsSource = Globals.db.GetAllSymbolsFromDatabase();
+        }
+
+        private void GetListOfStocksFromYahoo()
         {
             string csvData;
 
             using (WebClient web = new WebClient())
             {
-                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT&f=snbaopl1vhgkj");
+                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT+TWOU&f=snbaopl1vhgkj");
             }
 
+
+            //list of stocks from Yahoo
             List<Stock> ListOfStocksFromYahoo = Stock.Parse(csvData);
 
-            try { foreach (Stock stock in ListOfStocksFromYahoo)
+
+            //List of Stocks from database
+            List<String> SymbolStringLIst = new List<String>();
+            SymbolStringLIst = Globals.db.GetAllSymbolsFromDatabase();
+
+
+
+            // this part is cheking if record already exists in database
+            // if exists it updates recird
+            // if not it adds new record
+                try { foreach (Stock stock in ListOfStocksFromYahoo)
             {        
-                     db.AddStockToStockTable(stock);
+                    if (SymbolStringLIst.Contains(stock.Symbol, StringComparer.OrdinalIgnoreCase))
+                    {
+
+                        try
+                        {
+                        Globals.db.AddStockToStockTable(stock);
+                        } catch (SqlException ex)
+                        {
+                            MessageBox.Show("Error adding record", "Confirmation", MessageBoxButton.OK);
+                            Console.Write(ex.StackTrace);
+                        }
+                        
+                    }
+                    else
+                    {
+                        try
+                        {
+                            Globals.db.UpdateStockToStockTable(stock);
+                        }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show("Error Updating record", "Confirmation", MessageBoxButton.OK);
+                            Console.Write(ex.StackTrace);
+                        }
+
+                    }
                     
                 }
             }catch(NullReferenceException e)
