@@ -162,18 +162,35 @@
                                             <TextBox Name="cbBuySelll" Margin="60,10,0,0" Height="30" Width="100"/>
 
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="OrderType" Margin="10,10,0,0" Height="30" Width="80"  HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <ComboBox Name="cbOrderTypee" Margin="60,10,0,0" Height="30" Width="100" SelectedIndex="{Binding Path=SelectedOrderType}">
+                                        <!--<StackPanel Orientation="Horizontal">
+                                            --><!--<Label Content="OrderType" Margin="10,10,0,0" Height="30" Width="80"  HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            <ComboBox Name="cbOrderTypee" Margin="60,10,0,0" Height="30" Width="100" SelectedIndex="{Binding Path=SelectedOrderType}">--><!--
                                                 <ComboBoxItem Content="Market"></ComboBoxItem>
                                                 <ComboBoxItem Content="Limit"></ComboBoxItem>
                                                 <ComboBoxItem Content="Stop"></ComboBoxItem>
                                             </ComboBox>
+                                        </StackPanel>-->
+                                        <StackPanel Orientation="Horizontal">
+                                            <GroupBox Header="Price" HorizontalAlignment="Left" Margin="10,20,10,10" Width="230" Height="82">
+                                                <StackPanel Orientation="Horizontal">
+                                            <!--<Label Content="Price" Margin="10,10,0,0" Height="30" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>-->
+                                            <Label Content="Bid" Margin="30,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            <Label Content="Ask" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            <!--<TextBox Name="tbTradingPrice" Margin="60,10,0,0" Height="30" Width="100"/>-->
+                                            <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
+                                                </StackPanel>
+                                            </GroupBox>
+
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Price" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <TextBox Name="tbTradingPrice" Margin="60,10,0,0" Height="30" Width="100"/>
+                                            <!--<Label Content="Price" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            <Label Content="Bid" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            <Label Content="Ask" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>-->
+                                            <TextBox Name="tbBidPrice" Margin="100,10,0,0" Height="30" Width="70"/>
+                                            <TextBox Name="tbAskPrice" Margin="20,10,0,0" Height="30" Width="70"/>
+
                                             <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
+                                        
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <Button Name="btnBuy" Content="Buy" Margin="10,10,0,0" Height="30" Width="100" FontWeight="Bold" Click="btnBuy_Click"></Button>
