@@ -23,7 +23,6 @@ namespace TradingApp
         }
 
 
-
         public List<Portfolio> GetAllPortfolios()
         {
             List<Portfolio> result = new List<Portfolio>();
