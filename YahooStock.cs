@@ -7,35 +7,16 @@ using System.Windows;
 
 namespace TradingApp
 {
-    class Stock
+    class YahooStock
     {
-       /*public Stock(int stockID, string symbol, string name, decimal bid, decimal ask, decimal open, decimal previousClose, decimal lastTrade, decimal high, decimal low, int volume, decimal high52, decimal low52)
-        {
-            StockID = stockID;
-            Symbol = symbol;
-            Name = name;
-            Bid = bid;
-            Ask = ask;
-            Open = open;
-            PreviousClose = previousClose;
-            LastTrade = lastTrade;
-            High = high;
-            Low = low;
-            Volume = volume;
-            High52 = high52;
-            Low52 = low52;
-        }*/
-
-
-
 
 
             //Lets Prase CSVdata to list of objects
 
             // caller must handle ParseException
-            public static List<Stock> Parse(string csvData)
+            public static List<YahooStock> Parse(string csvData)
         {
-            List<Stock> StockFromApiList = new List<Stock>();
+            List<YahooStock> StockFromApiList = new List<YahooStock>();
             string[] rows = csvData.Replace("\r", "").Split('\n');
 
 
@@ -45,11 +26,11 @@ namespace TradingApp
 
                 string[] cols = row.Split(',');
 
-                Stock s = new Stock();
+                YahooStock s = new YahooStock();
                 s.StockID = 12;
                 try
                 {
-                s.Symbol = Convert.ToString(cols[0]);
+                s.Symbol = Convert.ToString(cols[0]).Trim();
                 s.Name = cols[1];
                 s.Bid = (cols[2].ToUpper().Contains("N/A")) ? (decimal?) null : Convert.ToDecimal(cols[2]);
                 s.Ask = (cols[3].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[3]);

@@ -23,7 +23,7 @@ namespace TradingApp
     /// </summary>
     public partial class HomeWindow : Window
     {
-        
+
 
         public HomeWindow()
         {
@@ -38,7 +38,7 @@ namespace TradingApp
 
         private void RefreshStockList()
         {
-            lvStockQuotesList.ItemsSource = Globals.db.GetAllSymbolsFromDatabase();
+            lvStockQuotesList.ItemsSource = Globals.db.GetAllStockPricesFromDatabase();
         }
 
         private void GetListOfStocksFromYahoo()
@@ -47,12 +47,12 @@ namespace TradingApp
 
             using (WebClient web = new WebClient())
             {
-                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT+TWOU&f=snbaopl1vhgkj");
+                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT&f=snbaopl1vhgkj");
             }
 
 
             //list of stocks from Yahoo
-            List<Stock> ListOfStocksFromYahoo = Stock.Parse(csvData);
+            List<YahooStock> ListOfStocksFromYahoo = YahooStock.Parse(csvData);
 
 
             //List of Stocks from database
@@ -64,41 +64,36 @@ namespace TradingApp
             // this part is cheking if record already exists in database
             // if exists it updates recird
             // if not it adds new record
-                try { foreach (Stock stock in ListOfStocksFromYahoo)
-            {        
-                    if (SymbolStringLIst.Contains(stock.Symbol, StringComparer.OrdinalIgnoreCase))
+            try
+            {
+                foreach (YahooStock stock in ListOfStocksFromYahoo)
+                {
+                    try
                     {
-
-                        try
-                        {
-                        Globals.db.AddStockToStockTable(stock);
-                        } catch (SqlException ex)
-                        {
-                            MessageBox.Show("Error adding record", "Confirmation", MessageBoxButton.OK);
-                            Console.Write(ex.StackTrace);
-                        }
-                        
-                    }
-                    else
-                    {
-                        try
+                        if (SymbolStringLIst.Contains(stock.Symbol, StringComparer.OrdinalIgnoreCase))
                         {
                             Globals.db.UpdateStockToStockTable(stock);
                         }
-                        catch (SqlException ex)
+                        else
                         {
-                            MessageBox.Show("Error Updating record", "Confirmation", MessageBoxButton.OK);
-                            Console.Write(ex.StackTrace);
-                        }
+                            Globals.db.AddStockToStockTable(stock);
 
+                        }
                     }
-                    
+                    catch (SqlException ext)
+                    {
+                        MessageBox.Show("Error adding/updating record: " + ext.Message, "Confirmation", MessageBoxButton.OK);
+                        Console.Write(ext.StackTrace);
+                    }
+
                 }
-            }catch(NullReferenceException e)
-            {
-               Console.Write(e.StackTrace);
+
             }
-            
+            catch (NullReferenceException e)
+            {
+                Console.Write(e.StackTrace);
+            }
+
 
 
 

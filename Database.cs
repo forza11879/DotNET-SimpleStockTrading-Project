@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -47,9 +48,9 @@ namespace TradingApp
 
 
 
-       /* public List<Portfolio> GetAllStockPricesFromDatabase()
+       public List<StockDb> GetAllStockPricesFromDatabase()
         {
-            List<Stock> result = new List<Stock>();
+            List<StockDb> result = new List<StockDb>();
 
             using (SqlCommand command = new SqlCommand("SELECT * FROM StockQuotesTable", conn))
             using (SqlDataReader reader = command.ExecuteReader())
@@ -69,12 +70,12 @@ namespace TradingApp
                     int volume = (int)reader["Volume"];
                     decimal high52 = (decimal)reader["High52"];
                     decimal low52 = (decimal)reader["Low52"];
-                    Stock s = new Stock(id, symbol, name, bid, ask, open, previousClose, lastTrade, high, low, volume, high52, low52);
+                    StockDb s = new StockDb(id, symbol, name, bid, ask, open, previousClose, lastTrade, high, low, volume, high52, low52);
                     result.Add(s);
                 }
             }
             return result;
-        }*/
+        }
 
 
         //This method is used to get all Symbols from database 
@@ -98,33 +99,33 @@ namespace TradingApp
 
 
         //Method adds Stock To Database in case if record does not exists
-        public void AddStockToStockTable(Stock s)
+        public void AddStockToStockTable(YahooStock s)
         {
 
             string sql = "INSERT INTO StockQuotesTable (Symbol, [Name], Bid, Ask, [Open], PreviousClose, LastTrade, Volume, High, Low, High52, Low52)"
                         + "VALUES (@Symbol, @Name, @Bid, @Ask, @Open, @PreviousClose, @LastTrade, @Volume, @High, @Low, @High52, @Low52)";
 
             SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
-            cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = s.Name;
-            cmd.Parameters.Add("@Bid", SqlDbType.Money).Value = s.Bid;
-            cmd.Parameters.Add("@Ask", SqlDbType.Money).Value = s.Ask;
-            cmd.Parameters.Add("@Open", SqlDbType.Money).Value = s.Open;
-            cmd.Parameters.Add("@PreviousClose", SqlDbType.Money).Value = s.PreviousClose;
-            cmd.Parameters.Add("@LastTrade", SqlDbType.Money).Value = s.LastTrade;
+            cmd.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol.Trim();
+            cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = s.Name.Trim();
+            cmd.Parameters.Add("@Bid", SqlDbType.Money).Value = s.Bid ?? SqlMoney.Null;
+            cmd.Parameters.Add("@Ask", SqlDbType.Money).Value = s.Ask ?? SqlMoney.Null;
+            cmd.Parameters.Add("@Open", SqlDbType.Money).Value = s.Open ?? SqlMoney.Null;
+            cmd.Parameters.Add("@PreviousClose", SqlDbType.Money).Value = s.PreviousClose ?? SqlMoney.Null;
+            cmd.Parameters.Add("@LastTrade", SqlDbType.Money).Value = s.LastTrade ?? SqlMoney.Null;
             cmd.Parameters.Add("@Volume", SqlDbType.Int).Value = s.Volume;
-            cmd.Parameters.Add("@High", SqlDbType.Money).Value = s.High;
-            cmd.Parameters.Add("@Low", SqlDbType.Money).Value = s.Low;
-            cmd.Parameters.Add("@High52", SqlDbType.Money).Value = s.High52;
-            cmd.Parameters.Add("@Low52", SqlDbType.Money).Value = s.Low52;
+            cmd.Parameters.Add("@High", SqlDbType.Money).Value = s.High ?? SqlMoney.Null;
+            cmd.Parameters.Add("@Low", SqlDbType.Money).Value = s.Low ?? SqlMoney.Null;
+            cmd.Parameters.Add("@High52", SqlDbType.Money).Value = s.High52 ?? SqlMoney.Null;
+            cmd.Parameters.Add("@Low52", SqlDbType.Money).Value = s.Low52 ?? SqlMoney.Null;
 
-          cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
         }
 
 
 
         //Method updates record if it already exists in database
-        public void UpdateStockToStockTable(Stock s)
+        public void UpdateStockToStockTable(YahooStock s)
         {
 
             string sql = "UPDATE StockQuotesTable " +
@@ -133,16 +134,16 @@ namespace TradingApp
 
             SqlCommand cmd = new SqlCommand(sql, conn);
             cmd.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
-            cmd.Parameters.Add("@Bid", SqlDbType.Money).Value = s.Bid;
-            cmd.Parameters.Add("@Ask", SqlDbType.Money).Value = s.Ask;
-            cmd.Parameters.Add("@Open", SqlDbType.Money).Value = s.Open;
-            cmd.Parameters.Add("@PreviousClose", SqlDbType.Money).Value = s.PreviousClose;
-            cmd.Parameters.Add("@LastTrade", SqlDbType.Money).Value = s.LastTrade;
+            cmd.Parameters.Add("@Bid", SqlDbType.Money).Value = s.Bid ?? SqlMoney.Null;
+            cmd.Parameters.Add("@Ask", SqlDbType.Money).Value = s.Ask ?? SqlMoney.Null;
+            cmd.Parameters.Add("@Open", SqlDbType.Money).Value = s.Open ?? SqlMoney.Null;
+            cmd.Parameters.Add("@PreviousClose", SqlDbType.Money).Value = s.PreviousClose ?? SqlMoney.Null;
+            cmd.Parameters.Add("@LastTrade", SqlDbType.Money).Value = s.LastTrade ?? SqlMoney.Null;
             cmd.Parameters.Add("@Volume", SqlDbType.Int).Value = s.Volume;
-            cmd.Parameters.Add("@High", SqlDbType.Money).Value = s.High;
-            cmd.Parameters.Add("@Low", SqlDbType.Money).Value = s.Low;
-            cmd.Parameters.Add("@High52", SqlDbType.Money).Value = s.High52;
-            cmd.Parameters.Add("@Low52", SqlDbType.Money).Value = s.Low52;
+            cmd.Parameters.Add("@High", SqlDbType.Money).Value = s.High ?? SqlMoney.Null;
+            cmd.Parameters.Add("@Low", SqlDbType.Money).Value = s.Low ?? SqlMoney.Null;
+            cmd.Parameters.Add("@High52", SqlDbType.Money).Value = s.High52 ?? SqlMoney.Null;
+            cmd.Parameters.Add("@Low52", SqlDbType.Money).Value = s.Low52 ?? SqlMoney.Null;
 
             cmd.ExecuteNonQuery();
         }
