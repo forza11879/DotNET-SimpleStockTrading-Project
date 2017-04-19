@@ -23,19 +23,25 @@ namespace TradingApp
     /// </summary>
     public partial class HomeWindow : Window
     {
-        private Database db;
+        
 
         public HomeWindow()
         {
             InitializeComponent();
-            db = new Database();
+            Globals.db = new Database();
             GetListOfStocksFromYahoo();
-            
+            RefreshStockList();
 
 
         }
 
-       private void GetListOfStocksFromYahoo()
+
+        private void RefreshStockList()
+        {
+            lvStockQuotesList.ItemsSource = Globals.db.GetAllSymbolsFromDatabase();
+        }
+
+        private void GetListOfStocksFromYahoo()
         {
             string csvData;
 
@@ -51,7 +57,7 @@ namespace TradingApp
 
             //List of Stocks from database
             List<String> SymbolStringLIst = new List<String>();
-            SymbolStringLIst = db.GetAllSymbolsFromDatabase();
+            SymbolStringLIst = Globals.db.GetAllSymbolsFromDatabase();
 
 
 
@@ -62,11 +68,29 @@ namespace TradingApp
             {        
                     if (SymbolStringLIst.Contains(stock.Symbol, StringComparer.OrdinalIgnoreCase))
                     {
-                        db.AddStockToStockTable(stock);
+
+                        try
+                        {
+                        Globals.db.AddStockToStockTable(stock);
+                        } catch (SqlException ex)
+                        {
+                            MessageBox.Show("Error adding record", "Confirmation", MessageBoxButton.OK);
+                            Console.Write(ex.StackTrace);
+                        }
+                        
                     }
                     else
                     {
-                        db.UpdateStockToStockTable(stock);
+                        try
+                        {
+                            Globals.db.UpdateStockToStockTable(stock);
+                        }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show("Error Updating record", "Confirmation", MessageBoxButton.OK);
+                            Console.Write(ex.StackTrace);
+                        }
+
                     }
                     
                 }

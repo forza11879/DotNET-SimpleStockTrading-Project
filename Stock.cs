@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TradingApp
 {
@@ -46,6 +47,8 @@ namespace TradingApp
 
                 Stock s = new Stock();
                 s.StockID = 12;
+                try
+                {
                 s.Symbol = Convert.ToString(cols[0]);
                 s.Name = cols[1];
                 s.Bid = (cols[2].ToUpper().Contains("N/A")) ? (decimal?) null : Convert.ToDecimal(cols[2]);
@@ -59,6 +62,12 @@ namespace TradingApp
                 s.High52 = (cols[10].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[10]);
                 s.Low52 = (cols[11].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[11]);
                 StockFromApiList.Add(s);
+                } catch (FormatException e)
+                {
+                    MessageBox.Show("Unable to conver value", "Confirmation", MessageBoxButton.OK);
+                    Console.Write(e.StackTrace);
+                }
+
             }
             return StockFromApiList;
 
