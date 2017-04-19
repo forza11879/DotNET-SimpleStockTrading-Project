@@ -123,37 +123,29 @@ namespace TradingApp
 
         }
 
+        private void btnBuy_Click(object sender, RoutedEventArgs e)
+        {
+
+                
+            
 
 
 
+        }
 
 
-        /*  private void lvStockQuotesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-          {
-              if (lvStockQuotesList.SelectedItem == null)
-              {
-                  //if there is no selection dissable buttons Update and Add
-                  btnBuy.IsEnabled = false;
-                  btnSell.IsEnabled = false;
-              }
-              else
-              {
-                  //if there is a selectoin enable buttons Update and Add
-                  btnBuy.IsEnabled = true;
-                  btnSell.IsEnabled = true;
-                  //if there is a selection populate text boxes and combo box with the properties of the objetc selected in data grid
-                 StockQuotes selectedStockQuotes = (StockQuotes)lvStockQuotesList.SelectedItem;
+        private void UpdatePortfolioInfo()
+        {
+            //TODO
 
-                  lblSymbol.Content = selectedStockQuotes.Symbol;
-                  lblCompanyName.Content = selectedStockQuotes.Name;
-                  tbTradingPrice.Text = selectedStockQuotes.LastTrade + "";
+            //assign labels to show balanace net and other user info 
+        }
 
 
-              }
-          }*/
+
     }
 
 
 
 }
-//}
+

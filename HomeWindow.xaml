@@ -176,7 +176,7 @@
                                             <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Name="btnBuy" Content="Buy" Margin="10,10,0,0" Height="30" Width="100" FontWeight="Bold"></Button>
+                                            <Button Name="btnBuy" Content="Buy" Margin="10,10,0,0" Height="30" Width="100" FontWeight="Bold" Click="btnBuy_Click"></Button>
                                             <Button Name="btnSell" Content="Sell" Margin="20,10,0,0" Height="30" Width="100" FontWeight="Bold"></Button>
                                             <!--<xctk:IntegerUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="N0" Value="{Binding Size, Mode=TwoWay}"  Increment="{Binding SizeIncrement}" Margin="20,10,10,10" Height="30" Width="100"/>-->
                                         </StackPanel>

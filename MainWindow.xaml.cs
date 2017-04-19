@@ -37,19 +37,19 @@ namespace TradingApp
         {
 
             //getting selected object from ListView
-            Portfolio selectedPortfolio = (Portfolio)lvPortfolios.SelectedItem;
+           Globals.SelectedPortfolio = (Portfolio)lvPortfolios.SelectedItem;
 
             //assigning needed info from selected objcet to labels
 
             //Balance
-            lbBalance.Content = selectedPortfolio.Balance;
+            lbBalance.Content = Globals.SelectedPortfolio.Balance;
 
 
             //Cash
-            lbCash.Content = selectedPortfolio.Cash;
+            lbCash.Content = Globals.SelectedPortfolio.Cash;
 
             //Net
-            lbNet.Content = selectedPortfolio.Net;
+            lbNet.Content = Globals.SelectedPortfolio.Net;
 
         }
 
@@ -57,16 +57,8 @@ namespace TradingApp
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
 
-            if (lvPortfolios.SelectedIndex >= 0)
-            {
-                Globals.CurrentPortfolio = (Portfolio)lvPortfolios.SelectedItem;
-                HomeWindow win2 = new HomeWindow();
-                win2.Show();
-            }
-            else
-            {
-                MessageBox.Show("No portfolio is selected", "Confirmation", MessageBoxButton.OK);
-            }
+        
+
 
 
         }

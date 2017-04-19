@@ -9,6 +9,7 @@ namespace TradingApp
     class Globals
     {
         public static Database db;
-        public static Portfolio CurrentPortfolio;
+        public static Portfolio SelectedPortfolio;
+
     }
 }
