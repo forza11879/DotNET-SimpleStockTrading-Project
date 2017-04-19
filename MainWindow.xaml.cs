@@ -57,8 +57,16 @@ namespace TradingApp
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
 
-        
-
+                if (lvPortfolios.SelectedIndex >= 0)
+                           {
+                Globals.SelectedPortfolio = (Portfolio)lvPortfolios.SelectedItem;
+                HomeWindow win2 = new HomeWindow();
+                win2.Show();
+                          }
+              else
+        {
+                MessageBox.Show("No portfolio is selected", "Confirmation", MessageBoxButton.OK);
+                       }
 
 
         }
