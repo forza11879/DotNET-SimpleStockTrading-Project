@@ -31,6 +31,8 @@ namespace TradingApp
             Globals.db = new Database();
             GetListOfStocksFromYahoo();
             RefreshStockList();
+            btnBuy.IsEnabled = false;
+            btnSell.IsEnabled = false;
 
 
         }
@@ -38,7 +40,14 @@ namespace TradingApp
 
         private void RefreshStockList()
         {
-            lvStockQuotesList.ItemsSource = Globals.db.GetAllStockPricesFromDatabase();
+            try
+            {
+                lvStockQuotesList.ItemsSource = Globals.db.GetAllStockPricesFromDatabase();
+            } catch (InvalidCastException e)
+            {
+                MessageBox.Show("Error showing record in a list: " + e.Message, "Confirmation", MessageBoxButton.OK);
+            }
+            
         }
 
         private void GetListOfStocksFromYahoo()
@@ -96,6 +105,21 @@ namespace TradingApp
 
 
 
+
+        }
+
+        private void lvStockQuotesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvStockQuotesList.SelectedItem == null)
+            {
+                //if there is no selection dissable buttons Update and Add
+                btnBuy.IsEnabled = false;
+            }
+
+            else
+            {
+                btnBuy.IsEnabled = true;
+            }
 
         }
 

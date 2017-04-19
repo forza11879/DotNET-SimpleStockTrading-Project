@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TradingApp"
         mc:Ignorable="d"
-        Title="HomeWindow" Height="754" Width="1171" WindowState="Maximized">
+        Title="HomeWindow" Height="1206" Width="1831" WindowState="Maximized">
     <DockPanel>
 
         <TabControl Name="tcSample" >
@@ -29,8 +29,7 @@
                             <ContentControl>
                                 <Grid>
                                     <StackPanel Orientation="Vertical">
-
-                                        <ListView Name="lvStockQuotesList" DockPanel.Dock="Top" Width="862"  HorizontalAlignment="Left" Margin="10,58,0,9.8" RenderTransformOrigin="0.5,0.5" Height="171" >
+                                        <ListView x:Name="lvStockQuotesList" Width="1318"  HorizontalAlignment="Left" Margin="10,58,0,9.8" RenderTransformOrigin="0.5,0.5" Height="273" SelectionChanged="lvStockQuotesList_SelectionChanged">
                                             <!--SelectionChanged="lvStockQuotesList_SelectionChanged" -->
                                             <ListView.RenderTransform>
                                                 <TransformGroup>
@@ -50,13 +49,13 @@
                                                     <GridViewColumn Header="Bid" Width="55" DisplayMemberBinding="{Binding Bid}"/>
                                                     <GridViewColumn Header="Ask" Width="55" DisplayMemberBinding="{Binding Ask}"/>
                                                     <GridViewColumn Header="Open" Width="55" DisplayMemberBinding="{Binding Open}"/>
-                                                    <GridViewColumn Header="Previous Close" Width="55" DisplayMemberBinding="{Binding PreviousClose}"/>
-                                                    <GridViewColumn Header="Last Trade" Width="80" DisplayMemberBinding="{Binding LastTrade}"/>
-                                                    <GridViewColumn Header="Volume" Width="80" DisplayMemberBinding="{Binding Volume}"/>
-                                                    <GridViewColumn Header="High" Width="80" DisplayMemberBinding="{Binding High}"/>
-                                                    <GridViewColumn Header="Low" Width="80" DisplayMemberBinding="{Binding Low}"/>
-                                                    <GridViewColumn Header="52High" Width="80" DisplayMemberBinding="{Binding High52}"/>
-                                                    <GridViewColumn Header="52Low" Width="80" DisplayMemberBinding="{Binding Low52}"/>
+                                                    <GridViewColumn Header="Previous Close" Width="120" DisplayMemberBinding="{Binding PreviousClose}"/>
+                                                    <GridViewColumn Header="Last Trade" Width="120" DisplayMemberBinding="{Binding LastTrade}"/>
+                                                    <GridViewColumn Header="Volume" Width="120" DisplayMemberBinding="{Binding Volume}"/>
+                                                    <GridViewColumn Header="High" Width="120" DisplayMemberBinding="{Binding High}"/>
+                                                    <GridViewColumn Header="Low" Width="120" DisplayMemberBinding="{Binding Low}"/>
+                                                    <GridViewColumn Header="52High" Width="120" DisplayMemberBinding="{Binding High52}"/>
+                                                    <GridViewColumn Header="52Low" Width="120" DisplayMemberBinding="{Binding Low52}"/>
                                                 </GridView>
 
                                             </ListView.View>
@@ -155,8 +154,7 @@
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
                                             <Label Content="Symbol:" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content="..." Name="lblSymbol" Margin="0,10,0,0" Height="30" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content="..." Name="lblCompanyName" Margin="0,10,0,0" Height="30" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            <Label Content="..." x:Name="lblCompanyName" Margin="0,10,0,0" Height="28" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
 
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
