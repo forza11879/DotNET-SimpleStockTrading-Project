@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
+//using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -32,6 +32,7 @@ namespace TradingApp
             GetListOfStocksFromYahoo();
             RefreshStockList();
             UpdatePortfolioInfo();
+            GetListOfHistoricalStockFromYahoo();
             btnBuy.IsEnabled = false;
             btnSell.IsEnabled = false;
 
@@ -105,6 +106,19 @@ namespace TradingApp
             }
 
 
+
+
+        }
+
+        private void GetListOfHistoricalStockFromYahoo() {
+
+           List data = QuotesHistoryLoader.LoadQuotesHistory("C", 1962);
+
+            foreach (QuotesHistory stockHistory in data)
+            {
+
+                Globals.db.AddQuotesHistoryTable(stockHistory);
+            }
 
 
         }

@@ -122,6 +122,25 @@ namespace TradingApp
             cmd.ExecuteNonQuery();
         }
 
+        public void AddQuotesHistoryTable(QuotesHistory qh) {
+
+            string sql = "INSERT INTO QoutesHistory (Date, OpeningPrice, High, Low, ClosingPrice, Volume, AdjClose)"
+                        + "VALUES (@Date, @OpeningPrice, @High, @Low, @ClosingPrice, @Volume, @AdjClose)";
+
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            
+            cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = qh.Date;
+            cmd.Parameters.Add("@OpeningPrice", SqlDbType.Float).Value = qh.OpeningPrice;
+            cmd.Parameters.Add("@High", SqlDbType.Float).Value = qh.High;
+            cmd.Parameters.Add("@Low", SqlDbType.Float).Value = qh.Low;
+            cmd.Parameters.Add("@ClosingPrice", SqlDbType.Float).Value = qh.ClosingPrice;
+            cmd.Parameters.Add("@Volume", SqlDbType.Float).Value = qh.Volume;
+            cmd.Parameters.Add("@AdjClose", SqlDbType.Float).Value = qh.AdjClose;
+            
+            cmd.ExecuteNonQuery();
+
+        }
+
 
 
         //Method updates record if it already exists in database
