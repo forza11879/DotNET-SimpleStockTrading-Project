@@ -149,7 +149,41 @@ namespace TradingApp
         }
 
 
+        ////Adding a transaction buy
+        public void AddBuyTransaction(Portfolio p, StockDb s, int quantity)
+        {
 
+            string sqlBuy = "INSERT INTO Transactions (PortfolioId, Type, Symbol, BuySellPrice, SharesBoughtSold, Date)"
+                        + "VALUES (@PortfolioId, @Type, @Symbol, @Ask, @SharesBought, @Date)";
+
+            SqlCommand cmd = new SqlCommand(sqlBuy, conn);
+            cmd.Parameters.Add("@PortfolioId", SqlDbType.Int).Value = p.PortfolioID;
+            cmd.Parameters.Add("@Type", SqlDbType.NChar).Value = "Buy";
+            cmd.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
+            cmd.Parameters.Add("@Ask", SqlDbType.Money).Value = s.Ask;
+            cmd.Parameters.Add("@SharesBought", SqlDbType.Int).Value = quantity;
+            cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = DateTime.Now;
+
+            cmd.ExecuteNonQuery();
+
+            string sqlUpdateCash = "Update Portfolio SET Cash=@Cash Where PortfolioId=@PortfolioId";
+
+            SqlCommand cmdUpdate = new SqlCommand(sqlUpdateCash, conn);
+            cmdUpdate.Parameters.Add("@PortfolioId", SqlDbType.Int).Value = p.PortfolioID;
+            cmdUpdate.Parameters.Add("@Cash", SqlDbType.Money).Value = p.Cash - (s.Ask * quantity);
+            cmdUpdate.ExecuteNonQuery();
+
+            string sqlAddToPortfolioStock = "INSERT INTO PortfolioStock (Symbol, GameID, NumberOfSharesOwned, AveragePurchasePrice)" +
+                "Values (@Symbol, @GameID, @NumberOfSharesOwned, @AveragePurchasePrice)";
+
+            SqlCommand cmdInsertStock = new SqlCommand(sqlAddToPortfolioStock, conn);
+            cmdInsertStock.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
+            cmdInsertStock.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
+            cmdInsertStock.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = quantity;
+            cmdInsertStock.Parameters.Add("@Ask", SqlDbType.Money).Value = s.Ask;
+            cmdUpdate.ExecuteNonQuery();
+
+        }
 
 
     }

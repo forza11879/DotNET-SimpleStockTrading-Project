@@ -8,19 +8,17 @@ namespace TradingApp
 {
     class PortfolioStock
     {
-        int StockOwnedId;
         int SymbolId;
         int PortfolioId;
         int SharesOwned;
-        decimal PurchasedPrice;
+        decimal AveragePurchasedPrice;
 
-        public PortfolioStock(int stockOwnedId, int symbolId, int portfolioId, int sharesOwned, decimal purchasedPrice)
+        public PortfolioStock( int symbolId, int portfolioId, int sharesOwned, decimal averagePurchasedPrice)
         {
-            StockOwnedId = stockOwnedId;
             SymbolId = symbolId;
             PortfolioId = portfolioId;
             SharesOwned = sharesOwned;
-            PurchasedPrice = purchasedPrice;
+            AveragePurchasedPrice = averagePurchasedPrice;
         }
     }
 }

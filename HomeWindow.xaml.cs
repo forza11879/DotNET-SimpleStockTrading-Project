@@ -31,6 +31,7 @@ namespace TradingApp
             Globals.db = new Database();
             GetListOfStocksFromYahoo();
             RefreshStockList();
+            UpdatePortfolioInfo();
             btnBuy.IsEnabled = false;
             btnSell.IsEnabled = false;
 
@@ -125,9 +126,25 @@ namespace TradingApp
 
         private void btnBuy_Click(object sender, RoutedEventArgs e)
         {
+            int Quantity;
 
-                
+            if (int.TryParse(tbQuantity.Text, out Quantity))
+            {
+
+
+                StockDb SelectedStock = (StockDb)lvStockQuotesList.SelectedItem;
+
+                Globals.db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
+
+            }
+            else
+            {
+                MessageBox.Show("Invalid Qty", "Confirmation", MessageBoxButton.OK);
+            }
             
+
+
+
 
 
 
@@ -136,9 +153,10 @@ namespace TradingApp
 
         private void UpdatePortfolioInfo()
         {
-            //TODO
 
-            //assign labels to show balanace net and other user info 
+            lbCash.Content = Globals.SelectedPortfolio.Cash;
+
+
         }
 
 
