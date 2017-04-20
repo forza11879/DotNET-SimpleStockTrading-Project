@@ -135,6 +135,10 @@ namespace TradingApp
                 StockDb SelectedStock = (StockDb)lvStockQuotesList.SelectedItem;
 
                 Globals.db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                tbQuantity.Text = "";
+                UpdatePortfolioInfo();
+                MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
+                
 
             }
             else

@@ -109,8 +109,8 @@ done:
 3) Yahoo is the best source of stock prices so far...
 
 todo
-1)Parse
-2)
+1)Parse Data fom Yahoo
+2)Insert into database
 
 
 
@@ -132,7 +132,187 @@ todo
 
 15/04/2017
 
+John 
+
+done:
+1)Parsing is done
+2)Insert into database is not implemented yet.
+
+
+
+todo
+1)Find sql query which will help to check if record exists
+
+
+Gregory
+1)Insert is implemented(Partially)
+2)
+
+
+
+todo
+1)Find sql query which will help to check if record exists
+2)Try to figure out why ON DUPLICATE KEY is not working
+
+
+
+////////////////////////////////
+
+16/04/2017
+
+done:
+John / Gregory
+1)SQL query still not working properly
+
+todo
+
+John / Gregory
+1)Find sql query which will help to check if record exists
+2)Try to figure out why ON DUPLICATE KEY is not working
+
+
+
+///////////////////////////////////
+17/04/2017
+
+
+16/04/2017
+
+done:
+John / Gregory
+1)SQL query still not working - Not cheking if record exists 
+
+todo
+
+John / Gregory
+1)Find sql query which will help to check if record exists
+2)Try to figure out why ON DUPLICATE KEY is not working
+
+17/04/2017
+
+john
+
+done
+1)read multiple articles on ON DUPLICATE KEY
+2)Tried other way to solve proble but it is bot working
+
+
+todo
+
+1)Speak with a teacher about our propblem
+2) CHange design a bit
+
+
+Gregory
+
+done
+1)read multiple articles on ON DUPLICATE KEY
+2)Tried other way to solve proble but it is bot working
+3)Tried To get a boolean from database and depending on the resutl run spesific query - didnt work
+
+todo
+
+1)Speak with a teacher about our propblem
+2)Try to implement sujested solution
+
+
+//////////////////////////////////
+
+18/04/2017
+
+
+John
+
+done
+1)teacher sujested solution
+2)Solution was partialy implemented
+3)We run into multiple problems with NULL values
+
+todo
+1) Fix Problem with NULL values
+2) Display all stock in a list
+
+
+
+
+Gregory
+
+done
+1)Teachers solution was implemented
+2)We run into multiple problems with NULL values
+3)If all values are filled user can see stock
+4)Update works properly
+
+
+
+todo
+1)Solve problem with null values
+2)Show null values in a list and
+3)Implement buy function
+4)User infor must be updated on login
+
+
+//////////////////////////////////////////
+19/04/2017
+
+John
+
+1) Null values cannot be shown in a list
+2)Stock is displayed in a list
+
+
+todo
+1)ASk teacher to help with NULL values
+2)Read about chart libraries
+
+
+
+Gregory
+
+Done:
+
+1)Problem with null values solved
+2)User infois beigh updated on login
+3)No succes in showing null values in a list
+
+
+todo
+1)Implement buy Function
+2)Write queries for buy function
+
+
+/////////////////////////////////////////
+20/04/2017
+
+John
 done:
 1)
+2)
+
+Todo
+1) Read about charts
+2) Find multiple libraries suitable for building graphs 
+3) Find API with historical Stock values
+
+
+
+Gregory
+
+done:
+1) Buy is partially implemented
+2)Some logical problems were discovered and must be fixed
+
+
+todo
+1) Ask teacher about How to show null values in a a list
+2) Finish buy function
+3) Implement calculation for net value depending on current price of stock
+
+
+
+
+
+
+
 
 
