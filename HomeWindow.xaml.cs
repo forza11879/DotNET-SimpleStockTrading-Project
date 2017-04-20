@@ -32,7 +32,7 @@ namespace TradingApp
             GetListOfStocksFromYahoo();
             RefreshStockList();
             UpdatePortfolioInfo();
-            GetListOfHistoricalStockFromYahoo();
+            //GetListOfHistoricalStockFromYahoo();
             btnBuy.IsEnabled = false;
             btnSell.IsEnabled = false;
 
@@ -45,11 +45,12 @@ namespace TradingApp
             try
             {
                 lvStockQuotesList.ItemsSource = Globals.db.GetAllStockPricesFromDatabase();
-            } catch (InvalidCastException e)
+            }
+            catch (InvalidCastException e)
             {
                 MessageBox.Show("Error showing record in a list: " + e.Message, "Confirmation", MessageBoxButton.OK);
             }
-            
+
         }
 
         private void GetListOfStocksFromYahoo()
@@ -110,18 +111,30 @@ namespace TradingApp
 
         }
 
-        private void GetListOfHistoricalStockFromYahoo() {
+        private void GetListOfHistoricalStockFromYahoo()
+        {
 
-           List data = QuotesHistoryLoader.LoadQuotesHistory("C", 1962);
+            List<QuotesHistory> quoteHistoryList = QuotesHistoryLoader.LoadQuotesHistory("AAPL", 1962);
+            
 
-            foreach (QuotesHistory stockHistory in data)
+            try
             {
 
-                Globals.db.AddQuotesHistoryTable(stockHistory);
+                foreach (QuotesHistory stockHistory in quoteHistoryList)
+                {
+
+                    Globals.db.AddQuotesHistoryTable(stockHistory);
+                }
+
+
             }
-
-
+            catch (NullReferenceException e)
+            {
+                Console.Write(e.StackTrace);
+            }
         }
+
+        
 
         private void lvStockQuotesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -154,15 +167,15 @@ namespace TradingApp
 
                 if (SymbolStringLIstOwnedByUser.Contains(SelectedStock.Symbol, StringComparer.OrdinalIgnoreCase))
                 {
-                //adds transaction record and updates cash in portfolio
-                Globals.db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                    //adds transaction record and updates cash in portfolio
+                    Globals.db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
 
-                //adds stock into users portfolio
-                Globals.db.AddPortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                    //adds stock into users portfolio
+                    Globals.db.AddPortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
 
                 }
                 else
-                {  
+                {
                     //adds transaction record and updates cash in portfolio
                     Globals.db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
 
@@ -185,14 +198,14 @@ namespace TradingApp
 
 
 
-                
+
 
             }
             else
             {
                 MessageBox.Show("Invalid Qty", "Confirmation", MessageBoxButton.OK);
             }
-            
+
 
 
 
