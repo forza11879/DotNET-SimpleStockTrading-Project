@@ -73,7 +73,7 @@ namespace TradingApp
 
 
             // this part is cheking if record already exists in database
-            // if exists it updates recird
+            // if exists it updates record
             // if not it adds new record
             try
             {
@@ -142,16 +142,49 @@ namespace TradingApp
         {
             int Quantity;
 
+            // this part is cheking if record already exists in database
+            // if exists it updates record
+            // if not it adds new record
+
             if (int.TryParse(tbQuantity.Text, out Quantity))
             {
-
-
                 StockDb SelectedStock = (StockDb)lvStockQuotesList.SelectedItem;
+                List<String> SymbolStringLIstOwnedByUser = new List<String>();
 
+
+                if (SymbolStringLIstOwnedByUser.Contains(SelectedStock.Symbol, StringComparer.OrdinalIgnoreCase))
+                {
+                //adds transaction record and updates cash in portfolio
                 Globals.db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
+
+                //adds stock into users portfolio
+                Globals.db.AddPortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
+
+                }
+                else
+                {  
+                    //adds transaction record and updates cash in portfolio
+                    Globals.db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
+
+                    //updates stock volume and average price in portfolio
+                    //NOT IMPLEMENTED YET
+
+
+                }
+
+
+
+
+
+
                 tbQuantity.Text = "";
                 UpdatePortfolioInfo();
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
+
+
+
+
+
                 
 
             }

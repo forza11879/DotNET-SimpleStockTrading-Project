@@ -192,16 +192,106 @@ namespace TradingApp
             cmdUpdate.Parameters.Add("@Cash", SqlDbType.Money).Value = p.Cash - (s.Ask * quantity);
             cmdUpdate.ExecuteNonQuery();
 
+        }
+
+        public void AddToPortfolioStock(Portfolio p, StockDb s, int quantity)
+        {
             string sqlAddToPortfolioStock = "INSERT INTO PortfolioStock (Symbol, GameID, NumberOfSharesOwned, AveragePurchasePrice)" +
-                "Values (@Symbol, @GameID, @NumberOfSharesOwned, @AveragePurchasePrice)";
+    "Values (@Symbol, @GameID, @NumberOfSharesOwned, @AveragePurchasePrice)";
 
             SqlCommand cmdInsertStock = new SqlCommand(sqlAddToPortfolioStock, conn);
             cmdInsertStock.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
             cmdInsertStock.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
             cmdInsertStock.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = quantity;
-            cmdInsertStock.Parameters.Add("@Ask", SqlDbType.Money).Value = s.Ask;
-            cmdUpdate.ExecuteNonQuery();
+            cmdInsertStock.Parameters.Add("@AveragePurchasePrice", SqlDbType.Money).Value = s.Ask;
+            cmdInsertStock.ExecuteNonQuery();
 
+        }
+
+        public void AddPortfolioStock(Portfolio p, StockDb s, int quantity)
+        {
+            string sqlAddToPortfolioStock = "INSERT INTO PortfolioStock (Symbol, GameID, NumberOfSharesOwned, AveragePurchasePrice)" +
+    "Values (@Symbol, @GameID, @NumberOfSharesOwned, @AveragePurchasePrice)";
+
+            SqlCommand cmdInsertStock = new SqlCommand(sqlAddToPortfolioStock, conn);
+            cmdInsertStock.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
+            cmdInsertStock.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
+            cmdInsertStock.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = quantity;
+            cmdInsertStock.Parameters.Add("@AveragePurchasePrice", SqlDbType.Money).Value = s.Ask;
+            cmdInsertStock.ExecuteNonQuery();
+
+        }
+
+        public void UpdatePortfolioStock(Portfolio p, StockDb s, int quantity)
+        {
+
+            string sqlGetVolumePrice = "Select NumberOfSharesOwned, AveragePurchasePrice From PortfolioStock where Symbol='@Symbol'";
+            int finalQty;
+            decimal newAverage;
+
+
+            SqlCommand cmdGetVolumePrice = new SqlCommand(sqlGetVolumePrice, conn);
+            SqlDataReader rd = cmdGetVolumePrice.ExecuteReader();
+
+
+             
+            if (rd.HasRows)
+            {
+                rd.Read(); // read first row
+
+                var quantityDB = rd.GetInt32(0);
+                var priceDB = rd.GetDecimal(1);
+                finalQty = quantityDB + quantity;
+
+                newAverage = ((quantityDB * priceDB) + (quantity * s.Ask))/ finalQty;
+
+
+            }
+
+
+            
+
+
+
+
+
+
+
+            string sqlAddToPortfolioStock = "INSERT INTO PortfolioStock (Symbol, GameID, NumberOfSharesOwned, AveragePurchasePrice)" +
+    "Values (@Symbol, @GameID, @NumberOfSharesOwned, @AveragePurchasePrice)";
+
+            SqlCommand cmdInsertStock = new SqlCommand(sqlAddToPortfolioStock, conn);
+            cmdInsertStock.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
+            cmdInsertStock.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
+            cmdInsertStock.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = quantity;
+            cmdInsertStock.Parameters.Add("@AveragePurchasePrice", SqlDbType.Money).Value = s.Ask;
+            cmdInsertStock.ExecuteNonQuery();
+
+
+
+
+        }
+
+
+
+
+        public List<String> GetAllStockOwnedByUser(Portfolio p)
+        {
+            List<String> result = new List<String>();
+
+            String sqlGetAllStockOwnedByUser = "SELECT Symbol FROM StockQuotesTable WHERE GameID = @GameID";
+            SqlCommand cmdInsertStock = new SqlCommand(sqlGetAllStockOwnedByUser, conn);
+            cmdInsertStock.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
+
+            using (SqlDataReader reader = cmdInsertStock.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    result.Add(reader.GetString(0));
+                }
+            }
+
+            return result;
         }
 
 
