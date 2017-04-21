@@ -30,7 +30,6 @@ namespace TradingApp
                 s.StockID = 12;
                 try
                 {
-                    //s.Symbol = Convert.ToString(cols[0]).TrimStart('"');
                     s.Symbol = Convert.ToString(cols[0]).Trim('"');
                     s.Name = Convert.ToString(cols[1]).Trim('"');
                     s.Bid = (cols[2].ToUpper().Contains("N/A")) ? (decimal?)null : Convert.ToDecimal(cols[2]);
