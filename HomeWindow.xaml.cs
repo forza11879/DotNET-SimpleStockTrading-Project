@@ -53,6 +53,10 @@ namespace TradingApp
 
         }
 
+
+
+
+        
         private void GetListOfStocksFromYahoo()
         {
             string csvData;
@@ -105,9 +109,6 @@ namespace TradingApp
             {
                 Console.Write(e.StackTrace);
             }
-
-
-
 
         }
 
@@ -163,7 +164,7 @@ namespace TradingApp
             {
                 StockDb SelectedStock = (StockDb)lvStockQuotesList.SelectedItem;
                 List<String> SymbolStringLIstOwnedByUser = new List<String>();
-
+                SymbolStringLIstOwnedByUser = Globals.db.GetAllStockOwnedByUser(Globals.SelectedPortfolio);
 
                 if (SymbolStringLIstOwnedByUser.Contains(SelectedStock.Symbol, StringComparer.OrdinalIgnoreCase))
                 {
@@ -171,7 +172,7 @@ namespace TradingApp
                     Globals.db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
 
                     //adds stock into users portfolio
-                    Globals.db.AddPortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                    Globals.db.UpdatePortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
 
                 }
                 else
@@ -180,24 +181,15 @@ namespace TradingApp
                     Globals.db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
 
                     //updates stock volume and average price in portfolio
-                    //NOT IMPLEMENTED YET
+                    Globals.db.AddPortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
 
 
                 }
 
 
-
-
-
-
                 tbQuantity.Text = "";
                 UpdatePortfolioInfo();
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
-
-
-
-
-
 
 
             }
