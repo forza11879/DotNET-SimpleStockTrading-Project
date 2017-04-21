@@ -152,6 +152,16 @@ namespace TradingApp
         }
 
 
+        public void DelteAllRecordWhereQtyIsZeroFromPortfolio ()
+        {
+
+            string sql = "Delete * FROM PortfolioStock Where NumberOfSharesOwned=0";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.ExecuteNonQuery(); 
+
+        }
+
+
 
         //Method updates record if it already exists in database
         public void UpdateStockToStockTable(YahooStock s)
@@ -233,26 +243,20 @@ namespace TradingApp
         }
 
         public void UpdatePortfolioStock(Portfolio p, StockDb s, int quantity)
-        {       Console.Write("HEREHEREHEREHRE");
-            //
-            string sqlGetVolumePrice = "Select NumberOfSharesOwned, AveragePurchasePrice From PortfolioStock where Symbol='@Symbol' AND GameID=@GameID";
+        {       
+
+            string sqlGetVolumePrice = "SELECT NumberOfSharesOwned, AveragePurchasePrice FROM PortfolioStock WHERE Symbol=@Symbol AND GameID=@GameID";
 
 
             int finalQty;
             decimal newAverage;
 
+            
 
             SqlCommand cmdGetVolumePrice = new SqlCommand(sqlGetVolumePrice, conn);
             cmdGetVolumePrice.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
             cmdGetVolumePrice.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
 
-            //using(SqlDataReader reader = cmdInsertStock.ExecuteReader())
-            //{
-            //    while (reader.Read())
-            //    {
-            //        result.Add(reader.GetString(0));
-            //    }
-            //}
 
 
             int quantityDB;
@@ -261,36 +265,36 @@ namespace TradingApp
             // this part is needed to convert decimal? to decimal
             decimal askPrice = (decimal)s.Ask;
             using (SqlDataReader rd = cmdGetVolumePrice.ExecuteReader())
-            
-                while (rd.Read())
-                {
-                quantityDB = rd.GetInt32(0);
-                priceDB = rd.GetDecimal(1);
+            {
 
-                    
 
-                    decimal DatabaseTotalPrice = priceDB * quantityDB;
-
-                    decimal NewTotalPrice = quantity * askPrice;
-
-                    finalQty = quantityDB + quantity;
-                    newAverage = (DatabaseTotalPrice + NewTotalPrice) / finalQty;
+                quantityDB = (int)rd["NumberOfSharesOwned"];
+                priceDB = (decimal)rd["AveragePurchasePrice"];
 
 
 
-                    // now lets update averagePrice and qty
+                decimal DatabaseTotalPrice = priceDB * quantityDB;
 
-                    string sqlAddToPortfolioStock = "UPDATE PortfolioStock SET NumberOfSHaresOWned=@NumberOfSHaresOWned, AveragePurchasePrice=@AveragePurchasePrice" +
-                        "WHERE Symbol=@Symbol AND GameID=@GameID";
+                decimal NewTotalPrice = quantity * askPrice;
 
-                    SqlCommand cmdUpdate = new SqlCommand(sqlAddToPortfolioStock, conn);
-                    cmdUpdate.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
-                    cmdUpdate.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
-                    cmdUpdate.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = finalQty;
-                    cmdUpdate.Parameters.Add("@AveragePurchasePrice", SqlDbType.Money).Value = newAverage;
-                    cmdUpdate.ExecuteNonQuery();
+                finalQty = quantityDB + quantity;
+                newAverage = (DatabaseTotalPrice + NewTotalPrice) / finalQty;
 
-                }
+
+
+                // now lets update averagePrice and qty
+
+                string sqlAddToPortfolioStock = "UPDATE PortfolioStock SET NumberOfSHaresOWned=@NumberOfSHaresOWned, AveragePurchasePrice=@AveragePurchasePrice" +
+                    "WHERE Symbol=@Symbol AND GameID=@GameID";
+
+                SqlCommand cmdUpdate = new SqlCommand(sqlAddToPortfolioStock, conn);
+                cmdUpdate.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
+                cmdUpdate.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
+                cmdUpdate.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = finalQty;
+                cmdUpdate.Parameters.Add("@AveragePurchasePrice", SqlDbType.Money).Value = newAverage;
+                cmdUpdate.ExecuteNonQuery();
+
+            }
             Console.Write("END");
 
         }
@@ -318,6 +322,9 @@ namespace TradingApp
         }
 
     }
+
+
+
 
 
 

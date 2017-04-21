@@ -310,6 +310,28 @@ todo
 
 
 
+///////////////////////////////////////
+21/04/2017
+
+done:
+
+1) Historical data were parced
+2) Historical data were added to database
+3)Read about chart librarries
+
+
+todo:
+1) Working on building charts
+2)Keep looking for suitable library
+3)Fixing design problems
+
+
+Gregory
+
+done:
+1)Buy btn is now cheking if record already exist (still need to fix opne problem with sql query)
+2)Null problem is back again and not fixed
+3)
 
 
 
