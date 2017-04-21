@@ -28,7 +28,7 @@ namespace TradingApp
         public HomeWindow()
         {
             InitializeComponent();
-            Globals.db = new Database();
+            
             GetListOfStocksFromYahoo();
             RefreshStockList();
             UpdatePortfolioInfo();
@@ -44,7 +44,7 @@ namespace TradingApp
         {
             try
             {
-                lvStockQuotesList.ItemsSource = Globals.db.GetAllStockPricesFromDatabase();
+                lvStockQuotesList.ItemsSource = Globals.Db.GetAllStockPricesFromDatabase();
             }
             catch (InvalidCastException e)
             {
@@ -73,7 +73,7 @@ namespace TradingApp
 
             //List of Stocks from database
             List<String> SymbolStringLIst = new List<String>();
-            SymbolStringLIst = Globals.db.GetAllSymbolsFromDatabase();
+            SymbolStringLIst = Globals.Db.GetAllSymbolsFromDatabase();
 
 
 
@@ -88,11 +88,11 @@ namespace TradingApp
                     {
                         if (SymbolStringLIst.Contains(stock.Symbol, StringComparer.OrdinalIgnoreCase))
                         {
-                            Globals.db.UpdateStockToStockTable(stock);
+                            Globals.Db.UpdateStockToStockTable(stock);
                         }
                         else
                         {
-                            Globals.db.AddStockToStockTable(stock);
+                            Globals.Db.AddStockToStockTable(stock);
 
                         }
                     }
@@ -115,16 +115,16 @@ namespace TradingApp
         private void GetListOfHistoricalStockFromYahoo()
         {
 
-            List<QuotesHistory> quoteHistoryList = QuotesHistoryLoader.LoadQuotesHistory("AAPL", 1962);
+            List<Entities.QuotesHistory> quoteHistoryList = Entities.QuotesHistoryLoader.LoadQuotesHistory("AAPL", 1962);
             
 
             try
             {
 
-                foreach (QuotesHistory stockHistory in quoteHistoryList)
+                foreach (Entities.QuotesHistory stockHistory in quoteHistoryList)
                 {
 
-                    Globals.db.AddQuotesHistoryTable(stockHistory);
+                    Globals.Db.AddQuotesHistoryTable(stockHistory);
                 }
 
 
@@ -162,26 +162,26 @@ namespace TradingApp
 
             if (int.TryParse(tbQuantity.Text, out Quantity))
             {
-                StockDb SelectedStock = (StockDb)lvStockQuotesList.SelectedItem;
+                Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
                 List<String> SymbolStringLIstOwnedByUser = new List<String>();
-                SymbolStringLIstOwnedByUser = Globals.db.GetAllStockOwnedByUser(Globals.SelectedPortfolio);
+                SymbolStringLIstOwnedByUser = Globals.Db.GetAllStockOwnedByUser(Globals.SelectedPortfolio);
 
                 if (SymbolStringLIstOwnedByUser.Contains(SelectedStock.Symbol, StringComparer.OrdinalIgnoreCase))
                 {
                     //adds transaction record and updates cash in portfolio
-                    Globals.db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                    Globals.Db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
 
                     //adds stock into users portfolio
-                    Globals.db.UpdatePortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                    Globals.Db.UpdatePortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
 
                 }
                 else
                 {
                     //adds transaction record and updates cash in portfolio
-                    Globals.db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                    Globals.Db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
 
                     //updates stock volume and average price in portfolio
-                    Globals.db.AddPortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                    Globals.Db.AddPortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
 
 
                 }

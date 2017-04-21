@@ -8,11 +8,11 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingApp
+namespace TradingApp.Model
 {
     class Database
     {
-        private SqlConnection conn;
+        public SqlConnection conn;
 
 
 
@@ -24,33 +24,13 @@ namespace TradingApp
         }
 
 
-        public List<Portfolio> GetAllPortfolios()
-        {
-            List<Portfolio> result = new List<Portfolio>();
-
-            using (SqlCommand command = new SqlCommand("SELECT * FROM Portfolio", conn))
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    int id = (int)reader["portfolioId"];
-                    string name = (string)reader["Name"];
-                    string email = (string)reader["Email"];
-                    decimal cash = (decimal)reader["Cash"];
-                    decimal net = (decimal)reader["Net"];
-                    decimal balance = (decimal)reader["Balance"];
-                    Portfolio p = new Portfolio(id, name, email, cash, net, balance);
-                    result.Add(p);
-                }
-            }
-            return result;
         }
 
 
 
-       public List<StockDb> GetAllStockPricesFromDatabase()
+        public List<Entities.StockDb> GetAllStockPricesFromDatabase()
         {
-            List<StockDb> result = new List<StockDb>();
+            List<Entities.StockDb> result = new List<Entities.StockDb>();
 
             using (SqlCommand command = new SqlCommand("SELECT * FROM StockQuotesTable", conn))
             using (SqlDataReader reader = command.ExecuteReader())
@@ -70,7 +50,7 @@ namespace TradingApp
                     int volume = (int)reader["Volume"];
                     decimal high52 = (decimal)reader["High52"];
                     decimal low52 = (decimal)reader["Low52"];
-                    StockDb s = new StockDb(id, symbol, name, bid, ask, open, previousClose, lastTrade, high, low, volume, high52, low52);
+                    Entities.StockDb s = new Entities.StockDb(id, symbol, name, bid, ask, open, previousClose, lastTrade, high, low, volume, high52, low52);
                     result.Add(s);
                 }
             }
@@ -122,7 +102,8 @@ namespace TradingApp
             cmd.ExecuteNonQuery();
         }
 
-        public void AddQuotesHistoryTable(QuotesHistory qh) {
+        public void AddQuotesHistoryTable(Entities.QuotesHistory qh)
+        {
 
             string sql = "INSERT INTO QoutesHistory (Date, OpeningPrice, High, Low, ClosingPrice, Volume, AdjClose)"
                         + "VALUES (@Date, @OpeningPrice, @High, @Low, @ClosingPrice, @Volume, @AdjClose)";
@@ -149,6 +130,16 @@ namespace TradingApp
 
                 cmd.ExecuteNonQuery();
             }
+        }
+
+
+        public void DelteAllRecordWhereQtyIsZeroFromPortfolio()
+        {
+
+            string sql = "Delete * FROM PortfolioStock Where NumberOfSharesOwned=0";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+
         }
 
 
@@ -179,7 +170,7 @@ namespace TradingApp
 
 
         ////Adding a transaction buy
-        public void AddBuyTransaction(Portfolio p, StockDb s, int quantity)
+        public void AddBuyTransaction(Entities.Portfolio p, Entities.StockDb s, int quantity)
         {
 
             string sqlBuy = "INSERT INTO Transactions (PortfolioId, Type, Symbol, BuySellPrice, SharesBoughtSold, Date)"
@@ -204,7 +195,7 @@ namespace TradingApp
 
         }
 
-        public void AddToPortfolioStock(Portfolio p, StockDb s, int quantity)
+        public void AddToPortfolioStock(Entities.Portfolio p, Entities.StockDb s, int quantity)
         {
             string sqlAddToPortfolioStock = "INSERT INTO PortfolioStock (Symbol, GameID, NumberOfSharesOwned, AveragePurchasePrice)" +
     "Values (@Symbol, @GameID, @NumberOfSharesOwned, @AveragePurchasePrice)";
@@ -218,7 +209,7 @@ namespace TradingApp
 
         }
 
-        public void AddPortfolioStock(Portfolio p, StockDb s, int quantity)
+        public void AddPortfolioStock(Entities.Portfolio p, Entities.StockDb s, int quantity)
         {
             string sqlAddToPortfolioStock = "INSERT INTO PortfolioStock (Symbol, GameID, NumberOfSharesOwned, AveragePurchasePrice)" +
     "Values (@Symbol, @GameID, @NumberOfSharesOwned, @AveragePurchasePrice)";
@@ -232,20 +223,22 @@ namespace TradingApp
 
         }
 
-        public void UpdatePortfolioStock(Portfolio p, StockDb s, int quantity)
-        {       Console.Write("HEREHEREHEREHRE");
-            //
-            string sqlGetVolumePrice = "Select NumberOfSharesOwned, AveragePurchasePrice From PortfolioStock where Symbol='@Symbol' AND GameID=@GameID";
+        public void UpdatePortfolioStock(Entities.Portfolio p, Entities.StockDb s, int quantity)
+        {
+
+            string sqlGetVolumePrice = "SELECT NumberOfSharesOwned, AveragePurchasePrice FROM PortfolioStock WHERE Symbol='MSFT' AND GameID=1";
 
 
             int finalQty;
             decimal newAverage;
 
 
+
             SqlCommand cmdGetVolumePrice = new SqlCommand(sqlGetVolumePrice, conn);
-            cmdGetVolumePrice.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
+            cmdGetVolumePrice.Parameters.Add("@Symbol", SqlDbType.NVarChar).Value = s.Symbol;
             cmdGetVolumePrice.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
 
+<<<<<<< HEAD:Database.cs
 
             //using(SqlDataReader reader = cmdInsertStock.ExecuteReader())
             //{
@@ -254,6 +247,8 @@ namespace TradingApp
             //        result.Add(reader.GetString(0));
             //    }
             //}
+=======
+>>>>>>> cdd57e73d7f3adea70bb640f6e37c01127e28b60:Model/Database.cs
 
 
             int quantityDB;
@@ -262,36 +257,36 @@ namespace TradingApp
             // this part is needed to convert decimal? to decimal
             decimal askPrice = (decimal)s.Ask;
             using (SqlDataReader rd = cmdGetVolumePrice.ExecuteReader())
-            
-                while (rd.Read())
-                {
-                quantityDB = rd.GetInt32(0);
-                priceDB = rd.GetDecimal(1);
+            {
+                rd.NextResult();
 
-                    
-
-                    decimal DatabaseTotalPrice = priceDB * quantityDB;
-
-                    decimal NewTotalPrice = quantity * askPrice;
-
-                    finalQty = quantityDB + quantity;
-                    newAverage = (DatabaseTotalPrice + NewTotalPrice) / finalQty;
+                quantityDB = (int)rd["NumberOfSharesOwned"];
+                priceDB = (decimal)rd["AveragePurchasePrice"];
 
 
 
-                    // now lets update averagePrice and qty
+                decimal DatabaseTotalPrice = priceDB * quantityDB;
 
-                    string sqlAddToPortfolioStock = "UPDATE PortfolioStock SET NumberOfSHaresOWned=@NumberOfSHaresOWned, AveragePurchasePrice=@AveragePurchasePrice" +
-                        "WHERE Symbol=@Symbol AND GameID=@GameID";
+                decimal NewTotalPrice = quantity * askPrice;
 
-                    SqlCommand cmdUpdate = new SqlCommand(sqlAddToPortfolioStock, conn);
-                    cmdUpdate.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
-                    cmdUpdate.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
-                    cmdUpdate.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = finalQty;
-                    cmdUpdate.Parameters.Add("@AveragePurchasePrice", SqlDbType.Money).Value = newAverage;
-                    cmdUpdate.ExecuteNonQuery();
+                finalQty = quantityDB + quantity;
+                newAverage = (DatabaseTotalPrice + NewTotalPrice) / finalQty;
 
-                }
+
+
+                // now lets update averagePrice and qty
+
+                string sqlAddToPortfolioStock = "UPDATE PortfolioStock SET NumberOfSHaresOWned=@NumberOfSHaresOWned, AveragePurchasePrice=@AveragePurchasePrice" +
+                    "WHERE Symbol=@Symbol AND GameID=@GameID";
+
+                SqlCommand cmdUpdate = new SqlCommand(sqlAddToPortfolioStock, conn);
+                cmdUpdate.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
+                cmdUpdate.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
+                cmdUpdate.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = finalQty;
+                cmdUpdate.Parameters.Add("@AveragePurchasePrice", SqlDbType.Money).Value = newAverage;
+                cmdUpdate.ExecuteNonQuery();
+
+            }
             Console.Write("END");
 
         }
@@ -299,7 +294,7 @@ namespace TradingApp
 
 
 
-        public List<String> GetAllStockOwnedByUser(Portfolio p)
+        public List<String> GetAllStockOwnedByUser(Entities.Portfolio p)
         {
             List<String> result = new List<String>();
 
@@ -319,6 +314,9 @@ namespace TradingApp
         }
 
     }
+
+
+
 
 
 

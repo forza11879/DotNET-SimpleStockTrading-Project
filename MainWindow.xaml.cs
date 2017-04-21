@@ -23,21 +23,21 @@ namespace TradingApp
         public MainWindow()
         {
             InitializeComponent();
-            Globals.db = new Database(); // FIXME handle exception and show dialog
+           // Globals.Db = new Database(); // FIXME handle exception and show dialog
             RefreshPortfolios();
         }
 
         // Lets get all Portfolios from database
         private void RefreshPortfolios()
         {
-            lvPortfolios.ItemsSource = Globals.db.GetAllPortfolios();
+            lvPortfolios.ItemsSource = Model.DBA_Portfolio.GetAll();
         }
 
         private void lvPortfolios_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
             //getting selected object from ListView
-           Globals.SelectedPortfolio = (Portfolio)lvPortfolios.SelectedItem;
+           Globals.SelectedPortfolio = (Entities.Portfolio)lvPortfolios.SelectedItem;
 
             //assigning needed info from selected objcet to labels
 
@@ -59,7 +59,7 @@ namespace TradingApp
 
                 if (lvPortfolios.SelectedIndex >= 0)
                            {
-                Globals.SelectedPortfolio = (Portfolio)lvPortfolios.SelectedItem;
+                Globals.SelectedPortfolio = (Entities.Portfolio)lvPortfolios.SelectedItem;
                 HomeWindow win2 = new HomeWindow();
                 win2.Show();
                           }

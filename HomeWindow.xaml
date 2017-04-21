@@ -73,7 +73,50 @@
                                 <Grid>
                                     <TabControl x:Name="OrderAndPositionTabControl" SelectedIndex="{Binding Path=TabControlSelectedIndex, Mode=TwoWay}">
                                         <TabItem Header="Positions">
-                                            <DataGrid Name="dgOrder"  ItemsSource="{Binding Path=OrderTable}" SelectedIndex="{Binding SelectedOrderIndex}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"></DataGrid>
+                                            <ContentControl>
+                                                <Grid>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <ListView x:Name="lvStockQuotesList1"  RenderTransformOrigin="0.5,0.5"  SelectionChanged="lvStockQuotesList_SelectionChanged">
+                                                            <!--SelectionChanged="lvStockQuotesList_SelectionChanged" -->
+                                                            <ListView.RenderTransform>
+                                                                <TransformGroup>
+                                                                    <ScaleTransform/>
+                                                                    <SkewTransform AngleY="0.087"/>
+                                                                    <RotateTransform/>
+                                                                    <TranslateTransform Y="0.598"/>
+                                                                </TransformGroup>
+                                                            </ListView.RenderTransform>
+
+                                                            <!--Bind Item-->
+                                                            <ListView.View>
+                                                                <GridView>
+                                                                    <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding StockID}"/>
+                                                                    <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
+                                                                    <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}"/>
+                                                                    <GridViewColumn Header="Bid" Width="55"  DisplayMemberBinding="{Binding Bid, TargetNullValue=N/A}" />
+                                                                    <GridViewColumn Header="Ask" Width="55" DisplayMemberBinding="{Binding Ask, TargetNullValue=N/A}"/>
+                                                                    <GridViewColumn Header="Open" Width="55" DisplayMemberBinding="{Binding Open, TargetNullValue=N/A}"/>
+                                                                    <GridViewColumn Header="Previous Close" Width="120" DisplayMemberBinding="{Binding PreviousClose, TargetNullValue=N/A}"/>
+                                                                    <GridViewColumn Header="Last Trade" Width="120" DisplayMemberBinding="{Binding LastTrade, TargetNullValue=N/A}"/>
+                                                                    <GridViewColumn Header="Volume" Width="120" DisplayMemberBinding="{Binding Volume, TargetNullValue=N/A}"/>
+                                                                    <GridViewColumn Header="High" Width="120" DisplayMemberBinding="{Binding High, TargetNullValue=N/A}"/>
+                                                                    <GridViewColumn Header="Low" Width="120" DisplayMemberBinding="{Binding Low, TargetNullValue=N/A}"/>
+                                                                    <GridViewColumn Header="52High" Width="120" DisplayMemberBinding="{Binding High52, TargetNullValue=N/A}"/>
+                                                                    <GridViewColumn Header="52Low" Width="120" DisplayMemberBinding="{Binding Low52, TargetNullValue=N/A}"/>
+                                                                </GridView>
+
+                                                            </ListView.View>
+                                                        </ListView>
+
+                                                    </StackPanel>
+                                                </Grid>
+                                            </ContentControl>
+
+
+                                            <!--<DataGrid Name="dgOrder"  ItemsSource="{Binding Path=OrderTable}" SelectedIndex="{Binding SelectedOrderIndex}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False">
+                                                
+                                            </DataGrid>-->
+                                            
                                         </TabItem>
                                         <TabItem Header="Fills">
                                             <DataGrid Name="dgFill"  ItemsSource="{Binding Path=FillTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"></DataGrid>

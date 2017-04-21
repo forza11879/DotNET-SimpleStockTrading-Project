@@ -54,16 +54,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Database.cs" />
+    <Compile Include="Model\Database.cs" />
+    <Compile Include="Model\DBA_Portfolio.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PortfolioStock.cs" />
-    <Compile Include="QuotesHistory.cs" />
-    <Compile Include="StockDb.cs" />
+    <Compile Include="Entities\PortfolioStock.cs" />
+    <Compile Include="Entities\QuotesHistory.cs" />
+    <Compile Include="Entities\StockDb.cs" />
     <Compile Include="YahooStock.cs" />
-    <Compile Include="Transaction.cs" />
+    <Compile Include="Entities\Transaction.cs" />
     <Compile Include="YahooFinance.cs" />
     <Page Include="HomeWindow.xaml">
       <SubType>Designer</SubType>
@@ -83,7 +84,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Portfolio.cs" />
+    <Compile Include="Entities\Portfolio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
