@@ -246,6 +246,7 @@ namespace TradingApp
             cmdGetVolumePrice.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
             cmdGetVolumePrice.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
 
+
             //using(SqlDataReader reader = cmdInsertStock.ExecuteReader())
             //{
             //    while (reader.Read())
