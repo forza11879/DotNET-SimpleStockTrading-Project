@@ -8,8 +8,20 @@ namespace TradingApp
 {
     class Globals
     {
-        public static Database db;
-        public static Portfolio SelectedPortfolio;
+        private static Model.Database _db;
+        public static Model.Database Db
+        {
+            get
+            {
+                if (_db == null)
+                {
+                    _db = new Model.Database();
+
+                }
+                return _db;
+            }
+        }
+        public static Entities.Portfolio SelectedPortfolio;
 
     }
 }
