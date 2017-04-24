@@ -219,7 +219,7 @@ namespace TradingApp
             }
 
 
-
+            RefreshStockOwnedByPortfolio();
 
 
 
