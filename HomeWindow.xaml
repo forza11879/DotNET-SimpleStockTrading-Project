@@ -133,8 +133,7 @@
                                                 </Grid>
                                             </ContentControl>
 
-                                            </DataGrid>-
-                                            </Grid>
+                                            
                                         </TabItem>
                                         <TabItem Header="Fills">
                                             <DataGrid x:Name="dgFill"  ItemsSource="{Binding FillTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
@@ -145,8 +144,6 @@
                                         <TabItem Header="Result">
                                             <DataGrid x:Name="dgResult"  ItemsSource="{Binding ResultTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
                                         </TabItem>
-
-
 
                                     </TabControl>
                                 </DockPanel>
@@ -159,7 +156,7 @@
 
                     <GridSplitter Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Width="5" Background="#FFBCBCBC"/>
 
-                    <!-- Right Side -->
+                     <!--Right Side--> 
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="55*"/>
@@ -167,8 +164,7 @@
                             <RowDefinition Height="45*"/>
 
                         </Grid.RowDefinitions>
-                        <!--<ContentControl Grid.Row="0" x:Name="StrategyRegion" prism:RegionManager.RegionName="StrategyRegion"></ContentControl>-->
-                        <ContentControl Grid.Row="0" x:Name="StrategyRegion">
+                        <ContentControl Grid.Row="0" x:Name="BalanceRegion">
                             <StackPanel Orientation="Vertical">
                                 <GroupBox Header="Balance" HorizontalAlignment="Left" Margin="10,10,10,10">
                                     <StackPanel Orientation="Vertical">
@@ -213,7 +209,7 @@
                         </ContentControl>
 
                         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"/>
-                        <!--<ContentControl Grid.Row="2" x:Name="OrderRegion" prism:RegionManager.RegionName="OrderRegion"></ContentControl>-->
+                        
                         <ContentControl Grid.Row="2" x:Name="OrderRegion">
                             <StackPanel Orientation="Vertical">
                                 <GroupBox Header="Place Order" HorizontalAlignment="Left" Margin="10,10,10,10">
@@ -226,18 +222,12 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <Label Content="Quantity" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                            <TextBox x:Name="tbQuantity" Margin="60,10,0,0" Height="30" Width="100"/>
+                                            <TextBox x:Name="tbQuantity" Margin="60,10,0,0" Height="30" Width="100" TextChanged="tbQuantity_TextChanged"/>
 
                                         </StackPanel>
                                         <!--<StackPanel Orientation="Horizontal">
-                                            -->
-                                        <!--<Label Content="OrderType" Margin="10,10,0,0" Height="30" Width="80"  HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <ComboBox Name="cbOrderTypee" Margin="60,10,0,0" Height="30" Width="100" SelectedIndex="{Binding Path=SelectedOrderType}">-->
-                                        <!--
-                                                <ComboBoxItem Content="Market"></ComboBoxItem>
-                                                <ComboBoxItem Content="Limit"></ComboBoxItem>
-                                                <ComboBoxItem Content="Stop"></ComboBoxItem>
-                                            </ComboBox>
+                                            
+                                           
                                         </StackPanel>-->
                                         <StackPanel Orientation="Horizontal">
                                             <GroupBox Header="Price" HorizontalAlignment="Left" Margin="10,20,10,10" Width="230" Height="120">

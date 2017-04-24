@@ -266,8 +266,8 @@ namespace TradingApp
                 List <Entities.StockDb> DatabasePrices= Globals.Db.GetAllStockPricesFromDatabase();
 
 
-                Entities.StockDb stockItem = DatabasePrices.Find(Entities.StockDb.)
-                    //= MyList.Find(item => item.name == "foo").value;
+             //   Entities.StockDb stockItem = DatabasePrices.Find(Entities.StockDb);
+                   
 
 
 
@@ -283,6 +283,11 @@ namespace TradingApp
             }
 
 
+
+        }
+
+        private void tbQuantity_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
         }
     }

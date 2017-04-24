@@ -331,7 +331,31 @@ Gregory
 done:
 1)Buy btn is now cheking if record already exist (still need to fix opne problem with sql query)
 2)Null problem is back again and not fixed
+
+todo:
+
+1)Calculat Balance
+2)Implement sail
+
+////////////////////////////////////
+24/04/2017
+John 
+Done:
+1)Charts partially implemented
+2)Read Articles about different reporting libraries
+
+todo:
+1)Implement Add portfolio
+2)
+
+Gregory:
+done:
+1) sell is partially implemented
+2)labels are showing desirde information
 3)
+
+
+
 
 
 

@@ -63,6 +63,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Database.cs" />
+    <Compile Include="Model\DBA-PortfolioStock.cs" />
     <Compile Include="Model\DBA_Portfolio.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="HomeWindow.xaml.cs">
@@ -71,7 +72,6 @@
     <Compile Include="Entities\PortfolioStock.cs" />
     <Compile Include="Entities\QuotesHistory.cs" />
     <Compile Include="Entities\StockDb.cs" />
-
     <Compile Include="TradingDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
