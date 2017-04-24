@@ -235,29 +235,51 @@ namespace TradingApp.Model
             cmdGetVolumePrice.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
 
 
+<<<<<<< HEAD
+=======
+            int finalQty;
+            int quantityDB;
+            decimal priceDB;
+>>>>>>> c6cff72f074a91154758b0f97f5b7bccfbf921ae
 
             // this part is needed to convert decimal? to decimal
             decimal askPrice = (decimal)s.Ask;
             using (SqlDataReader rd = cmdGetVolumePrice.ExecuteReader())
             {
 
+<<<<<<< HEAD
               while (rd.Read())
                 
+=======
+                while (rd.Read())
+
+>>>>>>> c6cff72f074a91154758b0f97f5b7bccfbf921ae
                 {
                     //rd.NextResult();
 
                     //var quantityDB = (int)rd["NumberOfSharesOwned"];
+<<<<<<< HEAD
                   int quantityDB = Convert.ToInt32(rd["NumberOfSharesOwned"]);
                   decimal priceDB = (decimal)rd["AveragePurchasePrice"];
+=======
+                    quantityDB = Convert.ToInt32(rd["NumberOfSharesOwned"]);
+                    priceDB = (decimal)rd["AveragePurchasePrice"];
+>>>>>>> c6cff72f074a91154758b0f97f5b7bccfbf921ae
 
       
                 decimal DatabaseTotalPrice = priceDB * quantityDB;
 
+<<<<<<< HEAD
                 decimal NewTotalPrice = quantity * askPrice;
+=======
+                    decimal NewTotalPrice = quantity * askPrice;
+
+>>>>>>> c6cff72f074a91154758b0f97f5b7bccfbf921ae
 
                int finalQty = quantityDB + quantity;
                decimal newAverage = (DatabaseTotalPrice + NewTotalPrice) / finalQty;
 
+<<<<<<< HEAD
 
                 
                 } 
@@ -280,6 +302,32 @@ namespace TradingApp.Model
                 cmdUpdate.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
                 cmdUpdate.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = qty;
                 cmdUpdate.Parameters.Add("@AveragePurchasePrice", SqlDbType.Money).Value = averageprice;
+=======
+                    finalQty = quantityDB + quantity;
+                    newAverage = (DatabaseTotalPrice + NewTotalPrice) / finalQty;
+
+                }
+
+
+            }
+            // now lets update averagePrice and qty
+
+            string sqlAddToPortfolioStock = "UPDATE PortfolioStock SET NumberOfSHaresOWned=@NumberOfSHaresOWned, AveragePurchasePrice=@AveragePurchasePrice " +
+                "WHERE Symbol=@Symbol AND GameID=@GameID";
+
+            SqlCommand cmdUpdate = new SqlCommand(sqlAddToPortfolioStock, conn);
+            cmdUpdate.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
+            cmdUpdate.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
+            //cmdUpdate.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = finalQty;
+            //cmdUpdate.Parameters.Add("@AveragePurchasePrice", SqlDbType.Money).Value = newAverage;
+            cmdUpdate.ExecuteNonQuery();
+
+
+
+
+
+            Console.Write("END");
+>>>>>>> c6cff72f074a91154758b0f97f5b7bccfbf921ae
 
             cmdUpdate.ExecuteNonQuery();
         }

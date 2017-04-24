@@ -1,46 +1,65 @@
-﻿<Window x:Class="TradingApp.HomeWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" 
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
         xmlns:local="clr-namespace:TradingApp"
+        xmlns:TradingDBDataSetTableAdapters="clr-namespace:TradingApp.TradingDBDataSetTableAdapters" xmlns:TradingDBDataSet1TableAdapters="clr-namespace:TradingApp.TradingDBDataSet1TableAdapters" x:Class="TradingApp.HomeWindow"
         mc:Ignorable="d"
         Title="HomeWindow" Height="1206" Width="1831" WindowState="Maximized">
+    <Window.Resources>
+        <dx:TypedSimpleSource x:Key="TypedSimpleSource" AdapterType="{x:Type TradingDBDataSetTableAdapters:QoutesHistoryTableAdapter}" ContextType="{x:Type local:TradingDBDataSet}" Path="QoutesHistory">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:TypedSimpleSource>
+        <dx:TypedSimpleSource x:Key="TypedSimpleSource1" AdapterType="{x:Type TradingDBDataSet1TableAdapters:QoutesHistoryTableAdapter}" ContextType="{x:Type local:TradingDBDataSet}" Path="QoutesHistory">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:TypedSimpleSource>
+        <dx:TypedSimpleSource x:Key="TypedSimpleSource2" AdapterType="{x:Type TradingDBDataSet1TableAdapters:QoutesHistoryTableAdapter}" ContextType="{x:Type local:TradingDBDataSet1}" Path="QoutesHistory">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:TypedSimpleSource>
+    </Window.Resources>
     <DockPanel>
 
-        <TabControl Name="tcSample" >
+        <TabControl x:Name="tcSample" >
             <TabItem Header="Home">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="78*"/>
+                        <ColumnDefinition Width="77*"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="22*"/>
+                        <ColumnDefinition Width="23*"/>
                     </Grid.ColumnDefinitions>
                     <!-- Left Side -->
                     <DockPanel>
                         <Grid Grid.Column="0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="20*"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="30*"/>
+                                <RowDefinition Height="50*"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="30*"/>
                             </Grid.RowDefinitions>
-                            <ContentControl>
+
+                            <ContentControl Grid.Row="0" x:Name="QuoteRegion">
                                 <Grid>
                                     <StackPanel Orientation="Vertical">
                                         <ListView x:Name="lvStockQuotesList"  RenderTransformOrigin="0.5,0.5"  SelectionChanged="lvStockQuotesList_SelectionChanged">
-                                            <!--SelectionChanged="lvStockQuotesList_SelectionChanged" -->
-                                            <ListView.RenderTransform>
+
+                                            <!--<ListView.RenderTransform>
                                                 <TransformGroup>
                                                     <ScaleTransform/>
                                                     <SkewTransform AngleY="0.087"/>
                                                     <RotateTransform/>
                                                     <TranslateTransform Y="0.598"/>
                                                 </TransformGroup>
-                                            </ListView.RenderTransform>
-
-                                            <!--Bind Item-->
+                                            </ListView.RenderTransform>-->
                                             <ListView.View>
                                                 <GridView>
                                                     <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding StockID}"/>
@@ -60,18 +79,29 @@
 
                                             </ListView.View>
                                         </ListView>
-
                                     </StackPanel>
                                 </Grid>
                             </ContentControl>
-                            <!--<ContentControl Grid.Row="0" x:Name="QuoteRegion" prism:RegionManager.RegionName="QuoteRegion"></ContentControl>-->
-                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"></GridSplitter>
-                            <!--<ContentControl Grid.Row="2" x:Name="PlotRegion" prism:RegionManager.RegionName="PlotRegion"></ContentControl>-->
-                            <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"></GridSplitter>
+                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"/>
+                            <ContentControl Grid.Row="2" x:Name="PlotRegion">
+                                <Grid>
+                                    <dxc:ChartControl DataSource="{Binding Data, Source={StaticResource TypedSimpleSource}}">
+                                        <dxc:XYDiagram2D>
+                                            <dxc:CandleStickSeries2D ArgumentDataMember="Date" LowValueDataMember="Low" HighValueDataMember="High" OpenValueDataMember="OpeningPrice" CloseValueDataMember="ClosingPrice"  >
+                                                <dxc:CandleStickSeries2D.Indicators>
+                                                    <dxc:SimpleMovingAverage/>
+                                                </dxc:CandleStickSeries2D.Indicators>
+                                            </dxc:CandleStickSeries2D>
+                                        </dxc:XYDiagram2D>
+                                    </dxc:ChartControl>
+                                </Grid>
+                            </ContentControl>
+                            <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"/>
                             <!--<ContentControl Grid.Row="4" x:Name="InfoRegion" prism:RegionManager.RegionName="InfoRegion"></ContentControl>-->
                             <ContentControl Grid.Row="4" x:Name="InfoRegion">
-                                <Grid>
-                                    <TabControl x:Name="OrderAndPositionTabControl" SelectedIndex="{Binding Path=TabControlSelectedIndex, Mode=TwoWay}">
+
+                                <DockPanel>
+                                    <TabControl x:Name="OrderAndPositionTabControl" SelectedIndex="{Binding TabControlSelectedIndex, Mode=TwoWay}">
                                         <TabItem Header="Positions">
                                             <ContentControl>
                                                 <Grid>
@@ -103,26 +133,28 @@
                                                 </Grid>
                                             </ContentControl>
 
-
-                                            <!--<DataGrid Name="dgOrder"  ItemsSource="{Binding Path=OrderTable}" SelectedIndex="{Binding SelectedOrderIndex}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False">
-                                                
-                                            </DataGrid>-->
-                                            
+                                            </DataGrid>-
+                                            </Grid>
                                         </TabItem>
                                         <TabItem Header="Fills">
-                                            <DataGrid Name="dgFill"  ItemsSource="{Binding Path=FillTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"></DataGrid>
+                                            <DataGrid x:Name="dgFill"  ItemsSource="{Binding FillTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
                                         </TabItem>
                                         <TabItem Header="Orders">
-                                            <DataGrid Name="dgPosition"  ItemsSource="{Binding Path=PositionTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"></DataGrid>
+                                            <DataGrid x:Name="dgPosition"  ItemsSource="{Binding PositionTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
                                         </TabItem>
                                         <TabItem Header="Result">
-                                            <DataGrid Name="dgResult"  ItemsSource="{Binding Path=ResultTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"></DataGrid>
+                                            <DataGrid x:Name="dgResult"  ItemsSource="{Binding ResultTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
                                         </TabItem>
+
+
+
                                     </TabControl>
-                                </Grid>
+                                </DockPanel>
+
                             </ContentControl>
 
                         </Grid>
+
                     </DockPanel>
 
                     <GridSplitter Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Width="5" Background="#FFBCBCBC"/>
@@ -130,9 +162,9 @@
                     <!-- Right Side -->
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="55*"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="45*"/>
 
                         </Grid.RowDefinitions>
                         <!--<ContentControl Grid.Row="0" x:Name="StrategyRegion" prism:RegionManager.RegionName="StrategyRegion"></ContentControl>-->
@@ -141,25 +173,25 @@
                                 <GroupBox Header="Balance" HorizontalAlignment="Left" Margin="10,10,10,10">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Buying Power: " Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content="....." Margin="20,10,0,0" Height="30" Width="100"></Label>
+                                            <Label Content="Buying Power: " Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <Label Content="....." Margin="20,10,0,0" Height="30" Width="100"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Maint excess: " Margin="10,0,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content="......" Margin="20,0,0,0" Height="30" Width="100"></Label>
+                                            <Label Content="Maint excess: " Margin="10,0,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <Label Content="......" Margin="20,0,0,0" Height="30" Width="100"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Total Equity: " Margin="10,10,0,0" Height="30" Width="120"  HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold"></Label>
-                                            <Label Content="......" Margin="20,10,0,0" Height="30" Width="100"></Label>
+                                            <Label Content="Total Equity: " Margin="10,10,0,0" Height="30" Width="120"  HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                                            <Label Content="......" Margin="20,10,0,0" Height="30" Width="100"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Cash: " Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content="......." Margin="20,10,0,0" Height="30" Width="100" Name="lbCash"></Label>
+                                            <Label Content="Cash: " Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <Label Content="......." Margin="20,10,0,0" Height="30" Width="100" x:Name="lbCash"/>
                                             <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Market Value" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content=".......&#xD;&#xA;" Margin="20,10,0,0" Height="30" Width="100"></Label>
+                                            <Label Content="Market Value" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <Label Content=".......&#xA;" Margin="20,10,0,0" Height="30" Width="100"/>
                                             <!--<xctk:IntegerUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="N0" Value="{Binding Size, Mode=TwoWay}"  Increment="{Binding SizeIncrement}" Margin="20,10,10,10" Height="30" Width="100"/>-->
                                         </StackPanel>
                                     </StackPanel>
@@ -167,12 +199,12 @@
                                 <GroupBox Header="Profit and Loss" HorizontalAlignment="Left" Margin="10,10,10,10">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Open - P/L" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content="0.00" Margin="20,10,0,0" Height="30" Width="100"></Label>
+                                            <Label Content="Open - P/L" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <Label Content="0.00" Margin="20,10,0,0" Height="30" Width="100"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Current - P/L" Margin="10,0,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content="0.00" Margin="20,0,0,0" Height="30" Width="100"></Label>
+                                            <Label Content="Current - P/L" Margin="10,0,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <Label Content="0.00" Margin="20,0,0,0" Height="30" Width="100"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </GroupBox>
@@ -180,7 +212,7 @@
                             </StackPanel>
                         </ContentControl>
 
-                        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"></GridSplitter>
+                        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"/>
                         <!--<ContentControl Grid.Row="2" x:Name="OrderRegion" prism:RegionManager.RegionName="OrderRegion"></ContentControl>-->
                         <ContentControl Grid.Row="2" x:Name="OrderRegion">
                             <StackPanel Orientation="Vertical">
@@ -190,15 +222,18 @@
                                             <Label Content="Symbol:" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
                                             <Label  Content="..." x:Name="lblCompanyName" Margin="0,10,0,0" Height="28" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
 
+
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Quantity" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <TextBox Name="tbQuantity" Margin="60,10,0,0" Height="30" Width="100"/>
+                                            <Label Content="Quantity" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <TextBox x:Name="tbQuantity" Margin="60,10,0,0" Height="30" Width="100"/>
 
                                         </StackPanel>
                                         <!--<StackPanel Orientation="Horizontal">
-                                            --><!--<Label Content="OrderType" Margin="10,10,0,0" Height="30" Width="80"  HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <ComboBox Name="cbOrderTypee" Margin="60,10,0,0" Height="30" Width="100" SelectedIndex="{Binding Path=SelectedOrderType}">--><!--
+                                            -->
+                                        <!--<Label Content="OrderType" Margin="10,10,0,0" Height="30" Width="80"  HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            <ComboBox Name="cbOrderTypee" Margin="60,10,0,0" Height="30" Width="100" SelectedIndex="{Binding Path=SelectedOrderType}">-->
+                                        <!--
                                                 <ComboBoxItem Content="Market"></ComboBoxItem>
                                                 <ComboBoxItem Content="Limit"></ComboBoxItem>
                                                 <ComboBoxItem Content="Stop"></ComboBoxItem>
@@ -207,25 +242,31 @@
                                         <StackPanel Orientation="Horizontal">
                                             <GroupBox Header="Price" HorizontalAlignment="Left" Margin="10,20,10,10" Width="230" Height="120">
                                                 <StackPanel Orientation="Horizontal">
+
                                             <!--<Label Content="Price" Margin="10,10,0,0" Height="30" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>-->
                                             <Label Content="Bid" Margin="30,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
                                             <Label Content="Ask" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
                                             <Label Name="lbBid" Content="...." Margin="-258,0,0,20" Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
                                             <Label Name="lbAsk" Content="...." Margin="-80,0,0,20" Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
+
                                                     <!--<TextBox Name="tbTradingPrice" Margin="60,10,0,0" Height="30" Width="100"/>-->
-                                            <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
+                                                    <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
                                                 </StackPanel>
                                             </GroupBox>
 
                                         </StackPanel>
                                         <!--<StackPanel Orientation="Horizontal">
-                                            --><!--<Label Content="Price" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            -->
+                                        <!--<Label Content="Price" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
                                             <Label Content="Bid" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content="Ask" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>--><!--
+                                            <Label Content="Ask" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>-->
+                                        <!--
                                             <TextBox Name="tbBidPrice" Margin="100,10,0,0" Height="30" Width="70"/>
                                             <TextBox Name="tbAskPrice" Margin="20,10,0,0" Height="30" Width="70"/>
 
-                                            --><!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>--><!--
+                                            -->
+                                        <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
+                                        <!--
                                         
                                         </StackPanel>-->
                                         <StackPanel Orientation="Horizontal">
@@ -238,8 +279,8 @@
                                 <GroupBox Header="Cancel Order" HorizontalAlignment="Left" Margin="10,10,10,10">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="{Binding SelectedOrderId}" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Button Content="Cancel Order" Margin="20,10,10,10" Height="30" Width="100" Command="{Binding CancelOrderCmd}"></Button>
+                                            <Label Content="{Binding SelectedOrderId}" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <Button Content="Cancel Order" Margin="20,10,10,10" Height="30" Width="100" Command="{Binding CancelOrderCmd}"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </GroupBox>
@@ -252,8 +293,22 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Portfolio" />
-            <TabItem Header="Buy">
+            <TabItem Header="Chart">
+                <Grid>
+                    <dxc:ChartControl DataSource="{Binding Data, Source={StaticResource TypedSimpleSource2}}">
+
+                        <dxc:XYDiagram2D>
+                            <dxc:CandleStickSeries2D CloseValueDataMember="ClosingPrice" HighValueDataMember="High" LowValueDataMember="Low" OpenValueDataMember="OpeningPrice" ArgumentDataMember="Date" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <dxc:CandleStickSeries2D.Indicators>
+                                    <dxc:SimpleMovingAverage/>
+                                </dxc:CandleStickSeries2D.Indicators>
+                            </dxc:CandleStickSeries2D>
+                        </dxc:XYDiagram2D>
+                    </dxc:ChartControl>
+
+                </Grid>
             </TabItem>
+            <TabItem Header="Buy"/>
             <TabItem Header="Sell" />
 
             <TabItem Header="Reports" />

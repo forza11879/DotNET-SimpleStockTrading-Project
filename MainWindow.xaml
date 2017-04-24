@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TradingApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="557">
+        Title="MainWindow" Height="350" Width="557" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,-3" HorizontalAlignment="Left" Width="547">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="322*"/>
