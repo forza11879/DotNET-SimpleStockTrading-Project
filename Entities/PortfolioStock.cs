@@ -8,14 +8,17 @@ namespace TradingApp.Entities
 {
     class PortfolioStock
     {
-        int SymbolId;
-        int PortfolioId;
-        int SharesOwned;
-        decimal AveragePurchasedPrice;
+        public String Symbol { get; set; }
 
-        public PortfolioStock( int symbolId, int portfolioId, int sharesOwned, decimal averagePurchasedPrice)
+        public int PortfolioId { get; set; }
+
+        public int SharesOwned { get; set; }
+
+        public decimal AveragePurchasedPrice { get; set; }
+
+        public PortfolioStock( String symbol, int portfolioId, int sharesOwned, decimal averagePurchasedPrice)
         {
-            SymbolId = symbolId;
+            Symbol = symbol;
             PortfolioId = portfolioId;
             SharesOwned = sharesOwned;
             AveragePurchasedPrice = averagePurchasedPrice;

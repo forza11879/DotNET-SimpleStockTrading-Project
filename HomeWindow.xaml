@@ -76,7 +76,7 @@
                                             <ContentControl>
                                                 <Grid>
                                                     <StackPanel Orientation="Vertical">
-                                                        <ListView x:Name="lvStockQuotesList1"  RenderTransformOrigin="0.5,0.5"  SelectionChanged="lvStockQuotesList_SelectionChanged">
+                                                        <ListView x:Name="lvStockOwnedByUser"  RenderTransformOrigin="0.5,0.5" SelectionChanged="lvStockOwnedByUser_SelectionChanged">
                                                             <!--SelectionChanged="lvStockQuotesList_SelectionChanged" -->
                                                             <ListView.RenderTransform>
                                                                 <TransformGroup>
@@ -90,19 +90,10 @@
                                                             <!--Bind Item-->
                                                             <ListView.View>
                                                                 <GridView>
-                                                                    <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding StockID}"/>
                                                                     <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
-                                                                    <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}"/>
-                                                                    <GridViewColumn Header="Bid" Width="55"  DisplayMemberBinding="{Binding Bid, TargetNullValue=N/A}" />
-                                                                    <GridViewColumn Header="Ask" Width="55" DisplayMemberBinding="{Binding Ask, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="Open" Width="55" DisplayMemberBinding="{Binding Open, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="Previous Close" Width="120" DisplayMemberBinding="{Binding PreviousClose, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="Last Trade" Width="120" DisplayMemberBinding="{Binding LastTrade, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="Volume" Width="120" DisplayMemberBinding="{Binding Volume, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="High" Width="120" DisplayMemberBinding="{Binding High, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="Low" Width="120" DisplayMemberBinding="{Binding Low, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="52High" Width="120" DisplayMemberBinding="{Binding High52, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="52Low" Width="120" DisplayMemberBinding="{Binding Low52, TargetNullValue=N/A}"/>
+                                                                    <GridViewColumn Header="Number of Shares" Width="200" DisplayMemberBinding="{Binding SharesOwned}"/>
+                                                                    <GridViewColumn Header="Average Purchase Price" Width="300"  DisplayMemberBinding="{Binding AveragePurchasedPrice}"/>
+                                                                   
                                                                 </GridView>
 
                                                             </ListView.View>
@@ -197,7 +188,7 @@
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
                                             <Label Content="Symbol:" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content="..." x:Name="lblCompanyName" Margin="0,10,0,0" Height="28" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <Label  Content="..." x:Name="lblCompanyName" Margin="0,10,0,0" Height="28" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
 
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
@@ -219,8 +210,8 @@
                                             <!--<Label Content="Price" Margin="10,10,0,0" Height="30" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>-->
                                             <Label Content="Bid" Margin="30,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
                                             <Label Content="Ask" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content="...." Margin="-258,0,0,20" Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
-                                            <Label Content="...." Margin="-80,0,0,20" Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
+                                            <Label Name="lbBid" Content="...." Margin="-258,0,0,20" Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
+                                            <Label Name="lbAsk" Content="...." Margin="-80,0,0,20" Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
                                                     <!--<TextBox Name="tbTradingPrice" Margin="60,10,0,0" Height="30" Width="100"/>-->
                                             <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
                                                 </StackPanel>
@@ -238,7 +229,7 @@
                                         
                                         </StackPanel>-->
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Name="btnSell" Content="Sell" Margin="10,10,0,10" Height="30" Width="100" FontWeight="Bold"></Button>
+                                            <Button Name="btnSell" Content="Sell" Margin="10,10,0,10" Height="30" Width="100" FontWeight="Bold" Click="btnSell_Click"></Button>
                                             <Button Name="btnBuy" Content="Buy" Margin="20,10,0,10" Height="30" Width="100" FontWeight="Bold" Click="btnBuy_Click"></Button>
                                             <!--<xctk:IntegerUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="N0" Value="{Binding Size, Mode=TwoWay}"  Increment="{Binding SizeIncrement}" Margin="20,10,10,10" Height="30" Width="100"/>-->
                                         </StackPanel>

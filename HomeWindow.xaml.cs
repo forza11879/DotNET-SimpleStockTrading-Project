@@ -32,6 +32,7 @@ namespace TradingApp
             GetListOfStocksFromYahoo();
             RefreshStockList();
             UpdatePortfolioInfo();
+            RefreshStockOwnedByPortfolio();
             //GetListOfHistoricalStockFromYahoo();
             btnBuy.IsEnabled = false;
             btnSell.IsEnabled = false;
@@ -49,14 +50,26 @@ namespace TradingApp
             catch (InvalidCastException e)
             {
                 MessageBox.Show("Error showing record in a list: " + e.Message, "Confirmation", MessageBoxButton.OK);
+                Console.Write(e.StackTrace);
+            }
+
+        }
+
+        private void RefreshStockOwnedByPortfolio()
+        {
+            try
+            {
+                lvStockOwnedByUser.ItemsSource = Model.DBA_PortfolioStock.GetAll(Globals.SelectedPortfolio);
+            }
+            catch (InvalidCastException e)
+            {
+                MessageBox.Show("Error showing record in a list: " + e.Message, "Confirmation", MessageBoxButton.OK);
             }
 
         }
 
 
 
-
-        
         private void GetListOfStocksFromYahoo()
         {
             string csvData;
@@ -139,6 +152,12 @@ namespace TradingApp
 
         private void lvStockQuotesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+            Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
+            lblCompanyName.Content = SelectedStock.Symbol;
+            lbBid.Content = SelectedStock.Bid;
+            lbAsk.Content = SelectedStock.Ask;
+
             if (lvStockQuotesList.SelectedItem == null)
             {
                 //if there is no selection dissable buttons Update and Add
@@ -148,6 +167,7 @@ namespace TradingApp
             else
             {
                 btnBuy.IsEnabled = true;
+                btnSell.IsEnabled = false;
             }
 
         }
@@ -212,11 +232,59 @@ namespace TradingApp
 
             lbCash.Content = Globals.SelectedPortfolio.Cash;
 
+        }
+
+        private void lvStockOwnedByUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (lvStockQuotesList.SelectedItem == null)
+            {
+                //if there is no selection dissable buttons Update and Add
+                btnSell.IsEnabled = false;
+            }
+
+            else
+            {
+                btnSell.IsEnabled = true;
+                btnBuy.IsEnabled = false;
+            }
 
         }
 
+        private void btnSell_Click(object sender, RoutedEventArgs e)
+        {
+
+            int Quantity;
+
+            // this part is cheking if record already exists in database
+            // if exists it updates record
+            // if not it adds new record
+
+            if (int.TryParse(tbQuantity.Text, out Quantity))
+            {
+                Entities.PortfolioStock SelectedStockOwnedByUSer = (Entities.PortfolioStock)lvStockOwnedByUser.SelectedItem;
+                List <Entities.StockDb> DatabasePrices= Globals.Db.GetAllStockPricesFromDatabase();
 
 
+                Entities.StockDb stockItem = DatabasePrices.Find(Entities.StockDb.)
+                    //= MyList.Find(item => item.name == "foo").value;
+
+
+
+                tbQuantity.Text = "";
+                UpdatePortfolioInfo();
+                MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
+
+
+            }
+            else
+            {
+                MessageBox.Show("Invalid Qty", "Confirmation", MessageBoxButton.OK);
+            }
+
+
+
+        }
     }
 
 

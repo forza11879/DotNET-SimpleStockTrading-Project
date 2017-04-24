@@ -62,6 +62,7 @@ namespace TradingApp
                 Globals.SelectedPortfolio = (Entities.Portfolio)lvPortfolios.SelectedItem;
                 HomeWindow win2 = new HomeWindow();
                 win2.Show();
+                this.Close();
                           }
               else
         {

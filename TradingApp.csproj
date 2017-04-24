@@ -63,6 +63,7 @@
     <Compile Include="Entities\PortfolioStock.cs" />
     <Compile Include="Entities\QuotesHistory.cs" />
     <Compile Include="Entities\StockDb.cs" />
+    <Compile Include="Model\DBA_PortfolioStock.cs" />
     <Compile Include="YahooStock.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="YahooFinance.cs" />

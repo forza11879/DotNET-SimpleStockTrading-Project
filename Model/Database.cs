@@ -225,11 +225,8 @@ namespace TradingApp.Model
         public void UpdatePortfolioStock(Entities.Portfolio p, Entities.StockDb s, int quantity)
         {
 
-            string sqlGetVolumePrice = "SELECT NumberOfSharesOwned, AveragePurchasePrice FROM PortfolioStock WHERE Symbol='MSFT' AND GameID=1";
+            string sqlGetVolumePrice = "SELECT NumberOfSharesOwned, AveragePurchasePrice FROM PortfolioStock WHERE Symbol=@Symbol AND GameID=@GameID";
 
-
-
-            decimal newAverage;
 
 
 
@@ -238,55 +235,53 @@ namespace TradingApp.Model
             cmdGetVolumePrice.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
 
 
-                int finalQty;
-                int quantityDB;
-                decimal priceDB;
 
             // this part is needed to convert decimal? to decimal
             decimal askPrice = (decimal)s.Ask;
             using (SqlDataReader rd = cmdGetVolumePrice.ExecuteReader())
             {
 
-                while (rd.Read())
+              while (rd.Read())
                 
                 {
                     //rd.NextResult();
 
                     //var quantityDB = (int)rd["NumberOfSharesOwned"];
-                     quantityDB = Convert.ToInt32(rd["NumberOfSharesOwned"]);
-                     priceDB = (decimal)rd["AveragePurchasePrice"];
+                  int quantityDB = Convert.ToInt32(rd["NumberOfSharesOwned"]);
+                  decimal priceDB = (decimal)rd["AveragePurchasePrice"];
 
-                    decimal DatabaseTotalPrice = priceDB * quantityDB;
+      
+                decimal DatabaseTotalPrice = priceDB * quantityDB;
 
                 decimal NewTotalPrice = quantity * askPrice;
+
+               int finalQty = quantityDB + quantity;
+               decimal newAverage = (DatabaseTotalPrice + NewTotalPrice) / finalQty;
+
+
                 
-
-
-                finalQty = quantityDB + quantity;
-                newAverage = (DatabaseTotalPrice + NewTotalPrice) / finalQty;
-
-                }
-                
+                } 
+               // UpdatePortfolioStockQtyAverage(p, s, finalQty, newAverage);
 
             }
-                // now lets update averagePrice and qty
+            
 
+
+
+        }
+
+        public void UpdatePortfolioStockQtyAverage (Entities.Portfolio p, Entities.StockDb s, int qty, decimal averageprice)
+        {
                 string sqlAddToPortfolioStock = "UPDATE PortfolioStock SET NumberOfSHaresOWned=@NumberOfSHaresOWned, AveragePurchasePrice=@AveragePurchasePrice " +
                     "WHERE Symbol=@Symbol AND GameID=@GameID";
 
                 SqlCommand cmdUpdate = new SqlCommand(sqlAddToPortfolioStock, conn);
                 cmdUpdate.Parameters.Add("@Symbol", SqlDbType.NChar).Value = s.Symbol;
                 cmdUpdate.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioID;
-                cmdUpdate.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = finalQty;
-                cmdUpdate.Parameters.Add("@AveragePurchasePrice", SqlDbType.Money).Value = newAverage;
-                cmdUpdate.ExecuteNonQuery();
+                cmdUpdate.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value = qty;
+                cmdUpdate.Parameters.Add("@AveragePurchasePrice", SqlDbType.Money).Value = averageprice;
 
-                
-                
-
-            
-            Console.Write("END");
-
+            cmdUpdate.ExecuteNonQuery();
         }
 
 
