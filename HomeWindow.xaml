@@ -6,11 +6,21 @@
         xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" 
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
         xmlns:local="clr-namespace:TradingApp"
-        xmlns:TradingDBDataSetTableAdapters="clr-namespace:TradingApp.TradingDBDataSetTableAdapters" x:Class="TradingApp.HomeWindow"
+        xmlns:TradingDBDataSetTableAdapters="clr-namespace:TradingApp.TradingDBDataSetTableAdapters" xmlns:TradingDBDataSet1TableAdapters="clr-namespace:TradingApp.TradingDBDataSet1TableAdapters" x:Class="TradingApp.HomeWindow"
         mc:Ignorable="d"
         Title="HomeWindow" Height="1206" Width="1831" WindowState="Maximized">
     <Window.Resources>
         <dx:TypedSimpleSource x:Key="TypedSimpleSource" AdapterType="{x:Type TradingDBDataSetTableAdapters:QoutesHistoryTableAdapter}" ContextType="{x:Type local:TradingDBDataSet}" Path="QoutesHistory">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:TypedSimpleSource>
+        <dx:TypedSimpleSource x:Key="TypedSimpleSource1" AdapterType="{x:Type TradingDBDataSet1TableAdapters:QoutesHistoryTableAdapter}" ContextType="{x:Type local:TradingDBDataSet}" Path="QoutesHistory">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:TypedSimpleSource>
+        <dx:TypedSimpleSource x:Key="TypedSimpleSource2" AdapterType="{x:Type TradingDBDataSet1TableAdapters:QoutesHistoryTableAdapter}" ContextType="{x:Type local:TradingDBDataSet1}" Path="QoutesHistory">
             <dx:DesignDataManager.DesignData>
                 <dx:DesignDataSettings RowCount="5"/>
             </dx:DesignDataManager.DesignData>
@@ -36,13 +46,13 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="30*"/>
                             </Grid.RowDefinitions>
-                            
-                            <ContentControl Grid.Row="0" x:Name="QuoteRegion">
-                                            <Grid>
-                                                <StackPanel Orientation="Vertical">
-                                                    <ListView x:Name="lvStockQuotesList"  RenderTransformOrigin="0.5,0.5"  SelectionChanged="lvStockQuotesList_SelectionChanged">
 
-                                                        <!--<ListView.RenderTransform>
+                            <ContentControl Grid.Row="0" x:Name="QuoteRegion">
+                                <Grid>
+                                    <StackPanel Orientation="Vertical">
+                                        <ListView x:Name="lvStockQuotesList"  RenderTransformOrigin="0.5,0.5"  SelectionChanged="lvStockQuotesList_SelectionChanged">
+
+                                            <!--<ListView.RenderTransform>
                                                 <TransformGroup>
                                                     <ScaleTransform/>
                                                     <SkewTransform AngleY="0.087"/>
@@ -50,7 +60,7 @@
                                                     <TranslateTransform Y="0.598"/>
                                                 </TransformGroup>
                                             </ListView.RenderTransform>-->
-                                        <ListView.View>
+                                            <ListView.View>
                                                 <GridView>
                                                     <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding StockID}"/>
                                                     <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
@@ -69,15 +79,19 @@
 
                                             </ListView.View>
                                         </ListView>
-                                </StackPanel>
-                                                </Grid>
+                                    </StackPanel>
+                                </Grid>
                             </ContentControl>
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"/>
                             <ContentControl Grid.Row="2" x:Name="PlotRegion">
                                 <Grid>
                                     <dxc:ChartControl DataSource="{Binding Data, Source={StaticResource TypedSimpleSource}}">
                                         <dxc:XYDiagram2D>
-                                            <dxc:CandleStickSeries2D ArgumentDataMember="Date" LowValueDataMember="Low" HighValueDataMember="High" OpenValueDataMember="OpeningPrice" CloseValueDataMember="ClosingPrice"/>
+                                            <dxc:CandleStickSeries2D ArgumentDataMember="Date" LowValueDataMember="Low" HighValueDataMember="High" OpenValueDataMember="OpeningPrice" CloseValueDataMember="ClosingPrice"  >
+                                                <dxc:CandleStickSeries2D.Indicators>
+                                                    <dxc:SimpleMovingAverage/>
+                                                </dxc:CandleStickSeries2D.Indicators>
+                                            </dxc:CandleStickSeries2D>
                                         </dxc:XYDiagram2D>
                                     </dxc:ChartControl>
                                 </Grid>
@@ -85,56 +99,56 @@
                             <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"/>
                             <!--<ContentControl Grid.Row="4" x:Name="InfoRegion" prism:RegionManager.RegionName="InfoRegion"></ContentControl>-->
                             <ContentControl Grid.Row="4" x:Name="InfoRegion">
-                                
-                                    <DockPanel>
+
+                                <DockPanel>
                                     <TabControl x:Name="OrderAndPositionTabControl" SelectedIndex="{Binding TabControlSelectedIndex, Mode=TwoWay}">
                                         <TabItem Header="Positions">
                                             <Grid>
-                                                
-                                            <ContentControl>
-                                                <Grid>
-                                                    <StackPanel Orientation="Vertical">
-                                                        <ListView x:Name="lvStockQuotesList1"  RenderTransformOrigin="0.5,0.5"  SelectionChanged="lvStockQuotesList_SelectionChanged">
-                                                            <!--SelectionChanged="lvStockQuotesList_SelectionChanged" -->
-                                                            <ListView.RenderTransform>
-                                                                <TransformGroup>
-                                                                    <ScaleTransform/>
-                                                                    <SkewTransform AngleY="0.087"/>
-                                                                    <RotateTransform/>
-                                                                    <TranslateTransform Y="0.598"/>
-                                                                </TransformGroup>
-                                                            </ListView.RenderTransform>
 
-                                                            <!--Bind Item-->
-                                                            <ListView.View>
-                                                                <GridView>
-                                                                    <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding StockID}"/>
-                                                                    <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
-                                                                    <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}"/>
-                                                                    <GridViewColumn Header="Bid" Width="55"  DisplayMemberBinding="{Binding Bid, TargetNullValue=N/A}" />
-                                                                    <GridViewColumn Header="Ask" Width="55" DisplayMemberBinding="{Binding Ask, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="Open" Width="55" DisplayMemberBinding="{Binding Open, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="Previous Close" Width="120" DisplayMemberBinding="{Binding PreviousClose, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="Last Trade" Width="120" DisplayMemberBinding="{Binding LastTrade, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="Volume" Width="120" DisplayMemberBinding="{Binding Volume, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="High" Width="120" DisplayMemberBinding="{Binding High, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="Low" Width="120" DisplayMemberBinding="{Binding Low, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="52High" Width="120" DisplayMemberBinding="{Binding High52, TargetNullValue=N/A}"/>
-                                                                    <GridViewColumn Header="52Low" Width="120" DisplayMemberBinding="{Binding Low52, TargetNullValue=N/A}"/>
-                                                                </GridView>
+                                                <ContentControl>
+                                                    <Grid>
+                                                        <StackPanel Orientation="Vertical">
+                                                            <ListView x:Name="lvStockQuotesList1"  RenderTransformOrigin="0.5,0.5"  SelectionChanged="lvStockQuotesList_SelectionChanged">
+                                                                <!--SelectionChanged="lvStockQuotesList_SelectionChanged" -->
+                                                                <ListView.RenderTransform>
+                                                                    <TransformGroup>
+                                                                        <ScaleTransform/>
+                                                                        <SkewTransform AngleY="0.087"/>
+                                                                        <RotateTransform/>
+                                                                        <TranslateTransform Y="0.598"/>
+                                                                    </TransformGroup>
+                                                                </ListView.RenderTransform>
 
-                                                            </ListView.View>
-                                                        </ListView>
+                                                                <!--Bind Item-->
+                                                                <ListView.View>
+                                                                    <GridView>
+                                                                        <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding StockID}"/>
+                                                                        <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
+                                                                        <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}"/>
+                                                                        <GridViewColumn Header="Bid" Width="55"  DisplayMemberBinding="{Binding Bid, TargetNullValue=N/A}" />
+                                                                        <GridViewColumn Header="Ask" Width="55" DisplayMemberBinding="{Binding Ask, TargetNullValue=N/A}"/>
+                                                                        <GridViewColumn Header="Open" Width="55" DisplayMemberBinding="{Binding Open, TargetNullValue=N/A}"/>
+                                                                        <GridViewColumn Header="Previous Close" Width="120" DisplayMemberBinding="{Binding PreviousClose, TargetNullValue=N/A}"/>
+                                                                        <GridViewColumn Header="Last Trade" Width="120" DisplayMemberBinding="{Binding LastTrade, TargetNullValue=N/A}"/>
+                                                                        <GridViewColumn Header="Volume" Width="120" DisplayMemberBinding="{Binding Volume, TargetNullValue=N/A}"/>
+                                                                        <GridViewColumn Header="High" Width="120" DisplayMemberBinding="{Binding High, TargetNullValue=N/A}"/>
+                                                                        <GridViewColumn Header="Low" Width="120" DisplayMemberBinding="{Binding Low, TargetNullValue=N/A}"/>
+                                                                        <GridViewColumn Header="52High" Width="120" DisplayMemberBinding="{Binding High52, TargetNullValue=N/A}"/>
+                                                                        <GridViewColumn Header="52Low" Width="120" DisplayMemberBinding="{Binding Low52, TargetNullValue=N/A}"/>
+                                                                    </GridView>
 
-                                                    </StackPanel>
-                                                </Grid>
-                                            </ContentControl>
+                                                                </ListView.View>
+                                                            </ListView>
+
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </ContentControl>
 
 
-                                            <!--<DataGrid Name="dgOrder"  ItemsSource="{Binding Path=OrderTable}" SelectedIndex="{Binding SelectedOrderIndex}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False">
+                                                <!--<DataGrid Name="dgOrder"  ItemsSource="{Binding Path=OrderTable}" SelectedIndex="{Binding SelectedOrderIndex}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False">
 
                                             </DataGrid>-->
-                                                </Grid>
+                                            </Grid>
                                         </TabItem>
                                         <TabItem Header="Fills">
                                             <DataGrid x:Name="dgFill"  ItemsSource="{Binding FillTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
@@ -145,16 +159,16 @@
                                         <TabItem Header="Result">
                                             <DataGrid x:Name="dgResult"  ItemsSource="{Binding ResultTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
                                         </TabItem>
-                                       
+
 
 
                                     </TabControl>
-                                        </DockPanel>
-                                
+                                </DockPanel>
+
                             </ContentControl>
 
                         </Grid>
-                        
+
                     </DockPanel>
 
                     <GridSplitter Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Width="5" Background="#FFBCBCBC"/>
@@ -290,6 +304,21 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Portfolio" />
+            <TabItem Header="Chart">
+                <Grid>
+                    <dxc:ChartControl DataSource="{Binding Data, Source={StaticResource TypedSimpleSource2}}">
+
+                        <dxc:XYDiagram2D>
+                            <dxc:CandleStickSeries2D CloseValueDataMember="ClosingPrice" HighValueDataMember="High" LowValueDataMember="Low" OpenValueDataMember="OpeningPrice" ArgumentDataMember="Date" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <dxc:CandleStickSeries2D.Indicators>
+                                    <dxc:SimpleMovingAverage/>
+                                </dxc:CandleStickSeries2D.Indicators>
+                            </dxc:CandleStickSeries2D>
+                        </dxc:XYDiagram2D>
+                    </dxc:ChartControl>
+
+                </Grid>
+            </TabItem>
             <TabItem Header="Buy"/>
             <TabItem Header="Sell" />
 
