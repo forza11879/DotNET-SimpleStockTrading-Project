@@ -356,7 +356,9 @@ done:
 
 
 
-
+todo
+1)Finish sell function
+2) Finish calculating balance
 
 
 

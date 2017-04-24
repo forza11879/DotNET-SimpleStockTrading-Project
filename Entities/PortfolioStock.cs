@@ -23,5 +23,10 @@ namespace TradingApp.Entities
             SharesOwned = sharesOwned;
             AveragePurchasedPrice = averagePurchasedPrice;
         }
+        //
+
+        // computed properties, NOT stored in database
+        public decimal CurrentAskPrice { get; set; }
+
     }
 }

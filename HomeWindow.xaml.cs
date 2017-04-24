@@ -234,6 +234,15 @@ namespace TradingApp
 
         }
 
+        private void UpdateUserBalance()
+        {   
+
+          //  Globals.SelectedPortfolio.Balance
+
+            //balamce = stockOwnedBy
+        }
+
+
         private void lvStockOwnedByUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -286,10 +295,10 @@ namespace TradingApp
 
         }
 
-        private void tbQuantity_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
+
+
+
     }
 
 
