@@ -76,7 +76,7 @@ namespace TradingApp
 
             using (WebClient web = new WebClient())
             {
-                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT&f=snbaopl1vhgkj");
+                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT+ADBE+AKAM+ALXN+AMZN+AAL+AMGN&f=snbaopl1vhgkj");
             }
 
 
@@ -222,7 +222,7 @@ namespace TradingApp
 
 
             RefreshStockOwnedByPortfolio();
-
+            UpdateUserBalance();
 
 
 
@@ -239,7 +239,33 @@ namespace TradingApp
         private void UpdateUserBalance()
         {
 
-            decimal portfolioCash = Globals.SelectedPortfolio.Cash;
+            decimal totalSum = 0;
+            decimal newBalance =0;
+
+            decimal currentCash = Globals.SelectedPortfolio.Cash;
+
+            List<Entities.PortfolioStock> PortfolioList = Model.DBA_PortfolioStock.GetAll(Globals.SelectedPortfolio);
+
+
+            List<Entities.StockDb> DatabaseStock = Globals.Db.GetAllStockPricesFromDatabase();
+
+            for (int i = 0; i < DatabaseStock.Count; ++i)
+            {
+                var tempSymbol = DatabaseStock.ElementAt(i).Symbol;
+                foreach (Entities.PortfolioStock E in PortfolioList)
+                {
+                    if (E.Symbol == tempSymbol)
+                    {
+                        totalSum += (decimal)(E.SharesOwned * DatabaseStock.ElementAt(i).Bid);
+                    }
+                }
+            }
+
+
+            newBalance = (currentCash + totalSum) - 50000;
+
+            Model.DBA_Portfolio.UpdateBalance(newBalance, Globals.SelectedPortfolio);
+
         }
 
 

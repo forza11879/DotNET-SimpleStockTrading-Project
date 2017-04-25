@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,18 @@ namespace TradingApp.Model
                 }
             }
             return result;
+        }
+
+        public static void UpdateBalance(decimal d, Entities.Portfolio p)
+        {
+            string sql = "UPDATE Portfolio " +
+                "SET Balance=@Balance " +
+                "WHERE PortfolioId=@PortfolioId";
+
+            SqlCommand cmd = new SqlCommand(sql, Globals.Db.conn);
+            cmd.Parameters.Add("@Balance", SqlDbType.Money).Value = d;
+            cmd.Parameters.Add("@PortfolioId", SqlDbType.Int).Value = p.PortfolioID;
+            cmd.ExecuteNonQuery();
         }
 
     }

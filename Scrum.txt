@@ -362,5 +362,29 @@ todo
 
 
 
+////////////////////////////////////
+25/04/2017
 
+
+
+John
+Done:
+1)Still working on the charts
+2)trying to bind chart to a list
+3)Solving conflict
+
+
+todo:
+1)Finish binding chart to a list
+2)Create New user function
+
+
+
+Gregory:
+1)Fixed small problems
+2)Read about entity framework
+
+
+1)Finish main functions
+2) Solve merging prblem
 
