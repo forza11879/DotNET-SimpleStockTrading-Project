@@ -44,5 +44,34 @@ namespace TradingApp.Model
             cmd.ExecuteNonQuery();
         }
 
+
+
+        public static Entities.Portfolio GetUpdatedPortfolio(Entities.Portfolio p)
+        {
+            Entities.Portfolio updatedPortfolio= new Entities.Portfolio (1,"temp","Temp",0,0,0);
+
+            String sql = "SELECT * FROM Portfolio WHERE PortfolioId=@PortfolioId";
+
+            SqlCommand cmdGetPortfolio = new SqlCommand(sql, Globals.Db.conn);
+            cmdGetPortfolio.Parameters.Add("@PortfolioId", SqlDbType.Int).Value = p.PortfolioID;
+
+            using (SqlDataReader reader = cmdGetPortfolio.ExecuteReader())
+
+            {
+                while (reader.Read())
+                {
+                    int id = (int)reader["portfolioId"];
+                    string name = (string)reader["Name"];
+                    string email = (string)reader["Email"];
+                    decimal cash = (decimal)reader["Cash"];
+                    decimal net = (decimal)reader["Net"];
+                    decimal balance = (decimal)reader["Balance"];
+                    updatedPortfolio = new Entities.Portfolio(id, name, email, cash, net, balance);
+                }
+            }
+            return updatedPortfolio;
+        }
     }
+
+    
 }

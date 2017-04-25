@@ -31,6 +31,7 @@ namespace TradingApp
             
             GetListOfStocksFromYahoo();
             RefreshStockList();
+            UpdateUserBalance();
             UpdatePortfolioInfo();
             RefreshStockOwnedByPortfolio();
             //GetListOfHistoricalStockFromYahoo();
@@ -210,7 +211,7 @@ namespace TradingApp
 
 
                 tbQuantity.Text = "";
-                UpdatePortfolioInfo();
+                
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
 
 
@@ -223,7 +224,7 @@ namespace TradingApp
 
             RefreshStockOwnedByPortfolio();
             UpdateUserBalance();
-
+            UpdatePortfolioInfo();
 
 
         }
@@ -232,7 +233,10 @@ namespace TradingApp
         private void UpdatePortfolioInfo()
         {
 
-            lbCash.Content = Globals.SelectedPortfolio.Cash;
+            Entities.Portfolio updatedPortfolio = Model.DBA_Portfolio.GetUpdatedPortfolio(Globals.SelectedPortfolio);
+
+            lbCash.Content = updatedPortfolio.Cash;
+            lbGanesLooses.Content = updatedPortfolio.Balance;
 
         }
 
@@ -242,7 +246,8 @@ namespace TradingApp
             decimal totalSum = 0;
             decimal newBalance =0;
 
-            decimal currentCash = Globals.SelectedPortfolio.Cash;
+            Entities.Portfolio updatedPortfolio = Model.DBA_Portfolio.GetUpdatedPortfolio(Globals.SelectedPortfolio);
+            decimal currentCash = updatedPortfolio.Cash;
 
             List<Entities.PortfolioStock> PortfolioList = Model.DBA_PortfolioStock.GetAll(Globals.SelectedPortfolio);
 
