@@ -128,6 +128,8 @@ namespace TradingApp
         private void GetListOfHistoricalStockFromYahoo()
         {
 
+            
+
             List<Entities.QuotesHistory> quoteHistoryList = Entities.QuotesHistoryLoader.LoadQuotesHistory("RRR", 1962);
             
 
@@ -235,11 +237,9 @@ namespace TradingApp
         }
 
         private void UpdateUserBalance()
-        {   
+        {
 
-          //  Globals.SelectedPortfolio.Balance
-
-            //balamce = stockOwnedBy
+            decimal portfolioCash = Globals.SelectedPortfolio.Cash;
         }
 
 

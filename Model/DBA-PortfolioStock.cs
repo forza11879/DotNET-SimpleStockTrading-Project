@@ -31,6 +31,7 @@ namespace TradingApp.Model
                     int numberOfSharesOwned = Convert.ToInt32(reader["NumberOfSharesOwned"]);
                     Decimal averagePurchasePrice = Convert.ToDecimal(reader["averagePurchasePrice"]);
                     Entities.PortfolioStock pn = new Entities.PortfolioStock(symbol, id, numberOfSharesOwned, averagePurchasePrice);
+                    //pn.AveragePurchasedPrice = 
                     result.Add(pn);
                 }
             }

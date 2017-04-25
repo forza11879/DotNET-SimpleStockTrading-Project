@@ -71,7 +71,7 @@
                                                     <GridViewColumn Header="Previous Close" Width="120" DisplayMemberBinding="{Binding PreviousClose, TargetNullValue=N/A}"/>
                                                     <GridViewColumn Header="Last Trade" Width="120" DisplayMemberBinding="{Binding LastTrade, TargetNullValue=N/A}"/>
                                                     <GridViewColumn Header="Volume" Width="120" DisplayMemberBinding="{Binding Volume, TargetNullValue=N/A}"/>
-                                                    <GridViewColumn Header="High" Width="120" DisplayMemberBinding="{Binding High, TargetNullValue=N/A}"/>
+                                                    <GridViewColumn Header="High" Width="120" DisplayMemberBinding='{Binding High, TargetNullValue="N/A"}'/>
                                                     <GridViewColumn Header="Low" Width="120" DisplayMemberBinding="{Binding Low, TargetNullValue=N/A}"/>
                                                     <GridViewColumn Header="52High" Width="120" DisplayMemberBinding="{Binding High52, TargetNullValue=N/A}"/>
                                                     <GridViewColumn Header="52Low" Width="120" DisplayMemberBinding="{Binding Low52, TargetNullValue=N/A}"/>
@@ -136,7 +136,35 @@
                                             
                                         </TabItem>
                                         <TabItem Header="Fills">
-                                            <DataGrid x:Name="dgFill"  ItemsSource="{Binding FillTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
+                                            <ContentControl>
+                                                <Grid>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <ListView x:Name="lvTransactions"  RenderTransformOrigin="0.5,0.5" SelectionChanged="lvStockOwnedByUser_SelectionChanged">
+                                                            <!--SelectionChanged="lvStockQuotesList_SelectionChanged" -->
+                                                            <ListView.RenderTransform>
+                                                                <TransformGroup>
+                                                                    <ScaleTransform/>
+                                                                    <SkewTransform AngleY="0.087"/>
+                                                                    <RotateTransform/>
+                                                                    <TranslateTransform Y="0.598"/>
+                                                                </TransformGroup>
+                                                            </ListView.RenderTransform>
+
+                                                            <!--Bind Item-->
+                                                            <ListView.View>
+                                                                <GridView>
+                                                                    <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
+                                                                    <GridViewColumn Header="Number of Shares" Width="200" DisplayMemberBinding="{Binding SharesOwned}"/>
+                                                                    <GridViewColumn Header="Average Purchase Price" Width="300"  DisplayMemberBinding="{Binding AveragePurchasedPrice}"/>
+
+                                                                </GridView>
+
+                                                            </ListView.View>
+                                                        </ListView>
+
+                                                    </StackPanel>
+                                                </Grid>
+                                            </ContentControl>
                                         </TabItem>
                                         <TabItem Header="Orders">
                                             <DataGrid x:Name="dgPosition"  ItemsSource="{Binding PositionTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
