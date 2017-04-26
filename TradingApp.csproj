@@ -72,6 +72,9 @@
     <Compile Include="Entities\PortfolioStock.cs" />
     <Compile Include="Entities\QuotesHistory.cs" />
     <Compile Include="Entities\StockDb.cs" />
+    <Compile Include="NewPortfolioDialog.xaml.cs">
+      <DependentUpon>NewPortfolioDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TradingDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,6 +104,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NewPortfolioDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Portfolio.cs" />

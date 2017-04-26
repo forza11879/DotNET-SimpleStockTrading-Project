@@ -1,0 +1,23 @@
+﻿<Window x:Class="TradingApp.NewPortfolioDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TradingApp"
+        mc:Ignorable="d"
+        Title="NewPortfolioDialog" Height="450" Width="500" WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <ContentControl>
+            <Grid>
+                <Label Content="Name" Height="30" Width="50" Margin="43,10,300.6,230.4" RenderTransformOrigin="1.02,0.708"/>
+                <TextBox x:Name="tbName" Height="30" Width="150" Margin="131,10,112.6,230.4"/>
+                <Label Content="Email" Height="30" Width="50" Margin="43,70,300.6,181.4"/>
+                <TextBox x:Name="tbEmail" Height="30" Width="150" Margin="131,70,112.6,181.4"/>
+                <Label Content="Cash" Height="30" Width="50" Margin="43,130,300.6,117.4"/>
+                <TextBox x:Name="tbCash" Height="30" Width="150" Margin="131,130,112.6,117.4"/>
+                <Button IsDefault="True" Click="ButtonOK_Click"  Height="25" Width="80" Margin="0,240,112.6,117.4">_OK</Button>
+                <Button IsCancel="True" Height="25" Width="80" Margin="225.2,240,112.6,117.4">_Cancel</Button>
+            </Grid>
+        </ContentControl>
+    </DockPanel>
+</Window>

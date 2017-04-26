@@ -23,7 +23,7 @@ namespace TradingApp
         public MainWindow()
         {
             InitializeComponent();
-           // Globals.Db = new Database(); // FIXME handle exception and show dialog
+            // Globals.Db = new Database(); // FIXME handle exception and show dialog
             RefreshPortfolios();
         }
 
@@ -37,7 +37,7 @@ namespace TradingApp
         {
 
             //getting selected object from ListView
-           Globals.SelectedPortfolio = (Entities.Portfolio)lvPortfolios.SelectedItem;
+            Globals.SelectedPortfolio = (Entities.Portfolio)lvPortfolios.SelectedItem;
 
             //assigning needed info from selected objcet to labels
 
@@ -57,19 +57,28 @@ namespace TradingApp
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
 
-                if (lvPortfolios.SelectedIndex >= 0)
-                           {
+            if (lvPortfolios.SelectedIndex >= 0)
+            {
                 Globals.SelectedPortfolio = (Entities.Portfolio)lvPortfolios.SelectedItem;
                 HomeWindow win2 = new HomeWindow();
                 win2.Show();
                 this.Close();
-                          }
-              else
-        {
+            }
+            else
+            {
                 MessageBox.Show("No portfolio is selected", "Confirmation", MessageBoxButton.OK);
-                       }
+            }
 
 
         }
+
+
+        private void BtnNew_Click(object sender, RoutedEventArgs e)
+        {
+            NewPortfolioDialog win3 = new NewPortfolioDialog();
+            win3.Show();
+            this.Close();
+        }
+
     }
 }
