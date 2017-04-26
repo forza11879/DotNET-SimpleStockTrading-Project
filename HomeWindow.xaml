@@ -50,7 +50,7 @@
                             <ContentControl Grid.Row="0" x:Name="QuoteRegion">
                                 <Grid>
                                     <StackPanel Orientation="Vertical">
-                                        <ListView x:Name="lvStockQuotesList"  RenderTransformOrigin="0.5,0.5"  SelectionChanged="lvStockQuotesList_SelectionChanged">
+                                        <ListView x:Name="lvStockQuotesList"  RenderTransformOrigin="0.5,0.5" Selected="lvStockQuotesList_Selected"  SelectionChanged="lvStockQuotesList_SelectionChanged">
 
                                             <!--<ListView.RenderTransform>
                                                 <TransformGroup>

@@ -353,10 +353,6 @@ namespace TradingApp
 
         }
 
-
-
-
-
     }
 
 
