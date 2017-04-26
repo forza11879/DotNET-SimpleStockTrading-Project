@@ -40,11 +40,11 @@
                     <DockPanel>
                         <Grid Grid.Column="0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="20*"/>
+                                <RowDefinition Height="32.5*"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="50*"/>
+                                <RowDefinition Height="35*"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="30*"/>
+                                <RowDefinition Height="32.5*"/>
                             </Grid.RowDefinitions>
 
                             <ContentControl Grid.Row="0" x:Name="QuoteRegion">
@@ -106,7 +106,7 @@
                                             <ContentControl>
                                                 <Grid>
                                                     <StackPanel Orientation="Vertical">
-                                                        <ListView x:Name="lvStockOwnedByUser"  RenderTransformOrigin="0.5,0.5" SelectionChanged="lvStockOwnedByUser_SelectionChanged">
+                                                        <ListView x:Name="lvStockOwnedByUser" MaxHeight="250" RenderTransformOrigin="0.5,0.5" SelectionChanged="lvStockOwnedByUser_SelectionChanged">
                                                             <!--SelectionChanged="lvStockQuotesList_SelectionChanged" -->
                                                             <ListView.RenderTransform>
                                                                 <TransformGroup>
@@ -118,7 +118,7 @@
                                                             </ListView.RenderTransform>
 
                                                             <!--Bind Item-->
-                                                            <ListView.View>
+                                                            <ListView.View >
                                                                 <GridView>
                                                                     <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
                                                                     <GridViewColumn Header="Number of Shares" Width="200" DisplayMemberBinding="{Binding SharesOwned}"/>
@@ -135,11 +135,11 @@
 
 
                                         </TabItem>
-                                        <TabItem Header="Fills">
+                                        <TabItem Header="Fills" >
                                             <ContentControl>
                                                 <Grid>
                                                     <StackPanel Orientation="Vertical">
-                                                        <ListView x:Name="lvTransactions"  RenderTransformOrigin="0.5,0.5" SelectionChanged="lvStockOwnedByUser_SelectionChanged">
+                                                        <ListView x:Name="lvTransactions"  MaxHeight="250"  RenderTransformOrigin="0.5,0.5" SelectionChanged="lvStockOwnedByUser_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                                                             <!--SelectionChanged="lvStockQuotesList_SelectionChanged" -->
                                                             <ListView.RenderTransform>
                                                                 <TransformGroup>
