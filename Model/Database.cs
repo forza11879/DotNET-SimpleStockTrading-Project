@@ -135,7 +135,7 @@ namespace TradingApp.Model
         public void DelteAllRecordWhereQtyIsZeroFromPortfolio()
         {
 
-            string sql = "Delete * FROM PortfolioStock Where NumberOfSharesOwned=0";
+            string sql = "Delete FROM PortfolioStock Where NumberOfSharesOwned=0";
             SqlCommand cmd = new SqlCommand(sql, conn);
             cmd.ExecuteNonQuery();
 
@@ -191,6 +191,44 @@ namespace TradingApp.Model
             cmdUpdate.Parameters.Add("@PortfolioId", SqlDbType.Int).Value = p.PortfolioID;
             cmdUpdate.Parameters.Add("@Cash", SqlDbType.Money).Value = p.Cash - (s.Ask * quantity);
             cmdUpdate.ExecuteNonQuery();
+
+        }
+
+
+        public void AddSellTransaction(String symbol, int qty, decimal sellPrice, Entities.PortfolioStock p, Entities.Portfolio up)
+        {
+
+            string sqlBuy = "INSERT INTO Transactions (PortfolioId, Type, Symbol, BuySellPrice, SharesBoughtSold, Date)"
+                        + "VALUES (@PortfolioId, @Type, @Symbol, @Bit, @SharesBought, @Date)";
+
+            SqlCommand cmd = new SqlCommand(sqlBuy, conn);
+            cmd.Parameters.Add("@PortfolioId", SqlDbType.Int).Value = p.PortfolioId;
+            cmd.Parameters.Add("@Type", SqlDbType.NChar).Value = "Sell";
+            cmd.Parameters.Add("@Symbol", SqlDbType.NChar).Value = symbol;
+            cmd.Parameters.Add("@Bit", SqlDbType.Money).Value = sellPrice;
+            cmd.Parameters.Add("@SharesBought", SqlDbType.Int).Value = qty;
+            cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = DateTime.Now;
+
+            cmd.ExecuteNonQuery();
+
+            string sqlUpdateCash = "Update Portfolio SET Cash=@Cash Where PortfolioId=@PortfolioId";
+
+            SqlCommand cmdUpdate = new SqlCommand(sqlUpdateCash, conn);
+            cmdUpdate.Parameters.Add("@PortfolioId", SqlDbType.Int).Value = p.PortfolioId;
+            cmdUpdate.Parameters.Add("@Cash", SqlDbType.Money).Value = up.Cash + (sellPrice * qty);
+            cmdUpdate.ExecuteNonQuery();
+
+
+            string sqlUpdatPortfolioStock = "Update PortfolioStock SET NumberOfSharesOwned=@NumberOfSharesOwned Where GameID=@GameID AND Symbol=@Symbol";
+
+            SqlCommand cmdUpdatePortfolioStock = new SqlCommand(sqlUpdatPortfolioStock, conn);
+            cmdUpdatePortfolioStock.Parameters.Add("@GameID", SqlDbType.Int).Value = p.PortfolioId;
+            cmdUpdatePortfolioStock.Parameters.Add("@Symbol", SqlDbType.NChar).Value = symbol;
+            cmdUpdatePortfolioStock.Parameters.Add("@NumberOfSharesOwned", SqlDbType.Int).Value =p.SharesOwned - qty;
+            cmdUpdatePortfolioStock.ExecuteNonQuery();
+
+
+
 
         }
 

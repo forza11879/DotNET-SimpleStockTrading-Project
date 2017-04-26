@@ -293,27 +293,44 @@ namespace TradingApp
 
         private void btnSell_Click(object sender, RoutedEventArgs e)
         {
-
-            int Quantity;
+            Entities.Portfolio userPortfolio = Model.DBA_Portfolio.GetUpdatedPortfolio(Globals.SelectedPortfolio);
+            int quantity;
 
             // this part is cheking if record already exists in database
             // if exists it updates record
             // if not it adds new record
 
-            if (int.TryParse(tbQuantity.Text, out Quantity))
+            if (int.TryParse(tbQuantity.Text, out quantity))
             {
+                String symbol;
+                decimal sellPrice =0;
+
+
                 Entities.PortfolioStock SelectedStockOwnedByUSer = (Entities.PortfolioStock)lvStockOwnedByUser.SelectedItem;
-                List <Entities.StockDb> DatabasePrices= Globals.Db.GetAllStockPricesFromDatabase();
+                List<Entities.StockDb> DatabasePrices = Globals.Db.GetAllStockPricesFromDatabase();
 
+                symbol = SelectedStockOwnedByUSer.Symbol;
 
-             //   Entities.StockDb stockItem = DatabasePrices.Find(Entities.StockDb);
-                   
+                foreach (Entities.StockDb E in DatabasePrices)
+                {
+                    if (E.Symbol == symbol)
+                    {
+                        sellPrice = (decimal)E.Bid;
+                    }  
+                }
 
+                Globals.Db.AddSellTransaction(symbol, quantity, sellPrice, SelectedStockOwnedByUSer, userPortfolio);
 
-
+                Globals.Db.DelteAllRecordWhereQtyIsZeroFromPortfolio();
+                RefreshStockOwnedByPortfolio();
+                UpdateUserBalance();
+                UpdatePortfolioInfo();
+                
                 tbQuantity.Text = "";
                 UpdatePortfolioInfo();
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
+
+
 
 
             }
