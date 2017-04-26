@@ -36,8 +36,9 @@ namespace TradingApp
             RefreshStockOwnedByPortfolio();
             RefreshQuotesHistoryList();
             RefreshTransactions();
-            //GetListOfHistoricalStockFromYahoo();
+            GetListOfHistoricalStockFromYahoo();
             chartControl.DataSource = Globals.Db.GetAllQuotesHistoryFromDatabase();
+            FirstChartControl.DataSource = Globals.Db.GetAllQuotesHistoryFromDatabase();
             btnBuy.IsEnabled = false;
             btnSell.IsEnabled = false;
 
@@ -143,7 +144,7 @@ namespace TradingApp
 
             
 
-            List<Entities.QuotesHistory> quoteHistoryList = Entities.QuotesHistoryLoader.LoadQuotesHistory("RRR", 1962);
+            List<Entities.QuotesHistory> quoteHistoryList = Entities.QuotesHistoryLoader.LoadQuotesHistory("JAG", 1962);
             
 
             try
