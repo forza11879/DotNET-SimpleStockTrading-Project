@@ -36,6 +36,7 @@ namespace TradingApp
             RefreshStockOwnedByPortfolio();
             RefreshQuotesHistoryList();
             //GetListOfHistoricalStockFromYahoo();
+            chartControl.DataSource = Globals.Db.GetAllQuotesHistoryFromDatabase();
             btnBuy.IsEnabled = false;
             btnSell.IsEnabled = false;
 
