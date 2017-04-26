@@ -35,6 +35,7 @@ namespace TradingApp
             UpdatePortfolioInfo();
             RefreshStockOwnedByPortfolio();
             RefreshQuotesHistoryList();
+            RefreshTransactions();
             //GetListOfHistoricalStockFromYahoo();
             chartControl.DataSource = Globals.Db.GetAllQuotesHistoryFromDatabase();
             btnBuy.IsEnabled = false;
@@ -167,10 +168,7 @@ namespace TradingApp
         private void lvStockQuotesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
-            lblCompanyName.Content = SelectedStock.Symbol;
-            lbBid.Content = SelectedStock.Bid;
-            lbAsk.Content = SelectedStock.Ask;
+
 
             if (lvStockQuotesList.SelectedItem == null)
             {
@@ -182,6 +180,13 @@ namespace TradingApp
             {
                 btnBuy.IsEnabled = true;
                 btnSell.IsEnabled = false;
+                Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
+
+                lblCompanyName.Content = SelectedStock.Symbol;
+                lbBid.Content = SelectedStock.Bid;
+                lbAsk.Content = SelectedStock.Ask;
+                
+
             }
 
         }
@@ -288,6 +293,12 @@ namespace TradingApp
         private void lvStockOwnedByUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+            Entities.PortfolioStock SelectedStock = (Entities.PortfolioStock)lvStockOwnedByUser.SelectedItem;
+
+            lbAsk.Content = "...";
+            lbBid.Content = "....";
+            lblCompanyName.Content = ".....";
+
             if (lvStockQuotesList.SelectedItem == null)
             {
                 //if there is no selection dissable buttons Update and Add
@@ -354,6 +365,22 @@ namespace TradingApp
 
         }
 
+
+        private void RefreshTransactions()
+        {
+          lvTransactions.ItemsSource = Model.DBA_Transactions.GetAll(Globals.SelectedPortfolio);
+
+        }
+
+       /* private void lvStockOwnedByUser_LostFocus(object sender, RoutedEventArgs e)
+        {
+            lvStockOwnedByUser.UnselectAll();
+        }
+
+        private void lvStockQuotesList_LostFocus(object sender, RoutedEventArgs e)
+        {
+            lvStockQuotesList.UnselectAll();
+        }*/
     }
 
 

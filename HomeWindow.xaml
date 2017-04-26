@@ -50,7 +50,7 @@
                             <ContentControl Grid.Row="0" x:Name="QuoteRegion">
                                 <Grid>
                                     <StackPanel Orientation="Vertical">
-                                        <ListView x:Name="lvStockQuotesList"  RenderTransformOrigin="0.5,0.5" Selected="lvStockQuotesList_Selected"  SelectionChanged="lvStockQuotesList_SelectionChanged">
+                                        <ListView x:Name="lvStockQuotesList"  RenderTransformOrigin="0.5,0.5"  SelectionChanged="lvStockQuotesList_SelectionChanged" >
 
                                             <!--<ListView.RenderTransform>
                                                 <TransformGroup>
@@ -153,10 +153,12 @@
                                                             <!--Bind Item-->
                                                             <ListView.View>
                                                                 <GridView>
-                                                                    <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
-                                                                    <GridViewColumn Header="Number of Shares" Width="200" DisplayMemberBinding="{Binding SharesOwned}"/>
-                                                                    <GridViewColumn Header="Average Purchase Price" Width="300"  DisplayMemberBinding="{Binding AveragePurchasedPrice}"/>
-
+                                                                    <GridViewColumn Header="ID" Width="65" DisplayMemberBinding="{Binding Id}"/>
+                                                                    <GridViewColumn Header="Buy/Sell" Width="200" DisplayMemberBinding="{Binding Type}"/>
+                                                                    <GridViewColumn Header="Symbol" Width="100"  DisplayMemberBinding="{Binding Symbol}"/>
+                                                                    <GridViewColumn Header="Buy/Sell Price" Width="200"  DisplayMemberBinding="{Binding PurchasePrice}"/>
+                                                                    <GridViewColumn Header="#Shares" Width="100"  DisplayMemberBinding="{Binding SharesBought}"/>
+                                                                    <GridViewColumn Header="Date" Width="200"  DisplayMemberBinding="{Binding Date}"/>
                                                                 </GridView>
 
                                                             </ListView.View>

@@ -72,6 +72,7 @@
     <Compile Include="Entities\PortfolioStock.cs" />
     <Compile Include="Entities\QuotesHistory.cs" />
     <Compile Include="Entities\StockDb.cs" />
+    <Compile Include="Model\DBA_Transactions.cs" />
     <Compile Include="NewPortfolioDialog.xaml.cs">
       <DependentUpon>NewPortfolioDialog.xaml</DependentUpon>
     </Compile>

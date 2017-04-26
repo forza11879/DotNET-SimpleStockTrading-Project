@@ -8,13 +8,13 @@ namespace TradingApp.Entities
 {
     class Transaction
     {
-        int TransactionId;
-        int PortfolioId;
-        String Type;
-        String Symbol;
-        decimal PurchasePrice;
-        int SharesBought;
-        DateTime Date;
+       public int TransactionId { get; set; }
+       public int PortfolioId { get; set; }
+       public String Type { get; set; }
+       public String Symbol { get; set; }
+       public decimal PurchasePrice { get; set; }
+       public int SharesBought { get; set; }
+       public DateTime Date { get; set; }
 
         public Transaction(int transactionId, int portfolioId, string type, string symbol, decimal purchasePrice, int sharesBought, DateTime date)
         {
