@@ -56,6 +56,32 @@ namespace TradingApp.Model
             return result;
         }
 
+        public List<Entities.QuotesHistory> GetAllQuotesHistoryFromDatabase()
+        {
+            List<Entities.QuotesHistory> QuotesHistoryList = new List<Entities.QuotesHistory>();
+
+            using (SqlCommand command = new SqlCommand("SELECT [IdHistory],[Date],[OpeningPrice],[High],[Low],[ClosingPrice],[Volume],[AdjClose]FROM [QoutesHistory]ORDER BY Date DESC", conn))
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+
+                    int idHistory = (int)reader["IdHistory"];
+                    DateTime date = (DateTime)reader["Date"];
+                    double openingPrice = (double)reader["OpeningPrice"];
+                    double high = (double)reader["High"];
+                    double low = (double)reader["Low"];
+                    double closingPrice = (double)reader["ClosingPrice"];
+                    Int64 volume = (Int64)reader["Volume"];
+                    double adjClose = (double)reader["AdjClose"];
+
+                    Entities.QuotesHistory s = new Entities.QuotesHistory(idHistory, date, openingPrice, high, low, closingPrice, volume, adjClose);
+                    QuotesHistoryList.Add(s);
+                }
+            }
+            return QuotesHistoryList;
+        }
+
 
         //This method is used to get all Symbols from database 
         public List<String> GetAllSymbolsFromDatabase()

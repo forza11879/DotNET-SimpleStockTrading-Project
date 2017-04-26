@@ -9,15 +9,7 @@ namespace TradingApp.Entities
 {
     public class QuotesHistory
     {
-        //int IdHistory;
-        //int SymbolId;
-        //DateTime Date;
-        //decimal OpeningPrice;
-        //decimal ClosingPrice;
-        //decimal High;
-        //decimal Low;
-        //int Volume;
-        //decimal Change;
+       
 
         public int IdHistory { get; set; }
         public DateTime Date { get; set; }
@@ -28,20 +20,24 @@ namespace TradingApp.Entities
         public Int64 Volume { get; set; }
         public double AdjClose { get; set; }
 
-        //public QuotesHistory(int idHistory, int symbolId, DateTime date, double openingPrice, double closingPrice, double high, double low, int volume/*, decimal change*/, double adjClose)
-        //{
-        //    IdHistory = idHistory;
-        //    //SymbolId = symbolId;
-        //    Date = date;
-        //    OpeningPrice = openingPrice;
-        //    High = high;
-        //    Low = low;
-        //    ClosingPrice = closingPrice;
-        //    Volume = volume;
-        //    //Change = change;
-        //    AdjClose = adjClose;
+        public QuotesHistory(int idHistory, DateTime date, double openingPrice, double closingPrice, double high, double low, Int64 volume, double adjClose)
+        {
+            IdHistory = idHistory;
+            Date = date;
+            OpeningPrice = openingPrice;
+            High = high;
+            Low = low;
+            ClosingPrice = closingPrice;
+            Volume = volume;
+            AdjClose = adjClose;
 
-        //}
+        }
+
+        public QuotesHistory()
+        {
+
+
+        }
     }
 
     public class QuotesHistoryLoader

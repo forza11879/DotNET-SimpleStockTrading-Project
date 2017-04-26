@@ -34,6 +34,7 @@ namespace TradingApp
             UpdateUserBalance();
             UpdatePortfolioInfo();
             RefreshStockOwnedByPortfolio();
+            RefreshQuotesHistoryList();
             //GetListOfHistoricalStockFromYahoo();
             btnBuy.IsEnabled = false;
             btnSell.IsEnabled = false;
@@ -66,6 +67,15 @@ namespace TradingApp
             {
                 MessageBox.Show("Error showing record in a list: " + e.Message, "Confirmation", MessageBoxButton.OK);
             }
+
+        }
+
+        private void RefreshQuotesHistoryList()
+        {
+
+            List<Entities.QuotesHistory> QuotesHistoryList = Globals.Db.GetAllQuotesHistoryFromDatabase();
+
+
 
         }
 
