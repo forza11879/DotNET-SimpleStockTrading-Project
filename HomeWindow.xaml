@@ -313,10 +313,10 @@
             <TabItem Header="Portfolio" />
             <TabItem Header="Chart">
                 <Grid>
-                    <dxc:ChartControl DataSource="{Binding Data, Source={StaticResource TypedSimpleSource2}}">
+                    <dxc:ChartControl Name="chartControl">
 
                         <dxc:XYDiagram2D>
-                            <dxc:CandleStickSeries2D CloseValueDataMember="ClosingPrice" HighValueDataMember="High" LowValueDataMember="Low" OpenValueDataMember="OpeningPrice" ArgumentDataMember="Date" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <dxc:CandleStickSeries2D x:Name="CandleStickChart" CloseValueDataMember="ClosingPrice" HighValueDataMember="High" LowValueDataMember="Low" OpenValueDataMember="OpeningPrice" ArgumentDataMember="Date" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <dxc:CandleStickSeries2D.Indicators>
                                     <dxc:SimpleMovingAverage/>
                                 </dxc:CandleStickSeries2D.Indicators>
@@ -326,39 +326,8 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="QuotesHistory">
-                <ContentControl Grid.Row="0" x:Name="QuotesHistory">
-                    <Grid>
-                        <StackPanel Orientation="Vertical">
-                            <ListView x:Name="lvQuotesHistoryList"   RenderTransformOrigin="0.5,0.5" >
-
-                                <!--<ListView.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform/>
-                                                    <SkewTransform AngleY="0.087"/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform Y="0.598"/>
-                                                </TransformGroup>
-                                            </ListView.RenderTransform>-->
-                                <ListView.View>
-                                    <GridView>
-
-                                        <GridViewColumn Header="IdHistory" Width="40" DisplayMemberBinding="{Binding IdHistory}"/>
-                                        <GridViewColumn Header="Date" Width="65" DisplayMemberBinding="{Binding Date}"/>
-                                        <GridViewColumn Header="OpeningPrice" Width="200" DisplayMemberBinding="{Binding OpeningPrice}"/>
-                                        <GridViewColumn Header="High" Width="55"  DisplayMemberBinding="{Binding High}" />
-                                        <GridViewColumn Header="Low" Width="55" DisplayMemberBinding="{Binding Low}"/>
-                                        <GridViewColumn Header="ClosingPrice" Width="55" DisplayMemberBinding="{Binding ClosingPrice}"/>
-                                        <GridViewColumn Header="Volume" Width="120" DisplayMemberBinding="{Binding Volume}"/>
-                                        <GridViewColumn Header="AdjClose" Width="120" DisplayMemberBinding="{Binding AdjClose}"/>
-
-                                    </GridView>
-
-                                </ListView.View>
-                            </ListView>
-                        </StackPanel>
-                    </Grid>
-                </ContentControl>
+            <TabItem Header="Buy">
+                
             </TabItem>
 
             <TabItem Header="Sell" />
