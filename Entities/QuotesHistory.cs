@@ -42,13 +42,14 @@ namespace TradingApp.Entities
 
     public class QuotesHistoryLoader
     {
-        public static List<QuotesHistory> LoadQuotesHistory(string symbol, int yearToStart)
+        public static List<QuotesHistory> LoadQuotesHistory(string symbol)
         {
             List<QuotesHistory> quoteHistoryList = new List<QuotesHistory>();
 
             using (WebClient web = new WebClient())
             {
-                string data = web.DownloadString(string.Format("http://ichart.finance.yahoo.com/table.csv?s={0}&c={1}", symbol, yearToStart));
+                string data = web.DownloadString(string.Format("http://ichart.finance.yahoo.com/table.csv?s={0}&a=11&b=30&c=2016&d=04&e=26&f=2017&g=d&ignore=.csv", symbol));
+                
 
                 data = data.Replace("\r", "");
 

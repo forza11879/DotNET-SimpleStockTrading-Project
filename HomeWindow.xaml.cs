@@ -28,22 +28,24 @@ namespace TradingApp
         public HomeWindow()
         {
             InitializeComponent();
-            
+
             GetListOfStocksFromYahoo();
             RefreshStockList();
             UpdateUserBalance();
             UpdatePortfolioInfo();
             RefreshStockOwnedByPortfolio();
-            RefreshQuotesHistoryList();
+           
             RefreshTransactions();
-            GetListOfHistoricalStockFromYahoo();
-            chartControl.DataSource = Globals.Db.GetAllQuotesHistoryFromDatabase();
-            FirstChartControl.DataSource = Globals.Db.GetAllQuotesHistoryFromDatabase();
+            //GetListOfHistoricalStockFromYahoo();
+            
+            
             btnBuy.IsEnabled = false;
             btnSell.IsEnabled = false;
 
 
         }
+
+        
 
 
         private void RefreshStockList()
@@ -73,14 +75,25 @@ namespace TradingApp
 
         }
 
-        private void RefreshQuotesHistoryList()
+        
+
+        private void lvStockQuotesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
 
-            List<Entities.QuotesHistory> QuotesHistoryList = Globals.Db.GetAllQuotesHistoryFromDatabase();
+            string symbol = SelectedStock.Symbol;
+            
+            List<Entities.QuotesHistory> QuotesHistoryList = Entities.QuotesHistoryLoader.LoadQuotesHistory(symbol);
 
-
+            FirstChartControl.DataSource = QuotesHistoryList;
+            chartControl.DataSource = QuotesHistoryList;
 
         }
+
+        
+
+
+
 
 
 
@@ -90,7 +103,7 @@ namespace TradingApp
 
             using (WebClient web = new WebClient())
             {
-                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT+ADBE+AKAM+ALXN+AMZN+AAL+AMGN+ADBE+CTAS+CMCSA+CSX+INTC+INTU+KHC+MAR+NVDA+SBUX&f=snbaopl1vhgkj");
+                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT+ADBE+AKAM+ALXN+AMZN+AAL+AMGN+ADBE+CMCSA+CSX+INTC+INTU+KHC+MAR+NVDA+SBUX&f=snbaopl1vhgkj");
             }
 
 
@@ -139,32 +152,11 @@ namespace TradingApp
 
         }
 
-        private void GetListOfHistoricalStockFromYahoo()
-        {
+        
 
-            
-
-            List<Entities.QuotesHistory> quoteHistoryList = Entities.QuotesHistoryLoader.LoadQuotesHistory("JAG", 1962);
-            
-
-            try
-            {
-
-                foreach (Entities.QuotesHistory stockHistory in quoteHistoryList)
-                {
-
-                    Globals.Db.AddQuotesHistoryTable(stockHistory);
-                }
-
-
-            }
-            catch (NullReferenceException e)
-            {
-                Console.Write(e.StackTrace);
-            }
-        }
 
         
+
 
         private void lvStockQuotesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -186,7 +178,7 @@ namespace TradingApp
                 lblCompanyName.Content = SelectedStock.Symbol;
                 lbBid.Content = SelectedStock.Bid;
                 lbAsk.Content = SelectedStock.Ask;
-                
+
 
             }
 
@@ -228,7 +220,7 @@ namespace TradingApp
 
 
                 tbQuantity.Text = "";
-                
+
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
 
 
@@ -261,7 +253,7 @@ namespace TradingApp
         {
 
             decimal totalSum = 0;
-            decimal newBalance =0;
+            decimal newBalance = 0;
 
             Entities.Portfolio updatedPortfolio = Model.DBA_Portfolio.GetUpdatedPortfolio(Globals.SelectedPortfolio);
             decimal currentCash = updatedPortfolio.Cash;
@@ -326,7 +318,7 @@ namespace TradingApp
             if (int.TryParse(tbQuantity.Text, out quantity))
             {
                 String symbol;
-                decimal sellPrice =0;
+                decimal sellPrice = 0;
 
 
                 Entities.PortfolioStock SelectedStockOwnedByUSer = (Entities.PortfolioStock)lvStockOwnedByUser.SelectedItem;
@@ -339,7 +331,7 @@ namespace TradingApp
                     if (E.Symbol == symbol)
                     {
                         sellPrice = (decimal)E.Bid;
-                    }  
+                    }
                 }
 
                 Globals.Db.AddSellTransaction(symbol, quantity, sellPrice, SelectedStockOwnedByUSer, userPortfolio);
@@ -348,7 +340,7 @@ namespace TradingApp
                 RefreshStockOwnedByPortfolio();
                 UpdateUserBalance();
                 UpdatePortfolioInfo();
-                
+
                 tbQuantity.Text = "";
                 UpdatePortfolioInfo();
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
@@ -369,19 +361,21 @@ namespace TradingApp
 
         private void RefreshTransactions()
         {
-          lvTransactions.ItemsSource = Model.DBA_Transactions.GetAll(Globals.SelectedPortfolio);
+            lvTransactions.ItemsSource = Model.DBA_Transactions.GetAll(Globals.SelectedPortfolio);
 
         }
 
-       /* private void lvStockOwnedByUser_LostFocus(object sender, RoutedEventArgs e)
-        {
-            lvStockOwnedByUser.UnselectAll();
-        }
 
-        private void lvStockQuotesList_LostFocus(object sender, RoutedEventArgs e)
-        {
-            lvStockQuotesList.UnselectAll();
-        }*/
+
+        /* private void lvStockOwnedByUser_LostFocus(object sender, RoutedEventArgs e)
+         {
+             lvStockOwnedByUser.UnselectAll();
+         }
+
+         private void lvStockQuotesList_LostFocus(object sender, RoutedEventArgs e)
+         {
+             lvStockQuotesList.UnselectAll();
+         }*/
     }
 
 
