@@ -35,16 +35,16 @@ namespace TradingApp.Model
                     int id = (int)reader["StockId"];
                     string symbol = (string)reader["Symbol"];
                     string name = (string)reader["Name"];
-                    decimal bid = (decimal)reader["Bid"];
-                    decimal ask = (decimal)reader["Ask"];
-                    decimal open = (decimal)reader["Open"];
-                    decimal previousClose = (decimal)reader["PreviousClose"];
-                    decimal lastTrade = (decimal)reader["LastTrade"];
-                    decimal high = (decimal)reader["High"];
-                    decimal low = (decimal)reader["Low"];
+                    decimal? bid = (decimal)reader["Bid"];
+                    decimal? ask = (decimal)reader["Ask"];
+                    decimal? open = (decimal)reader["Open"];
+                    decimal? previousClose = (decimal)reader["PreviousClose"];
+                    decimal? lastTrade = (decimal)reader["LastTrade"];
+                    decimal? high = (decimal)reader["High"];
+                    decimal? low = (decimal)reader["Low"];
                     int volume = (int)reader["Volume"];
-                    decimal high52 = (decimal)reader["High52"];
-                    decimal low52 = (decimal)reader["Low52"];
+                    decimal? high52 = (decimal)reader["High52"];
+                    decimal? low52 = (decimal)reader["Low52"];
                     Entities.StockDb s = new Entities.StockDb(id, symbol, name, bid, ask, open, previousClose, lastTrade, high, low, volume, high52, low52);
                     result.Add(s);
                 }

@@ -50,7 +50,9 @@
                             <ContentControl Grid.Row="0" x:Name="QuoteRegion">
                                 <Grid>
                                     <StackPanel Orientation="Vertical">
+
                                         <ListView x:Name="lvStockQuotesList" MouseDoubleClick="lvStockQuotesList_MouseDoubleClick" MaxHeight="300"  RenderTransformOrigin="0.5,0.5"  SelectionChanged="lvStockQuotesList_SelectionChanged" >
+
 
                                             <!--<ListView.RenderTransform>
                                                 <TransformGroup>

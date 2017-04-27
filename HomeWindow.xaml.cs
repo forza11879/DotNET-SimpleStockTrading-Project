@@ -195,25 +195,26 @@ namespace TradingApp
             if (int.TryParse(tbQuantity.Text, out Quantity))
             {
                 Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
+                Entities.Portfolio SelectedPortfolio = Model.DBA_Portfolio.GetUpdatedPortfolio(Globals.SelectedPortfolio);
                 List<String> SymbolStringLIstOwnedByUser = new List<String>();
                 SymbolStringLIstOwnedByUser = Globals.Db.GetAllStockOwnedByUser(Globals.SelectedPortfolio);
 
                 if (SymbolStringLIstOwnedByUser.Contains(SelectedStock.Symbol, StringComparer.OrdinalIgnoreCase))
                 {
                     //adds transaction record and updates cash in portfolio
-                    Globals.Db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                    Globals.Db.AddBuyTransaction(SelectedPortfolio, SelectedStock, Quantity);
 
                     //adds stock into users portfolio
-                    Globals.Db.UpdatePortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                    Globals.Db.UpdatePortfolioStock(SelectedPortfolio, SelectedStock, Quantity);
 
                 }
                 else
                 {
                     //adds transaction record and updates cash in portfolio
-                    Globals.Db.AddBuyTransaction(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                    Globals.Db.AddBuyTransaction(SelectedPortfolio, SelectedStock, Quantity);
 
                     //updates stock volume and average price in portfolio
-                    Globals.Db.AddPortfolioStock(Globals.SelectedPortfolio, SelectedStock, Quantity);
+                    Globals.Db.AddPortfolioStock(SelectedPortfolio, SelectedStock, Quantity);
 
 
                 }
