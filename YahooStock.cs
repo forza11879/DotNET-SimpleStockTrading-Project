@@ -25,13 +25,14 @@ namespace TradingApp
 
             List<YahooStock> StockFromApiList = new List<YahooStock>();
             string[] rows = csvData.Replace("\r", "").Split('\n');
-
+            
 
             foreach (string row in rows)
             {
                 if (string.IsNullOrEmpty(row)) continue;
 
                 string[] cols = row.Split(',');
+               
 
                 YahooStock s = new YahooStock();
                 s.StockID = 12;

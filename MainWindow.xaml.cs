@@ -78,6 +78,7 @@ namespace TradingApp
             NewPortfolioDialog win3 = new NewPortfolioDialog();
             
             win3.ShowDialog();
+            lvPortfolios.ItemsSource = Model.DBA_Portfolio.GetAll();
         }
 
     }
