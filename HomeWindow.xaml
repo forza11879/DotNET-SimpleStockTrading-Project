@@ -193,9 +193,9 @@
                     <!--Right Side-->
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="55*"/>
+                            <RowDefinition Height="60*"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="45*"/>
+                            <RowDefinition Height="40*"/>
 
                         </Grid.RowDefinitions>
                         <ContentControl Grid.Row="0" x:Name="BalanceRegion">
