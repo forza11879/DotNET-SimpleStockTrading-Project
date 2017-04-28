@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace TradingApp.Entities
 {
@@ -34,5 +35,39 @@ namespace TradingApp.Entities
 
             }
         }
+
+        public decimal CurrentBId
+        {
+            get
+            {
+                decimal currentbid =0;
+                List <Entities.StockDb> DbStockList = Globals.Db.GetAllStockPricesFromDatabase();
+
+                var myItem = DbStockList.Find(StockDb => StockDb.Symbol == Symbol);
+
+                currentbid =(decimal) myItem.Bid;
+
+                return currentbid;
+            }
+        }
+
+
+        public decimal MarketVaue
+        {
+            get
+            {
+                return CurrentBId * SharesOwned;
+            }
+        }
+
+        public decimal GainsandLooses
+        {
+            get
+            {
+                return MarketVaue - TotalValue;
+            }
+
+        }
+
     }
 }

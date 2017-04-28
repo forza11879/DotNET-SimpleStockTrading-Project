@@ -127,7 +127,10 @@
                                                                     <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
                                                                     <GridViewColumn Header="Number of Shares" Width="200" DisplayMemberBinding="{Binding SharesOwned}"/>
                                                                     <GridViewColumn Header="Average Purchase Price" Width="300"  DisplayMemberBinding="{Binding AveragePurchasedPrice}"/>
-
+                                                                    <GridViewColumn Header="Total Value" Width="150"  DisplayMemberBinding="{Binding TotalValue}"/>
+                                                                    <GridViewColumn Header="Current Bid" Width="150"  DisplayMemberBinding="{Binding CurrentBId}"/>
+                                                                    <GridViewColumn Header="Market Value" Width="150"  DisplayMemberBinding="{Binding MarketVaue}"/>
+                                                                    <GridViewColumn Header="Gains And Looses" Width="150"  DisplayMemberBinding="{Binding GainsandLooses}"/>
                                                                 </GridView>
 
                                                             </ListView.View>
