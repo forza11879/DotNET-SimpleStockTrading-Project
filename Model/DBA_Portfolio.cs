@@ -10,6 +10,21 @@ namespace TradingApp.Model
 {
     class DBA_Portfolio
     {
+
+        public static void AddNewPortfolioToTable(Entities.Portfolio p)
+        {
+
+            string sql = "INSERT INTO Portfolio (Name, Email) VALUES (@Name,@Email)";
+            SqlCommand cmd = new SqlCommand(sql, Globals.Db.conn);
+
+            cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = p.Name;
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = p.Email;
+
+            cmd.CommandType = CommandType.Text;
+            cmd.ExecuteNonQuery();
+            
+
+        }
         public static List<Entities.Portfolio> GetAll()
         {
             List<Entities.Portfolio> result = new List<Entities.Portfolio>();

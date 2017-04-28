@@ -28,7 +28,7 @@ namespace TradingApp
         }
 
         // Lets get all Portfolios from database
-        private void RefreshPortfolios()
+        public void RefreshPortfolios()
         {
             lvPortfolios.ItemsSource = Model.DBA_Portfolio.GetAll();
         }
@@ -76,8 +76,8 @@ namespace TradingApp
         private void BtnNew_Click(object sender, RoutedEventArgs e)
         {
             NewPortfolioDialog win3 = new NewPortfolioDialog();
-            win3.Show();
-            this.Close();
+            
+            win3.ShowDialog();
         }
 
     }

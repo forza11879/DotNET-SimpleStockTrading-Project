@@ -26,8 +26,15 @@ namespace TradingApp
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
-
+            string name = tbName.Text;
+            string email = tbEmail.Text;
+            Entities.Portfolio p = new Entities.Portfolio() { Name = name, Email = email };
+            Model.DBA_Portfolio.AddNewPortfolioToTable(p);
+            //RefreshPortfolios();
+            this.DialogResult = true;
         }
+
+
 
         //private void ButtonOK_Click(object sender, RoutedEventArgs e)
         //{

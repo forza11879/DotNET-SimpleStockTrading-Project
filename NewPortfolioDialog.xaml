@@ -13,10 +13,8 @@
                 <TextBox x:Name="tbName" Height="30" Width="150" Margin="131,10,112.6,230.4"/>
                 <Label Content="Email" Height="30" Width="50" Margin="43,70,300.6,181.4"/>
                 <TextBox x:Name="tbEmail" Height="30" Width="150" Margin="131,70,112.6,181.4"/>
-                <Label Content="Cash" Height="30" Width="50" Margin="43,130,300.6,117.4"/>
-                <TextBox x:Name="tbCash" Height="30" Width="150" Margin="131,130,112.6,117.4"/>
-                <Button IsDefault="True" Click="ButtonOK_Click"  Height="25" Width="80" Margin="0,240,112.6,117.4">_OK</Button>
-                <Button IsCancel="True" Height="25" Width="80" Margin="225.2,240,112.6,117.4">_Cancel</Button>
+                <Button IsDefault="True" Click="ButtonOK_Click"  Height="25" Width="80" Margin="0,240,112.6,117.4">OK</Button>
+                <Button IsCancel="True" Height="25" Width="80" Margin="225.2,240,112.6,117.4">Cancel</Button>
             </Grid>
         </ContentControl>
     </DockPanel>

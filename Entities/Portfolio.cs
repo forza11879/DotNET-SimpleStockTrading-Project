@@ -26,5 +26,11 @@ namespace TradingApp.Entities
             Net = net;
             Balance = balance;
         }
+
+        public Portfolio()
+        {
+
+
+        }
     }
 }
