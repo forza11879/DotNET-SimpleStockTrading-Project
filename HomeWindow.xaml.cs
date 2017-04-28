@@ -175,7 +175,7 @@ namespace TradingApp
                 btnSell.IsEnabled = false;
                 Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
 
-                lblCompanyName.Content = SelectedStock.Symbol;
+                lblCompanyNameBuyOrder.Content = SelectedStock.Symbol;
                 lbBidBuyOrder.Content = SelectedStock.Bid;
                 lbAskBuyOrder.Content = SelectedStock.Ask;
 
@@ -293,7 +293,7 @@ namespace TradingApp
 
             lbAskBuyOrder.Content = "...";
             lbBidBuyOrder.Content = "....";
-            lblCompanyName.Content = ".....";
+            lblCompanyNameBuyOrder.Content = ".....";
 
             if (lvStockQuotesList.SelectedItem == null)
             {
