@@ -70,8 +70,8 @@
                                                     <GridViewColumn Header="Bid" Width="95"  DisplayMemberBinding='{Binding Bid, TargetNullValue="N/A"}' />
                                                     <GridViewColumn Header="Ask" Width="95" DisplayMemberBinding='{Binding Ask, TargetNullValue="N/A"}'/>
                                                     <GridViewColumn Header="Open" Width="95" DisplayMemberBinding='{Binding Open, TargetNullValue="N/A"}'/>
-                                                    <GridViewColumn Header="PreviousClose" TextBlock.TextAlignment="Center"  Width="120" DisplayMemberBinding='{Binding PreviousClose, TargetNullValue="N/A"}'>
-
+                                                    <GridViewColumn Header="PreviousClose"  Width="120" DisplayMemberBinding='{Binding PreviousClose, TargetNullValue="N/A"}'>
+                                                
                                                     </GridViewColumn>
                                                     <GridViewColumn Header="Last Trade" Width="120" DisplayMemberBinding='{Binding LastTrade, TargetNullValue="N/A"}'/>
                                                     <GridViewColumn Header="Volume" Width="120" DisplayMemberBinding='{Binding Volume, TargetNullValue="N/A"}'/>
@@ -247,7 +247,7 @@
                                                     <Label Content="Bid" Margin="30,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
                                                     <Label Content="Ask" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
                                                     <Label Name="lbBidBuyOrder" Content="...." Margin="-258,0,0,20" Height="30" Width="56" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
-                                                    <Label Name="lbAskBuyOrder" Content="...." Margin="-80,0,0,20" Height="30" Width="48" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
+                                                    <Label Name="lbAskBuyOrder" Content="...." Margin="-70,0,0,20" Height="30" Width="58" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
 
                                                     <!--<TextBox Name="tbTradingPrice" Margin="60,10,0,0" Height="30" Width="100"/>-->
                                                     <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
@@ -294,7 +294,7 @@
                                                     <Label Content="Bid" Margin="30,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
                                                     <Label Content="Ask" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
                                                     <Label Name="lbBidSellOrder" Content="...." Margin="-258,0,0,20" Height="30" Width="56" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
-                                                    <Label Name="lbAskSellOrder" Content="...." Margin="-80,0,0,20" Height="30" Width="48" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
+                                                    <Label Name="lbAskSellOrder" Content="...." Margin="-70,0,0,20" Height="30" Width="58" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
 
                                                     <!--<TextBox Name="tbTradingPrice" Margin="60,10,0,0" Height="30" Width="100"/>-->
                                                     <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
