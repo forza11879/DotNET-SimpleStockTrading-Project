@@ -28,13 +28,13 @@
     </Window.Resources>
     <DockPanel>
 
-        <TabControl x:Name="tcSample" >
+        <TabControl x:Name="tcSample">
             <TabItem Header="Home">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="83*"/>
+                        <ColumnDefinition Width="84*"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="16*"/>
                     </Grid.ColumnDefinitions>
                     <!-- Left Side -->
                     <DockPanel>
@@ -71,7 +71,7 @@
                                                     <GridViewColumn Header="Ask" Width="95" DisplayMemberBinding='{Binding Ask, TargetNullValue="N/A"}'/>
                                                     <GridViewColumn Header="Open" Width="95" DisplayMemberBinding='{Binding Open, TargetNullValue="N/A"}'/>
                                                     <GridViewColumn Header="PreviousClose" TextBlock.TextAlignment="Center"  Width="120" DisplayMemberBinding='{Binding PreviousClose, TargetNullValue="N/A"}'>
-                                                        
+
                                                     </GridViewColumn>
                                                     <GridViewColumn Header="Last Trade" Width="120" DisplayMemberBinding='{Binding LastTrade, TargetNullValue="N/A"}'/>
                                                     <GridViewColumn Header="Volume" Width="120" DisplayMemberBinding='{Binding Volume, TargetNullValue="N/A"}'/>
@@ -196,47 +196,48 @@
                     <!--Right Side-->
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="60*"/>
+                            <RowDefinition Height="63*"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="40*"/>
+                            <RowDefinition Height="37*"/>
 
                         </Grid.RowDefinitions>
+
                         <ContentControl Grid.Row="0" x:Name="BalanceRegion">
                             <StackPanel Orientation="Vertical">
-                                <GroupBox Header="Balance" HorizontalAlignment="Left" Margin="10,10,10,10">
+                                <GroupBox Header="Search" FontWeight="Bold"  HorizontalAlignment="Left" Margin="10,05,10,10">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Cash: " Margin="10,10,0,0" Height="30" Width="120" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                            <Label Content="......." Margin="20,10,0,0" Height="30" Width="100" x:Name="lbCash"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Gains / Looses" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                            <Label Name="lbGanesLooses" Content="....." Margin="20,10,0,0" Height="30" Width="100"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Total Equity: " Margin="10,0,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center"  HorizontalContentAlignment="Center"/>
-                                            <Label Name="lbNet" Content="......" Margin="20,0,0,0" Height="30" Width="100"/>
-                                        </StackPanel>
-                                        <!--<StackPanel Orientation="Horizontal">
-                                            <Label Content="Total Equity: " Margin="10,10,0,0" Height="30" Width="120"  HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-                                            <Label Content="......" Margin="20,10,0,0" Height="30" Width="100"/>
-                                        </StackPanel>-->
-                                        <StackPanel Orientation="Horizontal">
-                                            <!--<Label Content="Market Value" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                            <Label Content=".......&#xA;" Margin="20,10,0,0" Height="30" Width="100"/>-->
-                                            <!--<xctk:IntegerUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="N0" Value="{Binding Size, Mode=TwoWay}"  Increment="{Binding SizeIncrement}" Margin="20,10,10,10" Height="30" Width="100"/>-->
+                                            <Label Content="Symbol: " Margin="10,10,0,0" Height="30" Width="45" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left"/>
+                                            <TextBox x:Name="tbSearchStock" Margin="10,10,0,0" Height="30" Width="185" />
                                         </StackPanel>
                                     </StackPanel>
                                 </GroupBox>
-                                <GroupBox Header="Buy Order" HorizontalAlignment="Left" Margin="10,10,10,10">
+
+                                <GroupBox Header="Balance" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,05,10,10">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Symbol" Margin="0,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                            <Label Content="....." x:Name="lblCompanyNameBuyOrder" Margin="0,10,0,0" Height="30" Width="100"/>
+                                            <Label Content="Cash: " Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left"/>
+                                            <Label Content="......." Margin="20,10,0,0" Height="30" Width="100" x:Name="lbCash"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Quantity" Margin="0,0,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                            <TextBox x:Name="tbQuantityBuy" Margin="60,10,0,0" Height="30" Width="100" />
+                                            <Label Content="Gains / Looses" Margin="10,0,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left"/>
+                                            <Label Name="lbGanesLooses" Content="....." Margin="20,0,0,0" Height="30" Width="100"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Total Equity: " Margin="10,0,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center"  HorizontalContentAlignment="Left"/>
+                                            <Label Name="lbNet" Content="......" Margin="20,0,0,0" Height="30" Width="100"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Buy Order" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,05,10,10">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Symbol" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left"/>
+                                            <Label Content="....." x:Name="lblCompanyNameBuyOrder" Margin="10,10,0,0" Height="30" Width="100"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Quantity" Margin="10,12,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left"/>
+                                            <TextBox x:Name="tbQuantityBuy" Margin="05,10,0,0" Height="30" Width="145" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <GroupBox Header="Price" HorizontalAlignment="Left" Margin="10,20,10,10" Width="230" Height="120">
@@ -256,31 +257,29 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <Button Name="btnBuy" Content="Buy" Margin="20,10,0,10" Height="30" Width="220" FontWeight="Bold" Click="btnBuy_Click"></Button>
-                                            <!--<xctk:IntegerUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="N0" Value="{Binding Size, Mode=TwoWay}"  Increment="{Binding SizeIncrement}" Margin="20,10,10,10" Height="30" Width="100"/>-->
                                         </StackPanel>
                                     </StackPanel>
                                 </GroupBox>
-                                
+
 
                             </StackPanel>
-                            
+
                         </ContentControl>
 
                         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"/>
 
                         <ContentControl Grid.Row="2" x:Name="OrderRegion">
                             <StackPanel Orientation="Vertical">
-                                <GroupBox Header="Sell Order" HorizontalAlignment="Left" Margin="10,10,10,10">
+                                <GroupBox Header="Sell Order" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,15,10,10">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Symbol:" Margin="0,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                            <Label  Content="..." x:Name="lblCompanyNameSellOrder" Margin="0,10,0,0" Height="28" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-
+                                            <Label Content="Symbol:" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>
+                                            <Label  Content="......" x:Name="lblCompanyNameSellOrder" Margin="10,10,0,0" Height="30" Width="100"/>
 
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Quantity" Margin="0,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                            <TextBox x:Name="tbQuantitySell" Margin="60,10,0,0" Height="30" Width="100" />
+                                            <Label Content="Quantity" Margin="10,12,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left"/>
+                                            <TextBox x:Name="tbQuantitySell" Margin="05,10,0,0" Height="30" Width="145" />
 
                                         </StackPanel>
                                         <!--<StackPanel Orientation="Horizontal">
@@ -308,14 +307,6 @@
                                         </StackPanel>
                                     </StackPanel>
                                 </GroupBox>
-                                <!--<GroupBox Header="Cancel Order" HorizontalAlignment="Left" Margin="10,10,10,10">
-                                    <StackPanel Orientation="Vertical">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="{Binding SelectedOrderId}" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-                                            <Button Content="Cancel Order" Margin="20,10,10,10" Height="30" Width="100" Command="{Binding CancelOrderCmd}"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </GroupBox>-->
                             </StackPanel>
 
                         </ContentControl>
