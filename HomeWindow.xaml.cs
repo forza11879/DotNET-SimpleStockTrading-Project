@@ -173,7 +173,6 @@ namespace TradingApp
             else
             {
                 btnBuy.IsEnabled = true;
-                btnSell.IsEnabled = false;
                 Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
 
                 lblCompanyNameBuyOrder.Content = SelectedStock.Symbol;
@@ -195,10 +194,18 @@ namespace TradingApp
 
             if (int.TryParse(tbQuantityBuy.Text, out Quantity))
             {
+
+
                 Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
                 Entities.Portfolio SelectedPortfolio = Model.DBA_Portfolio.GetUpdatedPortfolio(Globals.SelectedPortfolio);
                 List<String> SymbolStringLIstOwnedByUser = new List<String>();
                 SymbolStringLIstOwnedByUser = Globals.Db.GetAllStockOwnedByUser(Globals.SelectedPortfolio);
+
+                decimal maxQty = (decimal)SelectedPortfolio.Cash / (decimal)SelectedStock.Ask;
+
+                maxQty = Math.Floor(maxQty);
+
+                if ((Quantity * SelectedStock.Ask) <= SelectedPortfolio.Cash) {
 
                 if (SymbolStringLIstOwnedByUser.Contains(SelectedStock.Symbol, StringComparer.OrdinalIgnoreCase))
                 {
@@ -226,9 +233,16 @@ namespace TradingApp
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
 
 
+                }else {
+
+                    MessageBox.Show("You can buy only:  " + maxQty + "  Shares of: " + SelectedStock.Name, "Confirmation", MessageBoxButton.OK);
+                }
+
             }
             else
             {
+                
+
                 MessageBox.Show("Invalid Qty", "Confirmation", MessageBoxButton.OK);
             }
 
@@ -305,7 +319,6 @@ namespace TradingApp
             else
             {
                 btnSell.IsEnabled = true;
-                btnBuy.IsEnabled = false;
             }
 
         }
@@ -328,6 +341,9 @@ namespace TradingApp
                 Entities.PortfolioStock SelectedStockOwnedByUSer = (Entities.PortfolioStock)lvStockOwnedByUser.SelectedItem;
                 List<Entities.StockDb> DatabasePrices = Globals.Db.GetAllStockPricesFromDatabase();
 
+
+                if (SelectedStockOwnedByUSer.SharesOwned >= quantity)
+                {
                 symbol = SelectedStockOwnedByUSer.Symbol;
 
                 foreach (Entities.StockDb E in DatabasePrices)
@@ -348,9 +364,10 @@ namespace TradingApp
                 tbQuantityBuy.Text = "";
                 UpdatePortfolioInfo();
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
-
-
-
+                }else
+                {
+                    MessageBox.Show("You can sell only: " + SelectedStockOwnedByUSer.SharesOwned, "Confirmation", MessageBoxButton.OK);
+                }
 
             }
             else
