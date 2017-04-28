@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using CsvHelper;
 
+
+
+
+
 namespace TradingApp
 {
     class YahooStock
@@ -17,6 +21,8 @@ namespace TradingApp
         // caller must handle ParseException
         public static List<YahooStock> Parse(string csvData)
         {
+
+
             List<YahooStock> StockFromApiList = new List<YahooStock>();
             string[] rows = csvData.Replace("\r", "").Split('\n');
 

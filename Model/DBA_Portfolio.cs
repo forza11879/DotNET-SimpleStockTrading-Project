@@ -44,6 +44,17 @@ namespace TradingApp.Model
             cmd.ExecuteNonQuery();
         }
 
+        public static void UpdateNet(decimal net, Entities.Portfolio p)
+        {
+            string sql = "UPDATE Portfolio " +
+                "SET Net=@Net " +
+                "WHERE PortfolioId=@PortfolioId";
+
+            SqlCommand cmd = new SqlCommand(sql, Globals.Db.conn);
+            cmd.Parameters.Add("@Net", SqlDbType.Money).Value = net;
+            cmd.Parameters.Add("@PortfolioId", SqlDbType.Int).Value = p.PortfolioID;
+            cmd.ExecuteNonQuery();
+        }
 
 
         public static Entities.Portfolio GetUpdatedPortfolio(Entities.Portfolio p)

@@ -103,7 +103,7 @@ namespace TradingApp
 
             using (WebClient web = new WebClient())
             {
-                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT+ADBE+AKAM+ALXN+AMZN+AAL+AMGN+ADBE+CMCSA+CSX+INTC+INTU+KHC+MAR+NVDA+SBUX&f=snbaopl1vhgkj");
+                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT+ADBE+AKAM+ALXN+AMZN+AAL+AMGN+ADBE+CMCSA+CSX+INTC+INTU+KHC+NVDA+SBUX&f=snbaopl1vhgkj");
             }
 
 
@@ -247,12 +247,13 @@ namespace TradingApp
 
             lbCash.Content = updatedPortfolio.Cash;
             lbGanesLooses.Content = updatedPortfolio.Balance;
+            lbNet.Content = updatedPortfolio.Net;
 
         }
 
         private void UpdateUserBalance()
         {
-
+            decimal newNet = 0;
             decimal totalSum = 0;
             decimal newBalance = 0;
 
@@ -276,10 +277,11 @@ namespace TradingApp
                 }
             }
 
-
+            newNet = currentCash + totalSum;
             newBalance = (currentCash + totalSum) - 50000;
 
             Model.DBA_Portfolio.UpdateBalance(newBalance, Globals.SelectedPortfolio);
+            Model.DBA_Portfolio.UpdateNet(newNet, Globals.SelectedPortfolio);
 
         }
 
