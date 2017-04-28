@@ -16,7 +16,7 @@ namespace TradingApp.Entities
 
         public decimal AveragePurchasedPrice { get; set; }
 
-        public PortfolioStock( String symbol, int portfolioId, int sharesOwned, decimal averagePurchasedPrice)
+        public PortfolioStock(String symbol, int portfolioId, int sharesOwned, decimal averagePurchasedPrice)
         {
             Symbol = symbol;
             PortfolioId = portfolioId;
@@ -26,7 +26,13 @@ namespace TradingApp.Entities
         //
 
         // computed properties, NOT stored in database
-        public decimal CurrentAskPrice { get; set; }
+        public decimal TotalValue
+        {
+            get
+            {
+                return AveragePurchasedPrice * SharesOwned;
 
+            }
+        }
     }
 }

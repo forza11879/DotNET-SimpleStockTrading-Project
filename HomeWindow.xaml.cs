@@ -318,7 +318,7 @@ namespace TradingApp
             // if exists it updates record
             // if not it adds new record
 
-            if (int.TryParse(tbQuantityBuy.Text, out quantity))
+            if (int.TryParse(tbQuantitySell.Text, out quantity))
             {
                 String symbol;
                 decimal sellPrice = 0;
