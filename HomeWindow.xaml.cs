@@ -176,8 +176,8 @@ namespace TradingApp
                 Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
 
                 lblCompanyName.Content = SelectedStock.Symbol;
-                lbBid.Content = SelectedStock.Bid;
-                lbAsk.Content = SelectedStock.Ask;
+                lbBidBuyOrder.Content = SelectedStock.Bid;
+                lbAskBuyOrder.Content = SelectedStock.Ask;
 
 
             }
@@ -192,7 +192,7 @@ namespace TradingApp
             // if exists it updates record
             // if not it adds new record
 
-            if (int.TryParse(tbQuantity.Text, out Quantity))
+            if (int.TryParse(tbQuantityBuy.Text, out Quantity))
             {
                 Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
                 Entities.Portfolio SelectedPortfolio = Model.DBA_Portfolio.GetUpdatedPortfolio(Globals.SelectedPortfolio);
@@ -220,7 +220,7 @@ namespace TradingApp
                 }
 
 
-                tbQuantity.Text = "";
+                tbQuantityBuy.Text = "";
 
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
 
@@ -291,8 +291,8 @@ namespace TradingApp
 
             Entities.PortfolioStock SelectedStock = (Entities.PortfolioStock)lvStockOwnedByUser.SelectedItem;
 
-            lbAsk.Content = "...";
-            lbBid.Content = "....";
+            lbAskBuyOrder.Content = "...";
+            lbBidBuyOrder.Content = "....";
             lblCompanyName.Content = ".....";
 
             if (lvStockQuotesList.SelectedItem == null)
@@ -318,7 +318,7 @@ namespace TradingApp
             // if exists it updates record
             // if not it adds new record
 
-            if (int.TryParse(tbQuantity.Text, out quantity))
+            if (int.TryParse(tbQuantityBuy.Text, out quantity))
             {
                 String symbol;
                 decimal sellPrice = 0;
@@ -344,7 +344,7 @@ namespace TradingApp
                 UpdateUserBalance();
                 UpdatePortfolioInfo();
 
-                tbQuantity.Text = "";
+                tbQuantityBuy.Text = "";
                 UpdatePortfolioInfo();
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
 
