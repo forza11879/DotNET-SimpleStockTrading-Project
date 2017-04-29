@@ -104,7 +104,7 @@ namespace TradingApp
 
             using (WebClient web = new WebClient())
             {
-                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT+ADBE+AKAM+ALXN+AMZN+AAL+AMGN+ADBE+CMCSA+CSX+INTC+INTU+KHC+NVDA+SBUX&f=snbaopl1vhgkj");
+                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT+ADBE+AKAM+ALXN+AMZN+AAL+AMGN+ADBE+CMCSA+CSX+INTC+KHC+NVDA+SBUX&f=snbaopl1vhgkj");
             }
 
 
@@ -384,6 +384,25 @@ namespace TradingApp
         {
             lvTransactions.ItemsSource = Model.DBA_Transactions.GetAll(Globals.SelectedPortfolio);
 
+        }
+
+        private void tbSearchStock_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string search = tbSearchStock.Text.ToLower();
+            if (search == "")
+            {
+                lvStockQuotesList.ItemsSource = Globals.Db.GetAllStockPricesFromDatabase();
+            }
+            else
+            {
+                List<Entities.StockDb> StockDbList = Globals.Db.GetAllStockPricesFromDatabase();
+                
+                var filteredList = from s in StockDbList
+                                   where s.Symbol.ToLower().Contains(search) || s.Name.ToLower().Contains(search)
+                                   select s;
+
+                lvStockQuotesList.ItemsSource = filteredList;
+            }
         }
 
 

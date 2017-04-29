@@ -55,6 +55,7 @@ namespace TradingApp
             }
             else
             {
+                
                 MessageBox.Show(tbEmail.Text + " is not a valid email", "Invalit Input",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
