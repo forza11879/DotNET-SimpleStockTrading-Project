@@ -124,9 +124,21 @@
                                                             <!--Bind Item-->
                                                             <ListView.View>
                                                                 <GridView>
-                                                                    <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
+                                                                    <GridViewColumn Header="Symbol" Width="65">
+                                                                    <GridViewColumn.CellTemplate>
+                                                                        <DataTemplate>
+                                                                            <TextBlock Text="{Binding Symbol}"  TextAlignment="Center" />
+                                                                        </DataTemplate>
+                                                                    </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
                                                                     <GridViewColumn Header="Number of Shares" Width="200" DisplayMemberBinding="{Binding SharesOwned}"/>
-                                                                    <GridViewColumn Header="Average Purchase Price" Width="300"  DisplayMemberBinding="{Binding AveragePurchasedPrice}"/>
+                                                                    <GridViewColumn Header="AveragePurchasePrice" Width="300" >
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock Text="{Binding AveragePurchasedPrice}" TextAlignment="Center" />
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
                                                                     <GridViewColumn Header="Total Value" Width="150"  DisplayMemberBinding="{Binding TotalValue}"/>
                                                                     <GridViewColumn Header="Current Bid" Width="150"  DisplayMemberBinding="{Binding CurrentBId}"/>
                                                                     <GridViewColumn Header="Market Value" Width="150"  DisplayMemberBinding="{Binding MarketVaue}"/>
