@@ -36,6 +36,8 @@ namespace TradingApp
         private void lvPortfolios_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+            if(lvPortfolios.SelectedItem != null){
+
             //getting selected object from ListView
             Globals.SelectedPortfolio = (Entities.Portfolio)lvPortfolios.SelectedItem;
 
@@ -50,6 +52,19 @@ namespace TradingApp
 
             //Net
             lbNet.Content = Globals.SelectedPortfolio.Net;
+
+            }else
+            {
+                lbBalance.Content = "...";
+
+
+                //Cash
+                lbCash.Content = "...";
+
+                //Net
+                lbNet.Content = "...";
+            }
+
 
         }
 
