@@ -32,9 +32,9 @@ namespace TradingApp
 
             string name = tbName.Text;
 
-            if (tbName.Text == "" || tbEmail.Text == "")
+            if (tbEmail.Text == "" || (!Regex.Match(tbName.Text, "^[a-zA-Z.]{2,50}$").Success))
             {
-                MessageBox.Show(" Name/Email input cannot be empty", "Invalit Input",
+                MessageBox.Show(" Name/Email input is invalid", "Invalit Input",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
