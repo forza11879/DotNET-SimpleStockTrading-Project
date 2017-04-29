@@ -97,6 +97,17 @@ namespace TradingApp.Model
             }
             return updatedPortfolio;
         }
+
+        public static void deletePortfolioById(int PortfolioID)
+        {
+            using (SqlCommand cmd = new SqlCommand("DELETE FROM Portfolio WHERE portfolioId = @portfolioId", Globals.Db.conn))
+            {
+
+                cmd.Parameters.AddWithValue("@portfolioId", PortfolioID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 
     

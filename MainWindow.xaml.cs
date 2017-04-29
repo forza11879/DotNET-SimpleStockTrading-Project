@@ -81,5 +81,22 @@ namespace TradingApp
             lvPortfolios.ItemsSource = Model.DBA_Portfolio.GetAll();
         }
 
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (lvPortfolios.SelectedItem != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to delete record?", "Delete Record", MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.OK)
+                {
+                    Entities.Portfolio portfolioEntry = (Entities.Portfolio)lvPortfolios.SelectedItem;
+                    Model.DBA_Portfolio.deletePortfolioById(portfolioEntry.PortfolioID);
+
+                    List<Entities.Portfolio> PortfolioList = Model.DBA_Portfolio.GetAll();
+                    lvPortfolios.ItemsSource = PortfolioList;
+
+
+                }
+            }
+        }
     }
 }
