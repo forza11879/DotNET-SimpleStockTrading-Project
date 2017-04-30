@@ -254,10 +254,6 @@ namespace TradingApp
                 MessageBox.Show("Invalid Qty", "Confirmation", MessageBoxButton.OK);
             }
 
-
-
-
-
         }
 
 
