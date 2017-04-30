@@ -168,7 +168,6 @@ namespace TradingApp
         {
 
 
-
             if (lvStockQuotesList.SelectedItem == null)
             {
                 //if there is no selection dissable buttons Update and Add
@@ -210,47 +209,56 @@ namespace TradingApp
 
                 maxQty = Math.Floor(maxQty);
 
-                if ((Quantity * SelectedStock.Ask) <= SelectedPortfolio.Cash) {
-
-                if (SymbolStringLIstOwnedByUser.Contains(SelectedStock.Symbol, StringComparer.OrdinalIgnoreCase))
+                if (Quantity != 0)
                 {
-                    //adds transaction record and updates cash in portfolio
-                    Globals.Db.AddBuyTransaction(SelectedPortfolio, SelectedStock, Quantity);
 
-                    //adds stock into users portfolio
-                    Globals.Db.UpdatePortfolioStock(SelectedPortfolio, SelectedStock, Quantity);
+                    if ((Quantity * SelectedStock.Ask) <= SelectedPortfolio.Cash)
+                    {
+
+                        if (SymbolStringLIstOwnedByUser.Contains(SelectedStock.Symbol, StringComparer.OrdinalIgnoreCase))
+                        {
+                            //adds transaction record and updates cash in portfolio
+                            Globals.Db.AddBuyTransaction(SelectedPortfolio, SelectedStock, Quantity);
+
+                            //adds stock into users portfolio
+                            Globals.Db.UpdatePortfolioStock(SelectedPortfolio, SelectedStock, Quantity);
+
+                        }
+                        else
+                        {
+                            //adds transaction record and updates cash in portfolio
+                            Globals.Db.AddBuyTransaction(SelectedPortfolio, SelectedStock, Quantity);
+
+                            //updates stock volume and average price in portfolio
+                            Globals.Db.AddPortfolioStock(SelectedPortfolio, SelectedStock, Quantity);
+
+
+                        }
+
+                        tbQuantityBuy.Text = "";
+                        RefreshStockOwnedByPortfolio();
+                        UpdateUserBalance();
+                        UpdatePortfolioInfo();
+
+                        MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
+
+
+                    }
+                    else
+                    {
+
+                        MessageBox.Show("You can buy only:  " + maxQty + "  Shares of: " + SelectedStock.Name, "Confirmation", MessageBoxButton.OK);
+                    }
 
                 }
                 else
                 {
-                    //adds transaction record and updates cash in portfolio
-                    Globals.Db.AddBuyTransaction(SelectedPortfolio, SelectedStock, Quantity);
 
-                    //updates stock volume and average price in portfolio
-                    Globals.Db.AddPortfolioStock(SelectedPortfolio, SelectedStock, Quantity);
-
-
+                    MessageBox.Show("Qty cannot be 0", "Confirmation", MessageBoxButton.OK);
                 }
-
-
-                tbQuantityBuy.Text = "";
-                RefreshStockOwnedByPortfolio();
-                UpdateUserBalance();
-                UpdatePortfolioInfo();
-
-                MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
-
-
-                }else {
-
-                    MessageBox.Show("You can buy only:  " + maxQty + "  Shares of: " + SelectedStock.Name, "Confirmation", MessageBoxButton.OK);
-                }
-
             }
             else
             {
-                
-
                 MessageBox.Show("Invalid Qty", "Confirmation", MessageBoxButton.OK);
             }
 
@@ -305,25 +313,32 @@ namespace TradingApp
 
         private void lvStockOwnedByUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             Entities.PortfolioStock SelectedStock = (Entities.PortfolioStock)lvStockOwnedByUser.SelectedItem;
-
 
             if (lvStockQuotesList.SelectedItem == null)
             {
-                //if there is no selection dissable buttons Update and Add
                 btnSell.IsEnabled = false;
                 lbAskBuyOrder.Content = "...";
-                lbBidBuyOrder.Content = "....";
+                lbBidSellOrder.Content = "....";
                 lblCompanyNameBuyOrder.Content = ".....";
             }
 
             else
             {
+                if (SelectedStock == null)
+                {
+                    btnSell.IsEnabled = false;
+                    lbAskBuyOrder.Content = "...";
+                    lbBidSellOrder.Content = "....";
+                    lblCompanyNameBuyOrder.Content = ".....";
+                }else
+                {
                 btnSell.IsEnabled = true;
                 lbBidSellOrder.Content = SelectedStock.CurrentBId;
                 lbAskSellOrder.Content = SelectedStock.AveragePurchasedPrice;
                 lblCompanyNameSellOrder.Content = SelectedStock.Symbol;
+                }
+
 
             }
 
@@ -340,6 +355,9 @@ namespace TradingApp
 
             if (int.TryParse(tbQuantitySell.Text, out quantity))
             {
+
+                if (quantity!=0)
+                {
                 String symbol;
                 decimal sellPrice = 0;
 
@@ -367,13 +385,18 @@ namespace TradingApp
                 UpdateUserBalance();
                 UpdatePortfolioInfo();
 
-                tbQuantityBuy.Text = "";
+                tbQuantitySell.Text = "";
                 UpdatePortfolioInfo();
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
                 }else
                 {
                     MessageBox.Show("You can sell only: " + SelectedStockOwnedByUSer.SharesOwned, "Confirmation", MessageBoxButton.OK);
                 }
+                }else
+                {
+                    MessageBox.Show("Qty cannot be 0", "Confirmation", MessageBoxButton.OK);
+                }
+
 
             }
             else
