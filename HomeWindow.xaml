@@ -222,7 +222,9 @@
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
                                             <!--<Label Content="Symbol: " Margin="10,10,0,0" Height="30" Width="45" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left"/>-->
-                                            <TextBox x:Name="tbSearchStock" TextChanged="tbSearchStock_TextChanged" FontWeight="Thin" Margin="0,0,0,0" Height="30" Width="250" Text="Symbol/Name" />
+                                            <TextBox x:Name="tbSearchStock" TextChanged="tbSearchStock_TextChanged" FontWeight="Thin" Margin="0,0,0,0" Height="30" Width="120" Text="Symbol/Name" />
+                                            <Button Name="btnRefresh" Click="btnRefresh_Click" Content="Refresh Quotes" Margin="10,0,0,0" Height="30" Width="120" />
+                                            
                                         </StackPanel>
                                     </StackPanel>
                                 </GroupBox>
