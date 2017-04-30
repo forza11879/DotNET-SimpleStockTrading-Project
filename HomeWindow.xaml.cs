@@ -234,6 +234,9 @@ namespace TradingApp
 
 
                 tbQuantityBuy.Text = "";
+                RefreshStockOwnedByPortfolio();
+                UpdateUserBalance();
+                UpdatePortfolioInfo();
 
                 MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
 
@@ -252,9 +255,7 @@ namespace TradingApp
             }
 
 
-            RefreshStockOwnedByPortfolio();
-            UpdateUserBalance();
-            UpdatePortfolioInfo();
+
 
 
         }
@@ -311,19 +312,23 @@ namespace TradingApp
 
             Entities.PortfolioStock SelectedStock = (Entities.PortfolioStock)lvStockOwnedByUser.SelectedItem;
 
-            lbAskBuyOrder.Content = "...";
-            lbBidBuyOrder.Content = "....";
-            lblCompanyNameBuyOrder.Content = ".....";
 
             if (lvStockQuotesList.SelectedItem == null)
             {
                 //if there is no selection dissable buttons Update and Add
                 btnSell.IsEnabled = false;
+                lbAskBuyOrder.Content = "...";
+                lbBidBuyOrder.Content = "....";
+                lblCompanyNameBuyOrder.Content = ".....";
             }
 
             else
             {
                 btnSell.IsEnabled = true;
+                lbBidSellOrder.Content = SelectedStock.CurrentBId;
+                lbAskSellOrder.Content = SelectedStock.AveragePurchasedPrice;
+                lblCompanyNameSellOrder.Content = SelectedStock.Symbol;
+
             }
 
         }
@@ -414,19 +419,10 @@ namespace TradingApp
         {
             GetListOfStocksFromYahoo();
             RefreshStockList();
+            UpdateUserBalance();
+            UpdatePortfolioInfo();
         }
 
-
-
-        /* private void lvStockOwnedByUser_LostFocus(object sender, RoutedEventArgs e)
-         {
-             lvStockOwnedByUser.UnselectAll();
-         }
-
-         private void lvStockQuotesList_LostFocus(object sender, RoutedEventArgs e)
-         {
-             lvStockQuotesList.UnselectAll();
-         }*/
     }
 
 
