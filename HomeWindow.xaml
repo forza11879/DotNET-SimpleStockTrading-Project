@@ -133,17 +133,17 @@
                                                                         </DataTemplate>
                                                                     </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
-                                                                    <GridViewColumn Header="Number of Shares" Width="200" DisplayMemberBinding="{Binding SharesOwned}"/>
-                                                                    <GridViewColumn Header="AveragePurchasePrice" Width="300" >
+                                                                    <GridViewColumn Header="#Shares" Width="100" DisplayMemberBinding="{Binding SharesOwned}"/>
+                                                                    <GridViewColumn Header="Avg.Price" Width="100" >
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBlock Text="{Binding AveragePurchasedPrice}" TextAlignment="Center" />
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
-                                                                    <GridViewColumn Header="Total Value" Width="150"  DisplayMemberBinding="{Binding TotalValue}"/>
-                                                                    <GridViewColumn Header="Current Bid" Width="150"  DisplayMemberBinding="{Binding CurrentBId}"/>
-                                                                    <GridViewColumn Header="Market Value" Width="150"  DisplayMemberBinding="{Binding MarketVaue}"/>
+                                                                    <GridViewColumn Header="Total Value" Width="100"  DisplayMemberBinding="{Binding TotalValue}"/>
+                                                                    <GridViewColumn Header="Current Bid" Width="100"  DisplayMemberBinding="{Binding CurrentBId}"/>
+                                                                    <GridViewColumn Header="Market Value" Width="100"  DisplayMemberBinding="{Binding MarketVaue}"/>
                                                                     <GridViewColumn Header="Gains And Looses" Width="150"  DisplayMemberBinding="{Binding GainsandLooses}"/>
                                                                 </GridView>
 
@@ -174,12 +174,12 @@
                                                             <!--Bind Item-->
                                                             <ListView.View>
                                                                 <GridView>
-                                                                    <GridViewColumn Header="ID" Width="65" DisplayMemberBinding="{Binding Id}"/>
-                                                                    <GridViewColumn Header="Buy/Sell" Width="200" DisplayMemberBinding="{Binding Type}"/>
+                                                                    <!--<GridViewColumn Header="ID" Width="65" DisplayMemberBinding="{Binding Id}"/>-->
+                                                                    <GridViewColumn Header="Buy/Sell" Width="100" DisplayMemberBinding="{Binding Type}"/>
                                                                     <GridViewColumn Header="Symbol" Width="100"  DisplayMemberBinding="{Binding Symbol}"/>
-                                                                    <GridViewColumn Header="Buy/Sell Price" Width="200"  DisplayMemberBinding="{Binding PurchasePrice}"/>
-                                                                    <GridViewColumn Header="#Shares" Width="100"  DisplayMemberBinding="{Binding SharesBought}"/>
-                                                                    <GridViewColumn Header="Date" Width="200"  DisplayMemberBinding="{Binding Date}"/>
+                                                                    <GridViewColumn Header="Buy/Sell Price" Width="100"  DisplayMemberBinding="{Binding PurchasePrice}"/>
+                                                                    <GridViewColumn Header="#Shares" Width="80"  DisplayMemberBinding="{Binding SharesBought}"/>
+                                                                    <GridViewColumn Header="Date/Time" Width="200"  DisplayMemberBinding="{Binding Date}"/>
                                                                 </GridView>
 
                                                             </ListView.View>
@@ -308,7 +308,7 @@
 
                                                     <!--<Label Content="Price" Margin="10,10,0,0" Height="30" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>-->
                                                     <Label Content="Bid" Margin="30,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
-                                                    <Label Content="Purchased price" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
+                                                    <Label Content="Ask" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
                                                     <Label Name="lbBidSellOrder" Content="...." Margin="-258,0,0,20" Height="30" Width="56" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
                                                     <Label Name="lbAskSellOrder" Content="...." Margin="-70,0,0,20" Height="30" Width="58" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
 
