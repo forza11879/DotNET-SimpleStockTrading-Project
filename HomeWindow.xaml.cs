@@ -28,17 +28,22 @@ namespace TradingApp
 
         public HomeWindow()
         {
+            try
+            {
             InitializeComponent();
-
             GetListOfStocksFromYahoo();
             RefreshStockList();
             UpdateUserBalance();
             UpdatePortfolioInfo();
-            RefreshStockOwnedByPortfolio();
-           
+            RefreshStockOwnedByPortfolio();           
             RefreshTransactions();
-            //GetListOfHistoricalStockFromYahoo();
-            
+            }
+            catch(SqlException e)
+            {
+                MessageBox.Show("SQL ERROR: " + e.Message, "Confirmation", MessageBoxButton.OK);
+            }
+
+
             
             btnBuy.IsEnabled = false;
             btnSell.IsEnabled = false;
