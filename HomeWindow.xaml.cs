@@ -410,6 +410,12 @@ namespace TradingApp
             }
         }
 
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            GetListOfStocksFromYahoo();
+            RefreshStockList();
+        }
+
 
 
         /* private void lvStockOwnedByUser_LostFocus(object sender, RoutedEventArgs e)
