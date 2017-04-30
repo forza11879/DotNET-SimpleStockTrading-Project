@@ -250,6 +250,7 @@ namespace TradingApp
             RefreshStockOwnedByPortfolio();
             UpdateUserBalance();
             UpdatePortfolioInfo();
+            RefreshTransactions();
 
 
         }
