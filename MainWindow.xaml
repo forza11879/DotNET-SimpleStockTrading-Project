@@ -20,8 +20,10 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Start" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Name="StartPortfolio" Click="ButtonStart_Click"/>
-        <Button Content="New" Click="BtnNew_Click" Grid.Column="1" HorizontalAlignment="Left" Margin="104,201,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Start" HorizontalAlignment="Left" Margin="59.2,198,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Name="StartPortfolio" Click="ButtonStart_Click"/>
+        <Button Content="New" Click="BtnNew_Click" Grid.Column="1" HorizontalAlignment="Left" Margin="59.2,234,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Delete" Click="btnDelete_Click" Grid.Column="1" HorizontalAlignment="Left" Margin="59.2,268,0,0" VerticalAlignment="Top" Width="75"/>
+
         <Label Content="Cash" HorizontalAlignment="Left" Margin="23,50,0,0" VerticalAlignment="Top" Grid.Column="1"/>
         <Label Content="......" Grid.Column="1" HorizontalAlignment="Left" Margin="104,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.077,0.194" Name="lbCash"/>
         <Label Content="Net" HorizontalAlignment="Left" Margin="27,102,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.077,0.194" Grid.Column="1"/>

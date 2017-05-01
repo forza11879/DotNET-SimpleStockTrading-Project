@@ -1,4 +1,4 @@
-﻿<Window
+﻿<Window xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,9 @@
         xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" 
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
         xmlns:local="clr-namespace:TradingApp"
-        xmlns:TradingDBDataSetTableAdapters="clr-namespace:TradingApp.TradingDBDataSetTableAdapters" xmlns:TradingDBDataSet1TableAdapters="clr-namespace:TradingApp.TradingDBDataSet1TableAdapters" x:Class="TradingApp.HomeWindow"
+        xmlns:TradingDBDataSetTableAdapters="clr-namespace:TradingApp.TradingDBDataSetTableAdapters" xmlns:TradingDBDataSet1TableAdapters="clr-namespace:TradingApp.TradingDBDataSet1TableAdapters"
+    xmlns:dxpdf="http://schemas.devexpress.com/winfx/2008/xaml/pdf"
+    xmlns:dxrud="http://schemas.devexpress.com/winfx/2008/xaml/reports/userdesigner" x:Class="TradingApp.HomeWindow"
         mc:Ignorable="d"
         Title="HomeWindow" Height="1206" Width="1831" WindowState="Maximized">
     <Window.Resources>
@@ -70,7 +72,7 @@
                                                     <GridViewColumn Header="Bid" Width="95"  DisplayMemberBinding='{Binding Bid, TargetNullValue="N/A"}' />
                                                     <GridViewColumn Header="Ask" Width="95" DisplayMemberBinding='{Binding Ask, TargetNullValue="N/A"}'/>
                                                     <GridViewColumn Header="Open" Width="95" DisplayMemberBinding='{Binding Open, TargetNullValue="N/A"}'/>
-                                                    <GridViewColumn Header="PreviousClose" TextBlock.TextAlignment="Center"  Width="120" DisplayMemberBinding='{Binding PreviousClose, TargetNullValue="N/A"}'>
+                                                    <GridViewColumn Header="PreviousClose"  Width="120" DisplayMemberBinding='{Binding PreviousClose, TargetNullValue="N/A"}'>
 
                                                     </GridViewColumn>
                                                     <GridViewColumn Header="Last Trade" Width="120" DisplayMemberBinding='{Binding LastTrade, TargetNullValue="N/A"}'/>
@@ -91,7 +93,17 @@
                                 <Grid>
                                     <dxc:ChartControl Name="FirstChartControl">
                                         <dxc:XYDiagram2D>
-                                            <dxc:CandleStickSeries2D x:Name="FirstCandleStickChart" CloseValueDataMember="ClosingPrice" HighValueDataMember="High" LowValueDataMember="Low" OpenValueDataMember="OpeningPrice" ArgumentDataMember="Date" ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="1347"  >
+                                            <dxc:CandleStickSeries2D 
+                                                x:Name="FirstCandleStickChart" 
+                                                CloseValueDataMember="ClosingPrice" 
+                                                HighValueDataMember="High" 
+                                                LowValueDataMember="Low" 
+                                                OpenValueDataMember="OpeningPrice" 
+                                                ArgumentDataMember="Date" 
+                                                ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                                Background="#4F81BD"
+                                                     Brush="#4F81BD"
+                                                Width="1347"  >
                                                 <dxc:CandleStickSeries2D.Indicators>
                                                     <dxc:SimpleMovingAverage/>
                                                 </dxc:CandleStickSeries2D.Indicators>
@@ -122,14 +134,26 @@
                                                             </ListView.RenderTransform>
 
                                                             <!--Bind Item-->
-                                                            <ListView.View >
+                                                            <ListView.View>
                                                                 <GridView>
-                                                                    <GridViewColumn Header="Symbol" Width="65" DisplayMemberBinding="{Binding Symbol}"/>
-                                                                    <GridViewColumn Header="Number of Shares" Width="200" DisplayMemberBinding="{Binding SharesOwned}"/>
-                                                                    <GridViewColumn Header="Average Purchase Price" Width="300"  DisplayMemberBinding="{Binding AveragePurchasedPrice}"/>
-                                                                    <GridViewColumn Header="Total Value" Width="150"  DisplayMemberBinding="{Binding TotalValue}"/>
-                                                                    <GridViewColumn Header="Current Bid" Width="150"  DisplayMemberBinding="{Binding CurrentBId}"/>
-                                                                    <GridViewColumn Header="Market Value" Width="150"  DisplayMemberBinding="{Binding MarketVaue}"/>
+                                                                    <GridViewColumn Header="Symbol" Width="65">
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock Text="{Binding Symbol}"  TextAlignment="Center" />
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
+                                                                    <GridViewColumn Header="#Shares" Width="100" DisplayMemberBinding="{Binding SharesOwned}"/>
+                                                                    <GridViewColumn Header="Avg.Price" Width="100" >
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock Text="{Binding AveragePurchasedPrice}" TextAlignment="Center" />
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
+                                                                    <GridViewColumn Header="Total Value" Width="100"  DisplayMemberBinding="{Binding TotalValue}"/>
+                                                                    <GridViewColumn Header="Current Bid" Width="100"  DisplayMemberBinding="{Binding CurrentBId}"/>
+                                                                    <GridViewColumn Header="Market Value" Width="100"  DisplayMemberBinding="{Binding MarketVaue}"/>
                                                                     <GridViewColumn Header="Gains And Looses" Width="150"  DisplayMemberBinding="{Binding GainsandLooses}"/>
                                                                 </GridView>
 
@@ -160,12 +184,12 @@
                                                             <!--Bind Item-->
                                                             <ListView.View>
                                                                 <GridView>
-                                                                    <GridViewColumn Header="ID" Width="65" DisplayMemberBinding="{Binding Id}"/>
-                                                                    <GridViewColumn Header="Buy/Sell" Width="200" DisplayMemberBinding="{Binding Type}"/>
+                                                                    <!--<GridViewColumn Header="ID" Width="65" DisplayMemberBinding="{Binding Id}"/>-->
+                                                                    <GridViewColumn Header="Buy/Sell" Width="100" DisplayMemberBinding="{Binding Type}"/>
                                                                     <GridViewColumn Header="Symbol" Width="100"  DisplayMemberBinding="{Binding Symbol}"/>
-                                                                    <GridViewColumn Header="Buy/Sell Price" Width="200"  DisplayMemberBinding="{Binding PurchasePrice}"/>
-                                                                    <GridViewColumn Header="#Shares" Width="100"  DisplayMemberBinding="{Binding SharesBought}"/>
-                                                                    <GridViewColumn Header="Date" Width="200"  DisplayMemberBinding="{Binding Date}"/>
+                                                                    <GridViewColumn Header="Buy/Sell Price" Width="100"  DisplayMemberBinding="{Binding PurchasePrice}"/>
+                                                                    <GridViewColumn Header="#Shares" Width="80"  DisplayMemberBinding="{Binding SharesBought}"/>
+                                                                    <GridViewColumn Header="Date/Time" Width="200"  DisplayMemberBinding="{Binding Date}"/>
                                                                 </GridView>
 
                                                             </ListView.View>
@@ -174,12 +198,6 @@
                                                     </StackPanel>
                                                 </Grid>
                                             </ContentControl>
-                                        </TabItem>
-                                        <TabItem Header="Orders">
-                                            <DataGrid x:Name="dgPosition"  ItemsSource="{Binding PositionTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
-                                        </TabItem>
-                                        <TabItem Header="Result">
-                                            <DataGrid x:Name="dgResult"  ItemsSource="{Binding ResultTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
                                         </TabItem>
 
                                     </TabControl>
@@ -207,8 +225,10 @@
                                 <GroupBox Header="Search" FontWeight="Bold"  HorizontalAlignment="Left" Margin="10,05,10,10">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <Label Content="Symbol: " Margin="10,10,0,0" Height="30" Width="45" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left"/>
-                                            <TextBox x:Name="tbSearchStock" Margin="10,10,0,0" Height="30" Width="185" />
+                                            <!--<Label Content="Symbol: " Margin="10,10,0,0" Height="30" Width="45" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left"/>-->
+                                            <TextBox x:Name="tbSearchStock" TextChanged="tbSearchStock_TextChanged" FontWeight="Thin" Margin="0,0,0,0" Height="30" Width="120" Text="Symbol/Name" />
+                                            <Button Name="btnRefresh" Click="btnRefresh_Click" Content="Refresh Quotes" Margin="10,0,0,0" Height="30" Width="120" />
+
                                         </StackPanel>
                                     </StackPanel>
                                 </GroupBox>
@@ -247,7 +267,7 @@
                                                     <Label Content="Bid" Margin="30,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
                                                     <Label Content="Ask" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
                                                     <Label Name="lbBidBuyOrder" Content="...." Margin="-258,0,0,20" Height="30" Width="56" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
-                                                    <Label Name="lbAskBuyOrder" Content="...." Margin="-80,0,0,20" Height="30" Width="48" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
+                                                    <Label Name="lbAskBuyOrder" Content="...." Margin="-70,0,0,20" Height="30" Width="58" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
 
                                                     <!--<TextBox Name="tbTradingPrice" Margin="60,10,0,0" Height="30" Width="100"/>-->
                                                     <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
@@ -292,9 +312,9 @@
 
                                                     <!--<Label Content="Price" Margin="10,10,0,0" Height="30" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>-->
                                                     <Label Content="Bid" Margin="30,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
-                                                    <Label Content="Ask" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
+                                                    <Label Content="AvgPrice" Margin="10,10,0,0" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center"></Label>
                                                     <Label Name="lbBidSellOrder" Content="...." Margin="-258,0,0,20" Height="30" Width="56" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
-                                                    <Label Name="lbAskSellOrder" Content="...." Margin="-80,0,0,20" Height="30" Width="48" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
+                                                    <Label Name="lbAskSellOrder" Content="...." Margin="-70,0,0,20" Height="30" Width="58" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Label>
 
                                                     <!--<TextBox Name="tbTradingPrice" Margin="60,10,0,0" Height="30" Width="100"/>-->
                                                     <!--<xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>-->
@@ -315,13 +335,13 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Portfolio" />
+            <!--<TabItem Header="Portfolio" />-->
             <TabItem Header="Chart">
-                <Grid>
-                    <dxc:ChartControl Name="chartControl">
-
-                        <dxc:XYDiagram2D>
-                            <dxc:CandleStickSeries2D x:Name="CandleStickChart" 
+                <ContentControl>
+                    <Grid>
+                        <dxc:ChartControl Name="chartControl">
+                            <dxc:XYDiagram2D>
+                                <dxc:CandleStickSeries2D x:Name="CandleStickChart" 
                                                      CloseValueDataMember="ClosingPrice" 
                                                      HighValueDataMember="High" 
                                                      LowValueDataMember="Low" 
@@ -330,24 +350,86 @@
                                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                      Background="#4F81BD"
                                                      Brush="#4F81BD">
-                                <dxc:CandleStickSeries2D.Indicators>
-                                    <dxc:SimpleMovingAverage/>
-                                </dxc:CandleStickSeries2D.Indicators>
-                            </dxc:CandleStickSeries2D>
-                        </dxc:XYDiagram2D>
-                    </dxc:ChartControl>
+                                    <dxc:CandleStickSeries2D.Indicators>
+                                        <dxc:SimpleMovingAverage/>
+                                    </dxc:CandleStickSeries2D.Indicators>
+                                </dxc:CandleStickSeries2D>
+                            </dxc:XYDiagram2D>
+                        </dxc:ChartControl>
+                    </Grid>
+                </ContentControl>
+            </TabItem>
+            <TabItem Header="Chart2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="99.9*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="0.1*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Left Side -->
+                    <DockPanel>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="94.9*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0.1*"/>
+                            </Grid.RowDefinitions>
+
+                            <ContentControl Grid.Row="0" x:Name="QuoteRegion1">
+                                <DockPanel>
+                                    <Button Name="btnChart3Mnths" Width="80" Height="25" Content="3 Months" Margin="1020,0,0,10"/>
+                                    <Button Name="btnChart6Mnths" Click="btnChart6Mnths_Click" Content="6 Months" Width="80" Height="25" Margin="20,0,0,10" />
+                                    <Button Name="btnChart12Mnths" Content="12 Months" Width="80" Height="25" Margin="0,0,0,10"/></DockPanel>
+                    <!--<DockPanel>
+                    <Button Name="btnChartMnths" Width="100" Height="30" VerticalContentAlignment="Top" VerticalAlignment="Top"/>
+                    </DockPanel>-->
+                    </ContentControl>
+                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="0.1" Background="#FFBCBCBC"/>
+                            <ContentControl Grid.Row="2" x:Name="PlotRegion2">
+                                <Grid>
+                                    <dxc:ChartControl Name="chartControl2">
+                                        <dxc:XYDiagram2D>
+                                            <dxc:CandleStickSeries2D 
+                                                x:Name="FirstCandleStickChart2" 
+                                                CloseValueDataMember="ClosingPrice" 
+                                                HighValueDataMember="High" 
+                                                LowValueDataMember="Low" 
+                                                OpenValueDataMember="OpeningPrice" 
+                                                ArgumentDataMember="Date" 
+                                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                Background="#4F81BD"
+                                                     Brush="#4F81BD"
+                                                Width="1347"  >
+                                                <dxc:CandleStickSeries2D.Indicators>
+                                                    <dxc:SimpleMovingAverage/>
+                                                </dxc:CandleStickSeries2D.Indicators>
+                                            </dxc:CandleStickSeries2D>
+                                        </dxc:XYDiagram2D>
+                                    </dxc:ChartControl>
+                                </Grid>
+                            </ContentControl>
+
+                        </Grid>
+
+                    </DockPanel>
+
+
 
                 </Grid>
-            </TabItem>
-            <TabItem Header="Buy">
+
 
             </TabItem>
 
-            <TabItem Header="Sell" />
+            <!--<TabItem Header="Sell" />-->
 
-            <TabItem Header="Reports" />
+            <TabItem Header="Reports">
+                <dxp:DocumentPreviewControl CommandBarStyle="Bars" Height="1131"/>
+            </TabItem>
 
         </TabControl>
+
 
     </DockPanel>
 

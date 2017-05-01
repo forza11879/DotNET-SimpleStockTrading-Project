@@ -28,17 +28,22 @@ namespace TradingApp
 
         public HomeWindow()
         {
+            try
+            {
             InitializeComponent();
-
             GetListOfStocksFromYahoo();
             RefreshStockList();
             UpdateUserBalance();
             UpdatePortfolioInfo();
-            RefreshStockOwnedByPortfolio();
-           
+            RefreshStockOwnedByPortfolio();           
             RefreshTransactions();
-            //GetListOfHistoricalStockFromYahoo();
-            
+            }
+            catch(SqlException e)
+            {
+                MessageBox.Show("SQL ERROR: " + e.Message, "Confirmation", MessageBoxButton.OK);
+            }
+
+
             
             btnBuy.IsEnabled = false;
             btnSell.IsEnabled = false;
@@ -78,20 +83,28 @@ namespace TradingApp
 
         
 
-        private void lvStockQuotesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+private void lvStockQuotesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+       {
+           
+           Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
+
+           string symbol = SelectedStock.Symbol;
+           
+           List<Entities.QuotesHistory> QuotesHistoryList = Entities.QuotesHistoryLoader.LoadQuotesHistory(symbol);
+
+           RefreshStockList();
+           FirstChartControl.DataSource = QuotesHistoryList;
+           chartControl.DataSource = QuotesHistoryList;
+           chartControl2.DataSource = QuotesHistoryList;
+
+       }
+
+        private void btnChart6Mnths_Click(object sender, RoutedEventArgs e)
         {
-            Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
-
-            string symbol = SelectedStock.Symbol;
             
-            List<Entities.QuotesHistory> QuotesHistoryList = Entities.QuotesHistoryLoader.LoadQuotesHistory(symbol);
-
-            FirstChartControl.DataSource = QuotesHistoryList;
-            chartControl.DataSource = QuotesHistoryList;
-
         }
 
-        
+
 
 
 
@@ -104,7 +117,7 @@ namespace TradingApp
 
             using (WebClient web = new WebClient())
             {
-                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT+ADBE+AKAM+ALXN+AMZN+AAL+AMGN+ADBE+CMCSA+CSX+INTC+INTU+KHC+NVDA+SBUX&f=snbaopl1vhgkj");
+                csvData = web.DownloadString("http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT+ADBE+AMGN+ADBE+CMCSA+CSX+INTC+KHC+NVDA+SBUX+AMDA+AOBC+EA+CERN+CERS+ETFC+EBAY&f=snbaopl1vhgkj");
             }
 
 
@@ -163,7 +176,6 @@ namespace TradingApp
         {
 
 
-
             if (lvStockQuotesList.SelectedItem == null)
             {
                 //if there is no selection dissable buttons Update and Add
@@ -205,52 +217,61 @@ namespace TradingApp
 
                 maxQty = Math.Floor(maxQty);
 
-                if ((Quantity * SelectedStock.Ask) <= SelectedPortfolio.Cash) {
-
-                if (SymbolStringLIstOwnedByUser.Contains(SelectedStock.Symbol, StringComparer.OrdinalIgnoreCase))
+                if (Quantity != 0)
                 {
-                    //adds transaction record and updates cash in portfolio
-                    Globals.Db.AddBuyTransaction(SelectedPortfolio, SelectedStock, Quantity);
 
-                    //adds stock into users portfolio
-                    Globals.Db.UpdatePortfolioStock(SelectedPortfolio, SelectedStock, Quantity);
+                    if ((Quantity * SelectedStock.Ask) <= SelectedPortfolio.Cash)
+                    {
+
+                        if (SymbolStringLIstOwnedByUser.Contains(SelectedStock.Symbol, StringComparer.OrdinalIgnoreCase))
+                        {
+                            //adds transaction record and updates cash in portfolio
+                            Globals.Db.AddBuyTransaction(SelectedPortfolio, SelectedStock, Quantity);
+
+                            //adds stock into users portfolio
+                            Globals.Db.UpdatePortfolioStock(SelectedPortfolio, SelectedStock, Quantity);
+
+                        }
+                        else
+                        {
+                            //adds transaction record and updates cash in portfolio
+                            Globals.Db.AddBuyTransaction(SelectedPortfolio, SelectedStock, Quantity);
+
+                            //updates stock volume and average price in portfolio
+                            Globals.Db.AddPortfolioStock(SelectedPortfolio, SelectedStock, Quantity);
+
+
+                        }
+
+                        tbQuantityBuy.Text = "";
+                        RefreshStockOwnedByPortfolio();
+                        UpdateUserBalance();
+                        UpdatePortfolioInfo();
+                        RefreshTransactions();
+
+
+
+                        MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
+
+
+                    }
+                    else
+                    {
+
+                        MessageBox.Show("You can buy only:  " + maxQty + "  Shares of: " + SelectedStock.Name, "Confirmation", MessageBoxButton.OK);
+                    }
 
                 }
                 else
                 {
-                    //adds transaction record and updates cash in portfolio
-                    Globals.Db.AddBuyTransaction(SelectedPortfolio, SelectedStock, Quantity);
 
-                    //updates stock volume and average price in portfolio
-                    Globals.Db.AddPortfolioStock(SelectedPortfolio, SelectedStock, Quantity);
-
-
+                    MessageBox.Show("Qty cannot be 0", "Confirmation", MessageBoxButton.OK);
                 }
-
-
-                tbQuantityBuy.Text = "";
-
-                MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
-
-
-                }else {
-
-                    MessageBox.Show("You can buy only:  " + maxQty + "  Shares of: " + SelectedStock.Name, "Confirmation", MessageBoxButton.OK);
-                }
-
             }
             else
             {
-                
-
                 MessageBox.Show("Invalid Qty", "Confirmation", MessageBoxButton.OK);
             }
-
-
-            RefreshStockOwnedByPortfolio();
-            UpdateUserBalance();
-            UpdatePortfolioInfo();
-
 
         }
 
@@ -303,22 +324,33 @@ namespace TradingApp
 
         private void lvStockOwnedByUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             Entities.PortfolioStock SelectedStock = (Entities.PortfolioStock)lvStockOwnedByUser.SelectedItem;
-
-            lbAskBuyOrder.Content = "...";
-            lbBidBuyOrder.Content = "....";
-            lblCompanyNameBuyOrder.Content = ".....";
 
             if (lvStockQuotesList.SelectedItem == null)
             {
-                //if there is no selection dissable buttons Update and Add
                 btnSell.IsEnabled = false;
+                lbAskBuyOrder.Content = "...";
+                lbBidSellOrder.Content = "....";
+                lblCompanyNameBuyOrder.Content = ".....";
             }
 
             else
             {
+                if (SelectedStock == null)
+                {
+                    btnSell.IsEnabled = false;
+                    lbAskBuyOrder.Content = "...";
+                    lbBidSellOrder.Content = "....";
+                    lblCompanyNameBuyOrder.Content = ".....";
+                }else
+                {
                 btnSell.IsEnabled = true;
+                lbBidSellOrder.Content = SelectedStock.CurrentBId;
+                lbAskSellOrder.Content = SelectedStock.AveragePurchasedPrice;
+                lblCompanyNameSellOrder.Content = SelectedStock.Symbol;
+                }
+
+
             }
 
         }
@@ -334,6 +366,9 @@ namespace TradingApp
 
             if (int.TryParse(tbQuantitySell.Text, out quantity))
             {
+
+                if (quantity!=0)
+                {
                 String symbol;
                 decimal sellPrice = 0;
 
@@ -361,13 +396,19 @@ namespace TradingApp
                 UpdateUserBalance();
                 UpdatePortfolioInfo();
 
-                tbQuantityBuy.Text = "";
+                tbQuantitySell.Text = "";
                 UpdatePortfolioInfo();
-                MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
+                        RefreshTransactions();
+                        MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
                 }else
                 {
                     MessageBox.Show("You can sell only: " + SelectedStockOwnedByUSer.SharesOwned, "Confirmation", MessageBoxButton.OK);
                 }
+                }else
+                {
+                    MessageBox.Show("Qty cannot be 0", "Confirmation", MessageBoxButton.OK);
+                }
+
 
             }
             else
@@ -386,17 +427,34 @@ namespace TradingApp
 
         }
 
+        private void tbSearchStock_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string search = tbSearchStock.Text.ToLower();
+            if (search == "")
+            {
+                lvStockQuotesList.ItemsSource = Globals.Db.GetAllStockPricesFromDatabase();
+            }
+            else
+            {
+                List<Entities.StockDb> StockDbList = Globals.Db.GetAllStockPricesFromDatabase();
+                
+                var filteredList = from s in StockDbList
+                                   where s.Symbol.ToLower().Contains(search) || s.Name.ToLower().Contains(search)
+                                   select s;
 
+                lvStockQuotesList.ItemsSource = filteredList;
+            }
+        }
 
-        /* private void lvStockOwnedByUser_LostFocus(object sender, RoutedEventArgs e)
-         {
-             lvStockOwnedByUser.UnselectAll();
-         }
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            GetListOfStocksFromYahoo();
+            RefreshStockList();
+            UpdateUserBalance();
+            UpdatePortfolioInfo();
+        }
 
-         private void lvStockQuotesList_LostFocus(object sender, RoutedEventArgs e)
-         {
-             lvStockQuotesList.UnselectAll();
-         }*/
+        
     }
 
 

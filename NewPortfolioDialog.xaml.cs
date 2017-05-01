@@ -30,12 +30,11 @@ namespace TradingApp
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
 
-
             string name = tbName.Text;
 
-            if (tbName.Text == "" /*|| tbName.Text  2 || tbName.Text > 50*/)
+            if (tbEmail.Text == "" || (!Regex.Match(tbName.Text, "^[a-zA-Z.]{2,50}$").Success))
             {
-                MessageBox.Show(tbName.Text + " Name input canot be empty", "Invalit Input",
+                MessageBox.Show(" Name/Email input is invalid", "Invalit Input",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
@@ -55,6 +54,7 @@ namespace TradingApp
             }
             else
             {
+                
                 MessageBox.Show(tbEmail.Text + " is not a valid email", "Invalit Input",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -81,37 +81,6 @@ namespace TradingApp
                 return false;
             }
         }
-
-        //private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-        //{
-        //    Regex regex = new Regex("^[a-zA-Z''-'\s]{1,40}$");
-
-        //    e.Handled = !regex.IsMatch(e.Text);
-        //}
-
-
-
-        //private void ButtonOK_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        string name = tbName.Text;
-        //        string email = tbEmail.Text;
-        //        decimal cash = decimal.Parse(tbCash.Text);
-
-
-        //        Entities.Portfolio b = new Entities.Portfolio() { Name = name, Email = email, Cash = cash};
-        //        Model.DBA_Portfolio.AddPortfoliosToTable(b);
-        //        RefreshPortfolios();
-        //    }
-        //    catch (SqlException ex)
-        //    {
-
-        //        Console.WriteLine(ex.StackTrace);
-        //        MessageBox.Show("Database query error " + ex.Message);
-
-        //    }
-        //}
 
     }
 }
