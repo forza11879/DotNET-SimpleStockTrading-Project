@@ -88,11 +88,16 @@ namespace TradingApp
             Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
 
             string symbol = SelectedStock.Symbol;
-            
+            try
+            {
             List<Entities.QuotesHistory> QuotesHistoryList = Entities.QuotesHistoryLoader.LoadQuotesHistory(symbol);
-
             FirstChartControl.DataSource = QuotesHistoryList;
             chartControl.DataSource = QuotesHistoryList;
+            }
+            catch (InvalidCastException ex)
+            {
+                MessageBox.Show("Error showing Graph: " + ex.Message, "Confirmation", MessageBoxButton.OK);
+            }
 
         }
 
