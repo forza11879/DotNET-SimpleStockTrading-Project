@@ -131,6 +131,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TradingDBDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="XtraReport1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XtraReport1.Designer.cs">
+      <DependentUpon>XtraReport1.cs</DependentUpon>
+    </Compile>
     <Compile Include="YahooStock.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Page Include="HomeWindow.xaml">
@@ -177,12 +183,16 @@
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="XtraReport1.resx">
+      <DependentUpon>XtraReport1.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Reports\List of Portfolio.prnx" />
+    <None Include="Reports\Transaction Summary.prnx" />
     <None Include="TradingDBDataSet.xsc">
       <DependentUpon>TradingDBDataSet.xsd</DependentUpon>
     </None>

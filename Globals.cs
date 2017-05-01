@@ -23,5 +23,7 @@ namespace TradingApp
         }
         public static Entities.Portfolio SelectedPortfolio;
 
+        
+
     }
 }

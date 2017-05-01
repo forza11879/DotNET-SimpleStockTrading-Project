@@ -85,18 +85,26 @@ namespace TradingApp
 
         private void lvStockQuotesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            
             Entities.StockDb SelectedStock = (Entities.StockDb)lvStockQuotesList.SelectedItem;
 
             string symbol = SelectedStock.Symbol;
             
             List<Entities.QuotesHistory> QuotesHistoryList = Entities.QuotesHistoryLoader.LoadQuotesHistory(symbol);
 
+            RefreshStockList();
             FirstChartControl.DataSource = QuotesHistoryList;
             chartControl.DataSource = QuotesHistoryList;
+            chartControl2.DataSource = QuotesHistoryList;
 
         }
 
-        
+        private void btnChart6Mnths_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+
 
 
 
@@ -239,6 +247,9 @@ namespace TradingApp
                         RefreshStockOwnedByPortfolio();
                         UpdateUserBalance();
                         UpdatePortfolioInfo();
+                        RefreshTransactions();
+
+
 
                         MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
 
@@ -387,7 +398,8 @@ namespace TradingApp
 
                 tbQuantitySell.Text = "";
                 UpdatePortfolioInfo();
-                MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
+                        RefreshTransactions();
+                        MessageBox.Show("Transaction completed", "Confirmation", MessageBoxButton.OK);
                 }else
                 {
                     MessageBox.Show("You can sell only: " + SelectedStockOwnedByUSer.SharesOwned, "Confirmation", MessageBoxButton.OK);
@@ -442,6 +454,7 @@ namespace TradingApp
             UpdatePortfolioInfo();
         }
 
+        
     }
 
 
