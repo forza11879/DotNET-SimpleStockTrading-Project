@@ -73,7 +73,7 @@
                                                     <GridViewColumn Header="Ask" Width="95" DisplayMemberBinding='{Binding Ask, TargetNullValue="N/A"}'/>
                                                     <GridViewColumn Header="Open" Width="95" DisplayMemberBinding='{Binding Open, TargetNullValue="N/A"}'/>
                                                     <GridViewColumn Header="PreviousClose"  Width="120" DisplayMemberBinding='{Binding PreviousClose, TargetNullValue="N/A"}'>
-                                                
+
                                                     </GridViewColumn>
                                                     <GridViewColumn Header="Last Trade" Width="120" DisplayMemberBinding='{Binding LastTrade, TargetNullValue="N/A"}'/>
                                                     <GridViewColumn Header="Volume" Width="120" DisplayMemberBinding='{Binding Volume, TargetNullValue="N/A"}'/>
@@ -93,7 +93,17 @@
                                 <Grid>
                                     <dxc:ChartControl Name="FirstChartControl">
                                         <dxc:XYDiagram2D>
-                                            <dxc:CandleStickSeries2D x:Name="FirstCandleStickChart" CloseValueDataMember="ClosingPrice" HighValueDataMember="High" LowValueDataMember="Low" OpenValueDataMember="OpeningPrice" ArgumentDataMember="Date" ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="1347"  >
+                                            <dxc:CandleStickSeries2D 
+                                                x:Name="FirstCandleStickChart" 
+                                                CloseValueDataMember="ClosingPrice" 
+                                                HighValueDataMember="High" 
+                                                LowValueDataMember="Low" 
+                                                OpenValueDataMember="OpeningPrice" 
+                                                ArgumentDataMember="Date" 
+                                                ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                                Background="#4F81BD"
+                                                     Brush="#4F81BD"
+                                                Width="1347"  >
                                                 <dxc:CandleStickSeries2D.Indicators>
                                                     <dxc:SimpleMovingAverage/>
                                                 </dxc:CandleStickSeries2D.Indicators>
@@ -127,11 +137,11 @@
                                                             <ListView.View>
                                                                 <GridView>
                                                                     <GridViewColumn Header="Symbol" Width="65">
-                                                                    <GridViewColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBlock Text="{Binding Symbol}"  TextAlignment="Center" />
-                                                                        </DataTemplate>
-                                                                    </GridViewColumn.CellTemplate>
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock Text="{Binding Symbol}"  TextAlignment="Center" />
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
                                                                     <GridViewColumn Header="#Shares" Width="100" DisplayMemberBinding="{Binding SharesOwned}"/>
                                                                     <GridViewColumn Header="Avg.Price" Width="100" >
@@ -189,12 +199,6 @@
                                                 </Grid>
                                             </ContentControl>
                                         </TabItem>
-                                        <!--<TabItem Header="Orders">
-                                            <DataGrid x:Name="dgPosition"  ItemsSource="{Binding PositionTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
-                                        </TabItem>
-                                        <TabItem Header="Result">
-                                            <DataGrid x:Name="dgResult"  ItemsSource="{Binding ResultTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"/>
-                                        </TabItem>-->
 
                                     </TabControl>
                                 </DockPanel>
@@ -224,7 +228,7 @@
                                             <!--<Label Content="Symbol: " Margin="10,10,0,0" Height="30" Width="45" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left"/>-->
                                             <TextBox x:Name="tbSearchStock" TextChanged="tbSearchStock_TextChanged" FontWeight="Thin" Margin="0,0,0,0" Height="30" Width="120" Text="Symbol/Name" />
                                             <Button Name="btnRefresh" Click="btnRefresh_Click" Content="Refresh Quotes" Margin="10,0,0,0" Height="30" Width="120" />
-                                            
+
                                         </StackPanel>
                                     </StackPanel>
                                 </GroupBox>
@@ -333,11 +337,11 @@
             </TabItem>
             <!--<TabItem Header="Portfolio" />-->
             <TabItem Header="Chart">
-                <Grid>
-                    <dxc:ChartControl Name="chartControl">
-
-                        <dxc:XYDiagram2D>
-                            <dxc:CandleStickSeries2D x:Name="CandleStickChart" 
+                <ContentControl>
+                    <Grid>
+                        <dxc:ChartControl Name="chartControl">
+                            <dxc:XYDiagram2D>
+                                <dxc:CandleStickSeries2D x:Name="CandleStickChart" 
                                                      CloseValueDataMember="ClosingPrice" 
                                                      HighValueDataMember="High" 
                                                      LowValueDataMember="Low" 
@@ -346,27 +350,86 @@
                                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                      Background="#4F81BD"
                                                      Brush="#4F81BD">
-                                <dxc:CandleStickSeries2D.Indicators>
-                                    <dxc:SimpleMovingAverage/>
-                                </dxc:CandleStickSeries2D.Indicators>
-                            </dxc:CandleStickSeries2D>
-                        </dxc:XYDiagram2D>
-                    </dxc:ChartControl>
+                                    <dxc:CandleStickSeries2D.Indicators>
+                                        <dxc:SimpleMovingAverage/>
+                                    </dxc:CandleStickSeries2D.Indicators>
+                                </dxc:CandleStickSeries2D>
+                            </dxc:XYDiagram2D>
+                        </dxc:ChartControl>
+                    </Grid>
+                </ContentControl>
+            </TabItem>
+            <TabItem Header="Chart2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="99.9*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="0.1*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Left Side -->
+                    <DockPanel>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="94.9*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0.1*"/>
+                            </Grid.RowDefinitions>
+
+                            <ContentControl Grid.Row="0" x:Name="QuoteRegion1">
+                                <DockPanel>
+                                    <Button Name="btnChart3Mnths" Width="80" Height="25" Content="3 Months" Margin="1020,0,0,10"/>
+                                    <Button Name="btnChart6Mnths" Click="btnChart6Mnths_Click" Content="6 Months" Width="80" Height="25" Margin="20,0,0,10" />
+                                    <Button Name="btnChart12Mnths" Content="12 Months" Width="80" Height="25" Margin="0,0,0,10"/></DockPanel>
+                    <!--<DockPanel>
+                    <Button Name="btnChartMnths" Width="100" Height="30" VerticalContentAlignment="Top" VerticalAlignment="Top"/>
+                    </DockPanel>-->
+                    </ContentControl>
+                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="0.1" Background="#FFBCBCBC"/>
+                            <ContentControl Grid.Row="2" x:Name="PlotRegion2">
+                                <Grid>
+                                    <dxc:ChartControl Name="chartControl2">
+                                        <dxc:XYDiagram2D>
+                                            <dxc:CandleStickSeries2D 
+                                                x:Name="FirstCandleStickChart2" 
+                                                CloseValueDataMember="ClosingPrice" 
+                                                HighValueDataMember="High" 
+                                                LowValueDataMember="Low" 
+                                                OpenValueDataMember="OpeningPrice" 
+                                                ArgumentDataMember="Date" 
+                                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                Background="#4F81BD"
+                                                     Brush="#4F81BD"
+                                                Width="1347"  >
+                                                <dxc:CandleStickSeries2D.Indicators>
+                                                    <dxc:SimpleMovingAverage/>
+                                                </dxc:CandleStickSeries2D.Indicators>
+                                            </dxc:CandleStickSeries2D>
+                                        </dxc:XYDiagram2D>
+                                    </dxc:ChartControl>
+                                </Grid>
+                            </ContentControl>
+
+                        </Grid>
+
+                    </DockPanel>
+
+
 
                 </Grid>
-            </TabItem>
-            <!--<TabItem Header="Buy">
+
 
             </TabItem>
 
-            <TabItem Header="Sell" />-->
+            <!--<TabItem Header="Sell" />-->
 
             <TabItem Header="Reports">
-               <dxp:DocumentPreviewControl />
+                <dxp:DocumentPreviewControl CommandBarStyle="Bars" Height="1131"/>
             </TabItem>
 
         </TabControl>
-        
+
 
     </DockPanel>
 
